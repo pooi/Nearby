@@ -4,12 +4,27 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
-        applicationId "cf.nearby.nearby"
-        minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        def versionPropsFile = file('version.properties') // version.properties 파일에서 버전 정보를 관리합니다
+        if (versionPropsFile.canRead()) {
+            def Properties versionProps = new Properties()
+            versionProps.load(new FileInputStream(versionPropsFile))
+            def code = versionProps['VERSION_CODE'].toInteger() + 1 // Gradle이 실행될 때 버전 코드 증가
+            versionProps['VERSION_CODE'] = code.toString()
+            versionProps.store(versionPropsFile.newWriter(), null)
+            defaultConfig {
+                applicationId "cf.nearby.nearby"
+                minSdkVersion 16
+                targetSdkVersion 26
+                versionCode code
+                versionName "1.0.0"
+                testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+                versionName "1.0.0"// + code
+                multiDexEnabled true //important
+            }
+        } else {
+            throw new GradleException("Could not read version.properties!")
+            // version.properties를 읽어올 수 없을 때
+        }
     }
     buildTypes {
         release {
