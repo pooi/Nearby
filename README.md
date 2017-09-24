@@ -5,9 +5,9 @@
 ## Feature
 ><a href="https://drive.google.com/open?id=0B67FssKXYIKQNHVpYVNfRUFVelE">제안서</a>
 
-요양원 전자정보 시스템<br>
-[부양자가 언제 어디서든 조회할 수 있는 서비스 + 간호사가 간편하고 체계적으로 환자의 간호일지를 작성할 수 있는 환경]
+부양자가 언제 어디서든 조회할 수 있는 서비스 + 간호사가 간편하고 체계적으로 환자의 간호일지를 작성할 수 있는 환경
 <br>
+
 핵심목표
 <ul>
   <li>Anywhere - 제약 없는 확인</li>
