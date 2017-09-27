@@ -1,29 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="cf.nearby.nearby.StartActivity"
+    android:background="@color/gray"
     >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+    <com.flaviofaria.kenburnsview.KenBurnsView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@color/gray" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
+    <RelativeLayout
+        android:id="@+id/rl_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/half_transparent"
+        >
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/form_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:layout_centerInParent="true"
+            android:background="@color/white"
+            android:orientation="vertical"
+            >
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/form_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/default_font_size"
+                android:textColor="@color/profile_content"
+                android:hint="@string/please_enter_id"
+                app:met_primaryColor="@color/profile_content"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="@string/id"
+                app:met_singleLineEllipsis="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/form_pw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/default_font_size"
+                android:textColor="@color/profile_content"
+                android:hint="@string/please_enter_pw"
+                app:met_primaryColor="@color/profile_content"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="@string/pw"
+                app:met_singleLineEllipsis="true"
+                android:layout_margin="10dp"
+                />
+
+            <Button
+                android:id="@+id/form_login_btn"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/dark_gray"
+                android:text="@string/login_srt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/default_font_size"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_signup_supporter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/supporter_sign_up"
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_font_size"
+            android:layout_below="@+id/form_login"
+            android:layout_centerHorizontal="true"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

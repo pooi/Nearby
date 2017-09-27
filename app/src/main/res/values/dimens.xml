@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="custom_actionbar_size">40dp</dimen>
+    <dimen name="custom_actionbar_title_size">16sp</dimen>
+    <dimen name="custom_actionbar_sub_title_size">12sp</dimen>
+
+    <dimen name="layout_title_size">8sp</dimen>
+    <dimen name="layout_content_size">8sp</dimen>
+    <dimen name="layout_reference_size">6sp</dimen>
+
+
+    <!-- Observable ScrollView -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="flexible_space_height">72dp</dimen>
+    <dimen name="flexible_space_image_height">240dp</dimen>
+    <dimen name="flexible_space_show_fab_offset">120dp</dimen>
+
+    <dimen name="margin_standard">16dp</dimen>
+
+    <!-- Font Size-->
+    <dimen name="default_font_size">20sp</dimen>
+
+</resources>
