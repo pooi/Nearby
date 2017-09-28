@@ -14,7 +14,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 import cf.nearby.nearby.nurse.NurseMainActivity;
 
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends BaseActivity {
 
 
     // UI
