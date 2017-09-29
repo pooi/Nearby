@@ -18,6 +18,15 @@ import android.view.animation.Animation;
 
 public class BaseActivity extends AppCompatActivity {
 
+    public void logout(){
+
+        Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+
+    }
+
 
     public void setFadeInAnimation(View view){
         Animation animation = new AlphaAnimation(0, 1);

@@ -5,6 +5,7 @@
     <string name="pw">비밀번호</string>
     <string name="login_srt">로그인</string>
     <string name="supporter_sign_up">보호자 회원가입</string>
+    <string name="logout">로그아웃</string>
 
     <string name="please_enter_id">ID를 입력해주세요.</string>
     <string name="please_enter_pw">비밀번호를 입력해주세요.</string>

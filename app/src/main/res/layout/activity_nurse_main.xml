@@ -9,4 +9,15 @@
     android:background="@color/white"
     >
 
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/dark_gray"
+        android:text="@string/logout"
+        android:textColor="@color/white"
+        android:textSize="@dimen/default_font_size"
+        android:layout_alignParentBottom="true"
+        />
+
 </RelativeLayout>
