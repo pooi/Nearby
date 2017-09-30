@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cf.nearby.nearby">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:configChanges="orientation|keyboardHidden|screenSize"
@@ -18,9 +22,19 @@
             </intent-filter>
         </activity>
 
-
         <activity
             android:name=".nurse.NurseMainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="cf.nearby.nearby" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".admin.AdminMainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">

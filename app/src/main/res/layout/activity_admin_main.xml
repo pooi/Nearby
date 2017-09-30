@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cf.nearby.nearby.nurse.NurseMainActivity"
+    tools:context="cf.nearby.nearby.admin.AdminMainActivity"
     android:background="@color/white"
     >
 
@@ -22,33 +22,6 @@
             android:orientation="vertical"
             android:gravity="center"
             >
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv_add_photo"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                app:cardCornerRadius="@dimen/menu_btn_radius"
-                app:cardElevation="@dimen/menu_btn_elevation"
-                app:cardBackgroundColor="@color/white"
-                android:layout_margin="20dp"
-                >
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/record_srt"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="@dimen/default_menu_font_size"
-                        />
-
-                </RelativeLayout>
-
-            </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cv_add_photo"

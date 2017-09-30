@@ -1,12 +1,28 @@
 <resources>
     <string name="app_name">nearby</string>
 
+    <!-- Global -->
     <string name="id">아이디</string>
     <string name="pw">비밀번호</string>
     <string name="login_srt">로그인</string>
     <string name="supporter_sign_up">보호자 회원가입</string>
     <string name="logout">로그아웃</string>
+    <string name="fail_srt">실패</string>
+    <string name="ok">확인</string>
+    <string name="please_wait">잠시만 기다려주세요.</string>
+    
+    <!-- Menu -->
+    <string name="record_srt">기록</string>
+    <string name="manage_srt">관리</string>
+    <string name="inquiry_srt">조회</string>
+    <string name="register_srt">등록</string>
 
-    <string name="please_enter_id">ID를 입력해주세요.</string>
+
+    <string name="please_enter_id">아이디를 입력해주세요.</string>
     <string name="please_enter_pw">비밀번호를 입력해주세요.</string>
+    <string name="please_enter_id_and_pw">아이디와 비밀번호를 입력해주세요.</string>
+    <string name="login_failed_srt">로그인 실패</string>
+    <string name="please_check_id_or_pw">아이디 혹은 비밀번호를 확인해주세요.</string>
+
+    <string name="print_hello_msg">안녕하세요. %1$s님</string>
 </resources>

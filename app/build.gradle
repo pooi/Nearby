@@ -49,5 +49,6 @@ dependencies {
     compile 'jp.wasabeef:picasso-transformations:2.1.0'
     compile 'com.flaviofaria:kenburnsview:1.0.7'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
+    compile 'com.afollestad.material-dialogs:core:0.9.3.0'
     testCompile 'junit:junit:4.12'
 }

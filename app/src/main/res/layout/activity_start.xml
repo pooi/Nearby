@@ -55,11 +55,14 @@
                 android:textSize="@dimen/default_font_size"
                 android:textColor="@color/profile_content"
                 android:hint="@string/please_enter_pw"
+                android:inputType="textPassword"
                 app:met_primaryColor="@color/profile_content"
                 app:met_floatingLabel="normal"
                 app:met_floatingLabelText="@string/pw"
                 app:met_singleLineEllipsis="true"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 />
 
             <Button

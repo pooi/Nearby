@@ -22,5 +22,10 @@
 
     <!-- Font Size-->
     <dimen name="default_font_size">20sp</dimen>
+    <dimen name="default_menu_font_size">30sp</dimen>
+
+    <!-- Menu Button -->
+    <dimen name="menu_btn_elevation">20dp</dimen>
+    <dimen name="menu_btn_radius">10dp</dimen>
 
 </resources>

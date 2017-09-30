@@ -1,4 +1,4 @@
-package cf.nearby.nearby.nurse;
+package cf.nearby.nearby.admin;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,14 +9,14 @@ import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
 
-public class NurseMainActivity extends BaseActivity {
+public class AdminMainActivity extends BaseActivity {
 
     private Button logoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nurse_main);
+        setContentView(R.layout.activity_admin_main);
 
         init();
     }
