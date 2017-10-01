@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Nearby.iml" filepath="$PROJECT_DIR$/Nearby.iml" />
       <module fileurl="file://$USER_HOME$/Google 드라이브/개발/dev/Android/Nearby/Nearby.iml" filepath="$USER_HOME$/Google 드라이브/개발/dev/Android/Nearby/Nearby.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$USER_HOME$/Google 드라이브/개발/dev/Android/Nearby/app/app.iml" filepath="$USER_HOME$/Google 드라이브/개발/dev/Android/Nearby/app/app.iml" />
     </modules>
   </component>
