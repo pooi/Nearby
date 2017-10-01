@@ -8,15 +8,15 @@
 
 		return $s1;
 	}
-	
+
 	ini_set('max_execution_time','600');
 	ini_set('max_input_time','600');
 	ini_set('memory_limit','100');
-	ini_set('post_max_size','10M');	
+	ini_set('post_max_size','10M');
 	ini_set('upload_max_filesize','10M');
 
 	require_once('dbConnect.php');
-	
+
     $service = $_POST['service'];
 
 	if($service == null){
@@ -29,13 +29,13 @@
 			$login_pw = $_POST['login_pw'];
 
 			// $sql = "SELECT * FROM employee WHERE id like '$login_id' and password like '$login_pw';";
-			$sql = "SELECT A.*, B.name as location_name, B.pic as location_pic, B.director as location_director, B.capacity as location_capacity, B.major as location_major, B.construction_year as location_construction_year, B.phone as location_phone, B.url as location_url 
-					FROM employee as A LEFT OUTER JOIN ( 
-					SELECT * 
-					FROM location 
-					GROUP BY id) as B 
-					ON (B.id = A.location_id) 
-					WHERE A.login_id like '$login_id' and A.password like '$login_pw' 
+			$sql = "SELECT A.*, B.name as location_name, B.pic as location_pic, B.director as location_director, B.capacity as location_capacity, B.major as location_major, B.construction_year as location_construction_year, B.phone as location_phone, B.url as location_url
+					FROM employee as A LEFT OUTER JOIN (
+					SELECT *
+					FROM location
+					GROUP BY id) as B
+					ON (B.id = A.location_id)
+					WHERE A.login_id like '$login_id' and A.password like '$login_pw'
 					GROUP BY A.id;";
 
 			$ret = mysqli_query($con, $sql);
@@ -44,13 +44,13 @@
 			}else{
 				exit();
 			}
-			
+
 			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
-			
+
 			$i=0;
-			
+
 			while($row = mysqli_fetch_array($ret)){
-			
+
 				$id = $row['id'];
 				$login_id = $row['login_id'];
 				$email = $row['email'];
@@ -106,20 +106,20 @@
 				\"location_phone\":\"$location_phone\",
 				\"location_url\":\"$location_url\"
 				}";
-				
+
 				if($i<$count-1){
 					echo ",";
 				}
-				
+
 				$i++;
-				
+
 			}
-			
+
 			echo "]}";
 
 		}else if($service == 'login_user'){
 
-			
+
 
 		}
 

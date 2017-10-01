@@ -9,18 +9,39 @@
     <string name="logout">로그아웃</string>
     <string name="fail_srt">실패</string>
     <string name="ok">확인</string>
+    <string name="ln">성</string>
+    <string name="fn">이름</string>
+    <string name="gender">성별</string>
+    <string name="address">주소</string>
+    <string name="zip">우편번호</string>
+    <string name="phone">H.P</string>
+    <string name="height">키</string>
+    <string name="bla">기초생활수급자</string>
+    <string name="registerdate">등록날짜</string>
+    <string name="startdate">입원날짜</string>
+    <string name="dob">생년월일</string>
+    <string name="description">기타사항</string>
     <string name="please_wait">잠시만 기다려주세요.</string>
-    
+
     <!-- Menu -->
     <string name="record_srt">기록</string>
     <string name="manage_srt">관리</string>
     <string name="inquiry_srt">조회</string>
     <string name="register_srt">등록</string>
-
+    <string name="register_patient_srt">환자등록</string>
+    <string name="manage_supporter_srt">보호자관리</string>
+    <string name="monthly_event_register_srt">이달의행사</string>
 
     <string name="please_enter_id">아이디를 입력해주세요.</string>
     <string name="please_enter_pw">비밀번호를 입력해주세요.</string>
+    <string name="please_enter_ln">성을 입력해주세요.</string>
+    <string name="please_enter_fn">이름을 입력해주세요.</string>
+    <string name="please_enter_address">주소를 입력해주세요.</string>
+    <string name="please_enter_zip">우편번호를 입력해주세요.</string>
+    <string name="please_enter_phone">핸드폰 번호를 입력해주세요.</string>
+    <string name="please_enter_height">키를 입력해주세요.</string>
     <string name="please_enter_id_and_pw">아이디와 비밀번호를 입력해주세요.</string>
+    <string name="please_enter_description">기타사항을 입력해주세요.</string>
     <string name="login_failed_srt">로그인 실패</string>
     <string name="please_check_id_or_pw">아이디 혹은 비밀번호를 확인해주세요.</string>
 

@@ -1,9 +1,11 @@
 package cf.nearby.nearby.nurse;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.R;
@@ -30,6 +32,17 @@ public class NurseMainActivity extends BaseActivity {
                 logout();
             }
         });
+
+        TextView register = (TextView)findViewById(R.id.register);
+        register.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NurseMainActivity.this,NurseRegisterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         showSnackbar(String.format(getString(R.string.print_hello_msg), StartActivity.employee.getName()));
 
