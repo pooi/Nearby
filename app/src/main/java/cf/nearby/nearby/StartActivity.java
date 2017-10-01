@@ -1,6 +1,7 @@
 package cf.nearby.nearby;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -40,6 +41,7 @@ public class StartActivity extends BaseActivity {
     private MyHandler handler = new MyHandler();
     private final int MSG_MESSAGE_SUCCESS = 500;
     private final int MSG_MESSAGE_FAIL = 501;
+    private final int MSG_MESSAGE_CHECK_LOGIN = 502;
 
     // UI
     private KenBurnsView kenBurnsView;
@@ -54,12 +56,30 @@ public class StartActivity extends BaseActivity {
 
     private MaterialDialog progressDialog;
 
+    // Auto Login
+    private SharedPreferences setting;
+    private SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        setting = getSharedPreferences("setting", 0);
+        editor = setting.edit();
+
         init();
+
+//        checkAlreadyLogin();
+
+        new Handler().postDelayed(new Runnable() {// 1 초 후에 실행
+            @Override
+            public void run() {
+
+                handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_CHECK_LOGIN));
+
+            }
+        }, 500);
 
     }
 
@@ -80,6 +100,8 @@ public class StartActivity extends BaseActivity {
                 .progressIndeterminateStyle(true)
                 .theme(Theme.LIGHT)
                 .build();
+
+        findViewById(R.id.rl_background).setVisibility(View.GONE);
 
     }
 
@@ -118,6 +140,23 @@ public class StartActivity extends BaseActivity {
 
     }
 
+    private void checkAlreadyLogin(){
+
+        String loginId = setting.getString("login_id", null);
+        String loginPw = setting.getString("login_pw", null);
+
+        if(loginId != null && loginPw != null){
+
+            loginEmployee(loginId, loginPw);
+
+        }else{
+
+            findViewById(R.id.rl_background).setVisibility(View.VISIBLE);
+
+        }
+
+    }
+
     private void checkLoginBtn(){
 
         boolean isInputId = !formId.getText().toString().isEmpty();
@@ -152,6 +191,10 @@ public class StartActivity extends BaseActivity {
                             .positiveText(R.string.ok)
                             .show();
                     formPw.setText("");
+                    findViewById(R.id.rl_background).setVisibility(View.VISIBLE);
+                    break;
+                case MSG_MESSAGE_CHECK_LOGIN:
+                    checkAlreadyLogin();
                     break;
                 default:
                     break;
@@ -188,6 +231,43 @@ public class StartActivity extends BaseActivity {
                 if(!em.isEmpty()){
                     isEmployeeLogin = true;
                     employee = em;
+                    editor.putString("login_id", formId.getText().toString());
+                    editor.putString("login_pw", formPw.getText().toString());
+                    editor.commit();
+                    handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
+
+                    if("admin".equals(em.getRole()))
+                        redirectAdminMainActivity();
+                    else
+                        redirectNurseMainActivity();
+
+                }else{
+                    handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_FAIL));
+                }
+
+            }
+        }.start();
+
+    }
+
+    private void loginEmployee(String id, String pw){
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("service", "login_employee");
+        map.put("login_id", id);
+        map.put("login_pw", pw);
+
+        progressDialog.show();
+
+        new ParsePHP(Information.MAIN_SERVER_ADDRESS, map){
+            @Override
+            protected void afterThreadFinish(String data) {
+
+                Employee em = new Employee(data);
+
+                if(!em.isEmpty()){
+                    isEmployeeLogin = true;
+                    employee = em;
                     handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
 
                     if("admin".equals(em.getRole()))
@@ -206,12 +286,10 @@ public class StartActivity extends BaseActivity {
 
     private void redirectNurseMainActivity(){
         Intent intent = new Intent(StartActivity.this, NurseMainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
     private void redirectAdminMainActivity(){
         Intent intent = new Intent(StartActivity.this, AdminMainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
@@ -219,4 +297,13 @@ public class StartActivity extends BaseActivity {
         isEmployeeLogin = false;
         employee = null;
     }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
+    }
+
 }

@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_logout"
+        android:clipChildren="false"
         >
 
         <LinearLayout
@@ -21,16 +22,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
+            android:clipChildren="false"
             >
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cv_add_photo"
+                android:id="@+id/cv_manage"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 app:cardCornerRadius="@dimen/menu_btn_radius"
                 app:cardElevation="@dimen/menu_btn_elevation"
                 app:cardBackgroundColor="@color/white"
                 android:layout_margin="20dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
                 >
 
                 <RelativeLayout
@@ -52,13 +56,15 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cv_add_photo"
+                android:id="@+id/cv_inquiry"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 app:cardCornerRadius="@dimen/menu_btn_radius"
                 app:cardElevation="@dimen/menu_btn_elevation"
                 app:cardBackgroundColor="@color/white"
                 android:layout_margin="20dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
                 >
 
                 <RelativeLayout
@@ -80,16 +86,15 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cv_add_photo"
+                android:id="@+id/cv_register"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 app:cardCornerRadius="@dimen/menu_btn_radius"
                 app:cardElevation="@dimen/menu_btn_elevation"
                 app:cardBackgroundColor="@color/white"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="50dp"
+                android:layout_margin="20dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
                 >
 
                 <RelativeLayout

@@ -11,4 +11,7 @@ public class Information {
     // 관리자 이메일
     public static String ADMINISTRATOR_EMAIL = "ldaytw@gmail.com";
 
+    // Activity Name
+    public static final String MANAGE_PATIENT_MEDICINE = "manage_patient_medicine";
+
 }

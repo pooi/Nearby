@@ -2,6 +2,7 @@ package cf.nearby.nearby;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -19,6 +20,11 @@ import android.view.animation.Animation;
 public class BaseActivity extends AppCompatActivity {
 
     public void logout(){
+
+        SharedPreferences.Editor editor = getSharedPreferences("setting", 0).edit();
+        editor.putString("login_id", null);
+        editor.putString("login_pw", null);
+        editor.commit();
 
         StartActivity.initLoginData();
         Intent intent = new Intent(getApplicationContext(), StartActivity.class);

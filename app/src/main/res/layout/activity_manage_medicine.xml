@@ -16,6 +16,7 @@
         android:clipToPadding="false"
         android:paddingTop="@dimen/custom_actionbar_size"
         android:layout_above="@+id/li_btn"
+        android:clipChildren="false"
         >
     </android.support.v7.widget.RecyclerView>
 
@@ -35,17 +36,6 @@
             android:layout_weight="1"
             android:background="@color/dark_gray"
             android:text="@string/back_srt"
-            android:textColor="@color/white"
-            android:textSize="@dimen/default_font_size"
-            />
-
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:text="@string/save_srt"
             android:textColor="@color/white"
             android:textSize="@dimen/default_font_size"
             />

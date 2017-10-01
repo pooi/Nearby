@@ -85,7 +85,7 @@ public class PatientSearchListCustomAdapter extends RecyclerView.Adapter<Patient
         holder.btn_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                activity.redirectNextActivity(patient);
             }
         });
 

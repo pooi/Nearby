@@ -9,19 +9,13 @@ import android.widget.Button;
 import java.io.Serializable;
 
 import cf.nearby.nearby.BaseActivity;
+import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.activity.SearchPatientActivity;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.OnSearchPatientSupport;
 
 public class NurseManageActivity extends BaseActivity implements Serializable {
-
-    private static class OnSearchPatientRecordSupport implements OnSearchPatientSupport{
-        @Override
-        public void onPatientSelected(Patient patient){
-            System.out.println(patient.getName());
-        }
-    };
 
     private Button backBtn;
 
@@ -48,11 +42,8 @@ public class NurseManageActivity extends BaseActivity implements Serializable {
             @Override
             public void onClick(View view) {
 
-                OnSearchPatientSupport patientSupport = new OnSearchPatientRecordSupport();
-
                 Intent intent = new Intent(getApplicationContext(), SearchPatientActivity.class);
-                intent.putExtra("patientSupport", patientSupport);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent.putExtra("nextActivity", Information.MANAGE_PATIENT_MEDICINE);
                 startActivity(intent);
 
             }

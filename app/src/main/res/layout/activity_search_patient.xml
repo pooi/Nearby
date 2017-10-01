@@ -16,6 +16,7 @@
         android:clipToPadding="false"
         android:paddingTop="@dimen/custom_actionbar_size"
         android:layout_above="@+id/li_btn"
+        android:clipChildren="false"
         >
     </android.support.v7.widget.RecyclerView>
 

@@ -51,7 +51,7 @@ public class SearchPatientActivity extends AppCompatActivity implements OnAdapte
     private PatientSearchListCustomAdapter adapter;
     private boolean isLoadFinish;
 
-    private OnSearchPatientSupport patientSupport;
+    private String nextActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class SearchPatientActivity extends AppCompatActivity implements OnAdapte
         setContentView(R.layout.activity_search_patient);
 
         Intent intent = getIntent();
-        patientSupport = (OnSearchPatientSupport)intent.getSerializableExtra("patientSupport");
+        nextActivity = intent.getStringExtra("nextActivity");
 
         list = new ArrayList<>();
         tempList = new ArrayList<>();
@@ -188,6 +188,20 @@ public class SearchPatientActivity extends AppCompatActivity implements OnAdapte
     @Override
     public void redirectActivity(Intent intent) {
 
+    }
+
+    public void redirectNextActivity(Patient patient){
+        switch (nextActivity){
+            case Information.MANAGE_PATIENT_MEDICINE: {
+                Intent intent = new Intent(SearchPatientActivity.this, ManageMedicineActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent.putExtra("patient", patient);
+                startActivity(intent);
+                break;
+            }
+            default:
+                break;
+        }
     }
 
     private class MyHandler extends Handler {
