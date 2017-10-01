@@ -33,18 +33,16 @@ public class NurseMainActivity extends BaseActivity {
             }
         });
 
-        TextView register = (TextView)findViewById(R.id.register);
-        register.setOnClickListener(new View.OnClickListener(){
+        showSnackbar(String.format(getString(R.string.print_hello_msg), StartActivity.employee.getName()));
+        
+
+        findViewById(R.id.cv_register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(NurseMainActivity.this,NurseRegisterActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
-
-
-        showSnackbar(String.format(getString(R.string.print_hello_msg), StartActivity.employee.getName()));
 
         findViewById(R.id.cv_manage).setOnClickListener(new View.OnClickListener() {
             @Override

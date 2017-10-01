@@ -27,15 +27,15 @@ public class NurseRegisterActivity extends BaseActivity {
     }
 
     private void init(){
-        TextView register_patient = (TextView)findViewById(R.id.register_patient);
-        register_patient.setOnClickListener(new View.OnClickListener(){
+
+        findViewById(R.id.cv_register_patient).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(NurseRegisterActivity.this,RegisterPatientActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
+
         progressDialog = new MaterialDialog.Builder(this)
                 .content(R.string.please_wait)
                 .progress(true, 0)
