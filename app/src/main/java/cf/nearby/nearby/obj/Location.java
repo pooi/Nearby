@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cf.nearby.nearby.util.AdditionalFunc;
@@ -12,7 +13,7 @@ import cf.nearby.nearby.util.AdditionalFunc;
  * Created by tw on 2017. 9. 30..
  */
 
-public class Location {
+public class Location implements Serializable {
 
     String id, name, pic, director, major, phone, url;
     int capacity, constructionYear;
@@ -61,49 +62,31 @@ public class Location {
 
         try {
 
-            if (keySet.contains("id")) {
-                id = (String) temp.get("id");
-            }else if(keySet.contains("location_id")){
+            if(keySet.contains("location_id")){
                 id = (String) temp.get("location_id");
             }
-            if (keySet.contains("name")) {
-                name = (String) temp.get("name");
-            }else if(keySet.contains("location_name")){
+            if(keySet.contains("location_name")){
                 name = (String) temp.get("location_name");
             }
-            if (keySet.contains("pic")) {
-                pic = (String) temp.get("pic");
-            }else if(keySet.contains("location_pic")){
+            if(keySet.contains("location_pic")){
                 pic = (String) temp.get("location_pic");
             }
-            if (keySet.contains("director")) {
-                director = (String) temp.get("director");
-            }else if(keySet.contains("location_director")){
+            if(keySet.contains("location_director")){
                 director = (String) temp.get("location_director");
             }
-            if (keySet.contains("major")) {
-                major = (String) temp.get("major");
-            }else if(keySet.contains("location_major")){
+            if(keySet.contains("location_major")){
                 major = (String) temp.get("location_major");
             }
-            if (keySet.contains("phone")) {
-                phone = (String) temp.get("phone");
-            }else if(keySet.contains("location_phone")){
+            if(keySet.contains("location_phone")){
                 phone = (String) temp.get("location_phone");
             }
-            if (keySet.contains("url")) {
-                url = (String) temp.get("url");
-            }else if(keySet.contains("location_url")){
+            if(keySet.contains("location_url")){
                 url = (String) temp.get("location_url");
             }
-            if (keySet.contains("capacity")) {
-                capacity = Integer.parseInt((String) temp.get("capacity"));
-            }else if(keySet.contains("location_capacity")){
+            if(keySet.contains("location_capacity")){
                 capacity = Integer.parseInt((String) temp.get("location_capacity"));
             }
-            if (keySet.contains("construction_year")) {
-                constructionYear = Integer.parseInt((String) temp.get("construction_year"));
-            }else if(keySet.contains("location_construction_year")){
+            if(keySet.contains("location_construction_year")){
                 constructionYear = Integer.parseInt((String) temp.get("location_construction_year"));
             }
 

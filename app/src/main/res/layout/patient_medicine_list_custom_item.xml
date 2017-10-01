@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:layout_marginTop="5dp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:cardCornerRadius="@dimen/menu_btn_radius"
+        app:cardElevation="@dimen/menu_btn_elevation"
+        app:cardBackgroundColor="@color/white"
+        android:layout_margin="20dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:layout_toLeftOf="@+id/li_btn"
+                >
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/default_font_size"
+                    android:gravity="center"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_period"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Period"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/default_font_size"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/li_btn"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_alignParentRight="true"
+                >
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/two_btn_active_right_top_radius"
+                    android:text="@string/completed_take_medicine_srt"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/default_font_size"
+                    />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/two_btn_inactive_right_bottom_radius"
+                    android:text="@string/detail_srt"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/default_font_size"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

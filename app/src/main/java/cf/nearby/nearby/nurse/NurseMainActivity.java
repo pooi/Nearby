@@ -46,5 +46,13 @@ public class NurseMainActivity extends BaseActivity {
 
         showSnackbar(String.format(getString(R.string.print_hello_msg), StartActivity.employee.getName()));
 
+        findViewById(R.id.cv_manage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NurseMainActivity.this, NurseManageActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

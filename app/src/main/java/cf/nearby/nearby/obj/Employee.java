@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,7 +16,7 @@ import cf.nearby.nearby.util.AdditionalFunc;
  * Created by tw on 2017. 9. 30..
  */
 
-public class Employee  {
+public class Employee implements Serializable {
 
     String id, loginId, email, fn, ln, role, license, gender, address, zip, phone, pic, major, description;
     double startDate, dob, registeredDate;

@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cf.nearby.nearby.util.AdditionalFunc;
@@ -12,7 +13,7 @@ import cf.nearby.nearby.util.AdditionalFunc;
  * Created by ewon on 2017-10-01.
  */
 
-public class Patient {
+public class Patient implements Serializable {
     String id, loginId, email, fn, ln, role, license, gender, address, zip, phone, pic, major, description;
     double startDate, dob, registeredDate, height, basicLivingAllowance;
     Location location;
@@ -128,4 +129,167 @@ public class Patient {
         }
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFn() {
+        return fn;
+    }
+
+    public void setFn(String fn) {
+        this.fn = fn;
+    }
+
+    public String getLn() {
+        return ln;
+    }
+
+    public void setLn(String ln) {
+        this.ln = ln;
+    }
+
+    public String getName(){
+        return fn + ln;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(double startDate) {
+        this.startDate = startDate;
+    }
+
+    public double getDob() {
+        return dob;
+    }
+
+    public void setDob(double dob) {
+        this.dob = dob;
+    }
+
+    public double getRegisteredDate() {
+        return registeredDate;
+    }
+
+    public void setRegisteredDate(double registeredDate) {
+        this.registeredDate = registeredDate;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getBasicLivingAllowance() {
+        return basicLivingAllowance;
+    }
+
+    public void setBasicLivingAllowance(double basicLivingAllowance) {
+        this.basicLivingAllowance = basicLivingAllowance;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }
