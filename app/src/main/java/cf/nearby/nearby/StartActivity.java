@@ -65,21 +65,27 @@ public class StartActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        setting = getSharedPreferences("setting", 0);
-        editor = setting.edit();
+        if (getIntent().getExtras() != null && getIntent().getExtras().getBoolean("EXIT", false)) {
 
-        init();
+            finish();
 
-//        checkAlreadyLogin();
+        }else{
 
-        new Handler().postDelayed(new Runnable() {// 1 초 후에 실행
-            @Override
-            public void run() {
+            setting = getSharedPreferences("setting", 0);
+            editor = setting.edit();
 
-                handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_CHECK_LOGIN));
+            init();
 
-            }
-        }, 500);
+            new Handler().postDelayed(new Runnable() {// 1 초 후에 실행
+                @Override
+                public void run() {
+
+                    handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_CHECK_LOGIN));
+
+                }
+            }, 500);
+
+        }
 
     }
 
@@ -152,6 +158,7 @@ public class StartActivity extends BaseActivity {
         }else{
 
             findViewById(R.id.rl_background).setVisibility(View.VISIBLE);
+            setFadeInAnimation(findViewById(R.id.rl_background));
 
         }
 

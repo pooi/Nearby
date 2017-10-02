@@ -28,6 +28,13 @@ public class NurseRegisterActivity extends BaseActivity {
 
     private void init(){
 
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         findViewById(R.id.cv_register_patient).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,5 +49,13 @@ public class NurseRegisterActivity extends BaseActivity {
                 .progressIndeterminateStyle(true)
                 .theme(Theme.LIGHT)
                 .build();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
     }
 }

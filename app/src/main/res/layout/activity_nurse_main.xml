@@ -18,6 +18,7 @@
         >
 
         <LinearLayout
+            android:id="@+id/li_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -32,7 +33,10 @@
                 app:cardCornerRadius="@dimen/menu_btn_radius"
                 app:cardElevation="@dimen/menu_btn_elevation"
                 app:cardBackgroundColor="@color/white"
-                android:layout_margin="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:clipToPadding="false"
                 android:clipChildren="false"
                 >
@@ -62,7 +66,10 @@
                 app:cardCornerRadius="@dimen/menu_btn_radius"
                 app:cardElevation="@dimen/menu_btn_elevation"
                 app:cardBackgroundColor="@color/white"
-                android:layout_margin="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:clipToPadding="false"
                 android:clipChildren="false"
                 >
@@ -92,7 +99,10 @@
                 app:cardCornerRadius="@dimen/menu_btn_radius"
                 app:cardElevation="@dimen/menu_btn_elevation"
                 app:cardBackgroundColor="@color/white"
-                android:layout_margin="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:clipToPadding="false"
                 android:clipChildren="false"
                 >
@@ -122,7 +132,10 @@
                 app:cardCornerRadius="@dimen/menu_btn_radius"
                 app:cardElevation="@dimen/menu_btn_elevation"
                 app:cardBackgroundColor="@color/white"
-                android:layout_margin="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:clipToPadding="false"
                 android:clipChildren="false"
                 >

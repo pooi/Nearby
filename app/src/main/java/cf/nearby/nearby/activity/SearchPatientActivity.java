@@ -72,6 +72,13 @@ public class SearchPatientActivity extends AppCompatActivity implements OnAdapte
 
     private void init(){
 
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         tv_msg = (TextView)findViewById(R.id.tv_msg);
         tv_msg.setVisibility(View.GONE);
 
