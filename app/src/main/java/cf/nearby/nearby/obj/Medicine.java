@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cf.nearby.nearby.util.AdditionalFunc;
@@ -12,7 +13,7 @@ import cf.nearby.nearby.util.AdditionalFunc;
  * Created by tw on 2017. 10. 3..
  */
 
-public class Medicine {
+public class Medicine implements Serializable {
 
     String id, type, code, name, company, standard, unit;
 
@@ -77,6 +78,69 @@ public class Medicine {
 
     }
 
+    public void convertSrt(JSONObject temp){
+
+
+        ArrayList<String> keySet = AdditionalFunc.getKeySet(temp.keys());
+
+        try {
+
+            if(keySet.contains("id")){
+                id = (String) temp.get("id");
+            }
+            if(keySet.contains("type")){
+                type = (String) temp.get("type");
+            }
+            if(keySet.contains("code")){
+                code = (String) temp.get("code");
+            }
+            if(keySet.contains("name")){
+                name = (String) temp.get("name");
+            }
+            if(keySet.contains("company")){
+                company = (String) temp.get("company");
+            }
+            if(keySet.contains("standard")){
+                standard = (String) temp.get("standard");
+            }
+            if(keySet.contains("unit")){
+                unit = (String) temp.get("unit");
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public static ArrayList<Medicine> getMedicineList(String data){
+
+        ArrayList<Medicine> list = new ArrayList<>();
+
+        try {
+            JSONObject jObject = new JSONObject(data);
+            JSONArray results = jObject.getJSONArray("result");
+            String countTemp = (String)jObject.get("num_result");
+            int count = Integer.parseInt(countTemp);
+
+            for ( int i = 0; i < count; ++i ) {
+                JSONObject temp = results.getJSONObject(i);
+
+                Medicine medicine = new Medicine();
+                medicine.convertSrt(temp);
+
+                list.add(medicine);
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+
+    }
+
     public String getId() {
         return id;
     }
@@ -103,6 +167,15 @@ public class Medicine {
 
     public String getName() {
         return name;
+    }
+
+    public String getNameSrt(){
+
+        String srtName = name;
+        if(name.length() > 10)
+            srtName = name.substring(0, 8) + "...";
+        return srtName;
+
     }
 
     public void setName(String name) {

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/single_dose"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/default_font_size" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/form_sd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/default_font_size"
+        android:textColor="@color/profile_content"
+        android:hint="@string/please_enter_sd"
+        android:inputType="number"
+        app:met_primaryColor="@color/profile_content"
+        app:met_singleLineEllipsis="true"
+        app:met_minCharacters="1"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/num_of_daily_dose"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/default_font_size" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/form_ndd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/default_font_size"
+        android:textColor="@color/profile_content"
+        android:hint="@string/please_enter_ndd"
+        android:inputType="number"
+        app:met_primaryColor="@color/profile_content"
+        app:met_singleLineEllipsis="true"
+        app:met_minCharacters="1"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total_dosing_days"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/default_font_size" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/form_tdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/default_font_size"
+        android:textColor="@color/profile_content"
+        android:hint="@string/please_enter_tdd"
+        android:inputType="number"
+        app:met_primaryColor="@color/profile_content"
+        app:met_singleLineEllipsis="true"
+        app:met_minCharacters="1"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/usage"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/default_font_size" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/form_usage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/default_font_size"
+        android:textColor="@color/profile_content"
+        android:hint="@string/please_enter_usage"
+        android:inputType="text"
+        app:met_primaryColor="@color/profile_content"
+        app:met_singleLineEllipsis="true"
+        app:met_minCharacters="1"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        >
+
+        <CheckBox
+            android:id="@+id/cb_morning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:buttonTint="@color/colorAccent"
+            android:text="@string/morning"
+            android:textColor="@color/dark_gray"
+            android:textSize="14sp" />
+
+        <CheckBox
+            android:id="@+id/cb_lunch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:buttonTint="@color/colorAccent"
+            android:text="@string/lunch"
+            android:textColor="@color/dark_gray"
+            android:textSize="14sp" />
+
+        <CheckBox
+            android:id="@+id/cb_evening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:buttonTint="@color/colorAccent"
+            android:text="@string/evening"
+            android:textColor="@color/dark_gray"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

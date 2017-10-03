@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cf.nearby.nearby.util.AdditionalFunc;
@@ -12,9 +13,9 @@ import cf.nearby.nearby.util.AdditionalFunc;
  * Created by tw on 2017. 10. 3..
  */
 
-public class PatientMedicineDetail {
+public class PatientMedicineDetail implements Serializable {
 
-    String id, description;
+    String id, description, time;
     double sd, ndd, tdd;
     Medicine medicine;
 
@@ -70,6 +71,10 @@ public class PatientMedicineDetail {
             if(keySet.contains("tdd")){
                 tdd = Double.parseDouble((String) temp.get("tdd"));
             }
+            if(keySet.contains("time")){
+                time = (String) temp.get("time");
+            }
+
 
             medicine.convert(temp);
 
@@ -117,6 +122,14 @@ public class PatientMedicineDetail {
 
     public void setTdd(double tdd) {
         this.tdd = tdd;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public Medicine getMedicine() {

@@ -35,6 +35,17 @@
     <string name="take_period_finish_srt">복용 종료일</string>
     <string name="delete_srt">삭제</string>
     <string name="delete">삭제하기</string>
+    <string name="search_srt">검색</string>
+    <string name="reset">초기화</string>
+    <string name="single_dose">1회 투약량</string>
+    <string name="num_of_daily_dose">1일 투여횟수</string>
+    <string name="total_dosing_days">총 투약일수</string>
+    <string name="usage">용법</string>
+    <string name="morning">아침</string>
+    <string name="lunch">점심</string>
+    <string name="evening">저녁</string>
+    <string name="add_srt">추가</string>
+    <string name="add">추가하기</string>
 
 
     <!-- Menu -->
@@ -66,6 +77,11 @@
     <string name="please_check_id_or_pw">아이디 혹은 비밀번호를 확인해주세요.</string>
     <string name="please_enter_title">제목을 입력해주세요.</string>
     <string name="please_enter_take_period">복용 기간을 입력해주세요.</string>
+    <string name="please_enter_search_medicine_content">약명 혹은 보험코드를 입력해주세요.</string>
+    <string name="please_enter_sd">1회 투약량을 입력해주세요.</string>
+    <string name="please_enter_ndd">1일 투여횟수를 입력해주세요.</string>
+    <string name="please_enter_tdd">총 투약일수를 입력해주세요.</string>
+    <string name="please_enter_usage">용법을 입력해주세요.</string>
 
     <string name="print_hello_msg">안녕하세요. %1$s님</string>
 
@@ -78,5 +94,7 @@
 
     <string name="add_patient_medicine_srt">복용 약 추가</string>
     <string name="add_medicine">약 추가</string>
+
+    <string name="enter_more_information">추가 정보 입력</string>
 
 </resources>

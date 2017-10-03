@@ -202,7 +202,6 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
         switch (nextActivity){
             case Information.MANAGE_PATIENT_MEDICINE: {
                 Intent intent = new Intent(SearchPatientActivity.this, ManageMedicineActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 intent.putExtra("patient", patient);
                 startActivity(intent);
                 break;

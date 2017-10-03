@@ -339,6 +339,100 @@
 			
 			echo "]}";
 
+		}else if($service == "getMedicineList"){
+
+			$name = $_POST['name'];
+
+			$page = $_POST['page'];
+			$page = $page*30;
+
+			if($name == null || $name == ""){
+				$sql = "SELECT * FROM medicine  ORDER BY name ASC LIMIT $page, 30;";
+			}else{
+				$sql = "SELECT * FROM medicine WHERE name like '%$name%' or code like '%$name%' ORDER BY name ASC LIMIT $page, 30;";
+			}
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+			
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+			
+			$i=0;
+			
+			while($row = mysqli_fetch_array($ret)){
+			
+				$id = $row['id'];
+				$type = $row['type'];
+				$code = $row['code'];
+				$name = $row['name'];
+				$company = $row['company'];
+				$standard = $row['standard'];
+				$unit = $row['unit'];
+
+				echo "{\"id\":\"$id\",
+				\"type\":\"$type\",
+				\"code\":\"$code\",
+				\"name\":\"$name\",
+				\"company\":\"$company\",
+				\"standard\":\"$standard\",
+				\"unit\":\"$unit\"
+				}";
+				
+				if($i<$count-1){
+					echo ",";
+				}
+				
+				$i++;
+				
+			}
+			
+			echo "]}";
+
+		}else if($service == "save_patient_medicine"){
+
+			$title = $_POST['title'];
+			$start_date = $_POST['start_date'];
+			$finish_date = $_POST['finish_date'];
+			$patient_id = $_POST['patient_id'];
+			$num_of_detail = $_POST['count'];
+			$registered_date = time() * 1000;
+
+			$sql = "INSERT INTO patient_medicine(title, start_date, finish_date, patient_id, registered_date) 
+					VALUES('$title', '$start_date', '$finish_date', '$patient_id', '$registered_date');";
+
+			$ret = mysqli_query($con, $sql);
+			$patient_medicine_id = mysqli_insert_id($con);
+
+			$i = 0;
+			for($i=0; $i<$num_of_detail; $i++){
+
+				$sd = $_POST['sd'.$i];
+				$ndd = $_POST['ndd'.$i];
+				$tdd = $_POST['tdd'.$i];
+				$description = $_POST['description'.$i];
+				$time = $_POST['time'.$i];
+				$medicine_id = $_POST['medicine_id'.$i];
+
+				$sql2 = "INSERT INTO patient_medicine_detail(patient_medicine_id, medicine_id, single_dose, num_of_daily_dose, total_dosing_days, description, time) 
+						VALUES('$patient_medicine_id', '$medicine_id', '$sd', '$ndd', '$tdd', '$description', '$time');";
+				$ret2 = mysqli_query($con, $sql2);
+				if($ret2 != 1){
+					break;
+				}
+
+			}
+
+			if($ret == '1' && $i == $num_of_detail){
+				echo json_encode(array('status'=>'success', 'message'=>"save success"));
+			}else{
+				echo json_encode(array('status'=>'fail1', 'message'=>"save fail"));
+			}
+
+
 		}
 
 	}

@@ -14,6 +14,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/li_btn"
         android:clipChildren="false"
+        android:clipToPadding="false"
         >
 
         <RelativeLayout
@@ -21,6 +22,7 @@
             android:layout_height="match_parent"
             android:padding="10dp"
             android:clipChildren="false"
+            android:clipToPadding="false"
             >
 
             <LinearLayout
@@ -29,6 +31,7 @@
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/custom_actionbar_size"
                 android:clipChildren="false"
+                android:clipToPadding="false"
                 >
 
                 <LinearLayout
@@ -170,6 +173,7 @@
                     android:layout_marginTop="20dp"
                     android:orientation="vertical"
                     android:clipChildren="false"
+                    android:clipToPadding="false"
                     >
 
 
