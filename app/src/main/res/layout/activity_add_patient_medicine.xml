@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cf.nearby.nearby.activity.AddPatientMedicineActivity"
+    android:background="@color/white"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/li_btn"
+        android:clipChildren="false"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:clipChildren="false"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/custom_actionbar_size"
+                android:clipChildren="false"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:minHeight="40dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_srt"
+                        android:textSize="18sp"
+                        android:textColor="@color/profile_title"
+                        android:gravity="right"
+                        android:paddingRight="5dp"
+                        />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/edit_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/please_enter_title"
+                        android:textSize="@dimen/default_font_size"
+                        android:textColor="@color/profile_content"
+                        app:met_minCharacters="1"
+                        app:met_singleLineEllipsis="true"
+                        app:met_primaryColor="@color/profile_content"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:minHeight="40dp"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_take_period_start"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/take_period_start_srt"
+                        android:textSize="18sp"
+                        android:textColor="@color/profile_title"
+                        android:gravity="right"
+                        android:paddingRight="5dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/btn_take_period_start"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/li_reference_field"
+                        android:text="@string/select"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/default_font_size"
+                        android:gravity="center"
+                        android:layout_marginBottom="3dp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:minHeight="40dp"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_take_period_finish"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/take_period_finish_srt"
+                        android:textSize="18sp"
+                        android:textColor="@color/profile_title"
+                        android:gravity="right"
+                        android:paddingRight="5dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/btn_take_period_finish"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/li_reference_field"
+                        android:text="@string/select"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/default_font_size"
+                        android:gravity="center"
+                        android:layout_marginBottom="3dp"
+                        />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cv_add_medicine"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    app:cardCornerRadius="@dimen/menu_btn_radius"
+                    app:cardElevation="@dimen/menu_btn_elevation"
+                    app:cardBackgroundColor="@color/pastel_green"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
+                    android:layout_gravity="center_horizontal"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/add_medicine"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/default_menu_font_size"
+                            />
+
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <LinearLayout
+                    android:id="@+id/li_medicine_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:clipChildren="false"
+                    >
+
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/li_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+
+        >
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/dark_gray"
+            android:text="@string/back_srt"
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_font_size"
+            />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_gray"
+            />
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/dark_gray"
+            android:text="@string/save_srt"
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_font_size"
+            />
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:contentInsetStart="0dp"
+        android:layout_height="@dimen/custom_actionbar_size"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        >
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/manage_medicine_srt"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_centerInParent="true"
+                />
+
+        </RelativeLayout>
+
+
+
+    </android.support.v7.widget.Toolbar>
+
+</RelativeLayout>

@@ -175,33 +175,7 @@ public class AdditionalFunc {
 
     }
 
-    public static ArrayList<Patient> getPatientList(String data){
 
-        ArrayList<Patient> list = new ArrayList<>();
-
-        try {
-            JSONObject jObject = new JSONObject(data);
-            JSONArray results = jObject.getJSONArray("result");
-            String countTemp = (String)jObject.get("num_result");
-            int count = Integer.parseInt(countTemp);
-
-            for ( int i = 0; i < count; ++i ) {
-                JSONObject temp = results.getJSONObject(i);
-
-                Patient patient = new Patient();
-                patient.convert(temp);
-
-                list.add(patient);
-
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return list;
-
-    }
 
 
 

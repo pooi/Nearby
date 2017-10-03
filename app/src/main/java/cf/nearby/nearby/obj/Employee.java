@@ -19,7 +19,7 @@ import cf.nearby.nearby.util.AdditionalFunc;
 public class Employee implements Serializable {
 
     String id, loginId, email, fn, ln, role, license, gender, address, zip, phone, pic, major, description;
-    double startDate, dob, registeredDate;
+    long startDate, dob, registeredDate;
     Location location;
 
     public Employee(){
@@ -110,13 +110,13 @@ public class Employee implements Serializable {
                 description = (String) temp.get("description");
             }
             if (keySet.contains("start_date")) {
-                startDate = Double.parseDouble((String) temp.get("start_date"));
+                startDate = Long.parseLong((String) temp.get("start_date"));
             }
             if (keySet.contains("date_of_birth")) {
-                dob = Double.parseDouble((String) temp.get("date_of_birth"));
+                dob = Long.parseLong((String) temp.get("date_of_birth"));
             }
             if (keySet.contains("registered_date")) {
-                registeredDate = Double.parseDouble((String) temp.get("registered_date"));
+                registeredDate = Long.parseLong((String) temp.get("registered_date"));
             }
 
             location.convert(temp);
@@ -242,27 +242,27 @@ public class Employee implements Serializable {
         this.description = description;
     }
 
-    public double getStartDate() {
+    public long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(double startDate) {
+    public void setStartDate(long startDate) {
         this.startDate = startDate;
     }
 
-    public double getDob() {
+    public long getDob() {
         return dob;
     }
 
-    public void setDob(double dob) {
+    public void setDob(long dob) {
         this.dob = dob;
     }
 
-    public double getRegisteredDate() {
+    public long getRegisteredDate() {
         return registeredDate;
     }
 
-    public void setRegisteredDate(double registeredDate) {
+    public void setRegisteredDate(long registeredDate) {
         this.registeredDate = registeredDate;
     }
 

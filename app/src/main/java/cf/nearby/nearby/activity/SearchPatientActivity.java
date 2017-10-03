@@ -17,6 +17,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
@@ -29,7 +30,7 @@ import cf.nearby.nearby.util.OnLoadMoreListener;
 import cf.nearby.nearby.util.OnSearchPatientSupport;
 import cf.nearby.nearby.util.ParsePHP;
 
-public class SearchPatientActivity extends AppCompatActivity implements OnAdapterSupport {
+public class SearchPatientActivity extends BaseActivity implements OnAdapterSupport {
 
     private MyHandler handler = new MyHandler();
     private final int MSG_MESSAGE_MAKE_LIST = 500;
@@ -125,13 +126,13 @@ public class SearchPatientActivity extends AppCompatActivity implements OnAdapte
                     if (page <= 0) {
                         list.clear();
 
-                        list = AdditionalFunc.getPatientList(data);
+                        list = Patient.getPatientList(data);
 
                         handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_MAKE_LIST));
                     } else {
 
                         tempList.clear();
-                        tempList = AdditionalFunc.getPatientList(data);
+                        tempList = Patient.getPatientList(data);
                         if (tempList.size() < 30) {
                             isLoadFinish = true;
                         }

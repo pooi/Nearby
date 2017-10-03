@@ -28,6 +28,13 @@
     <string name="detail_srt">상세보기</string>
     <string name="save_srt">저장</string>
     <string name="select_srt">선택</string>
+    <string name="select">선택하기</string>
+    <string name="title_srt">제목</string>
+    <string name="take_period_srt">복용 기간</string>
+    <string name="take_period_start_srt">복용 시작일</string>
+    <string name="take_period_finish_srt">복용 종료일</string>
+    <string name="delete_srt">삭제</string>
+    <string name="delete">삭제하기</string>
 
 
     <!-- Menu -->
@@ -41,7 +48,6 @@
     <string name="edit_my_info">내 정보 수정</string>
     <string name="edit_patient_info">환자 정보 수정</string>
     <string name="edit_patient_record">환자 의료 정보 수정</string>
-
     <string name="register_patient_srt">환자등록</string>
     <string name="manage_supporter_srt">보호자관리</string>
     <string name="monthly_event_register_srt">이달의행사</string>
@@ -58,14 +64,19 @@
     <string name="please_enter_description">기타사항을 입력해주세요.</string>
     <string name="login_failed_srt">로그인 실패</string>
     <string name="please_check_id_or_pw">아이디 혹은 비밀번호를 확인해주세요.</string>
+    <string name="please_enter_title">제목을 입력해주세요.</string>
+    <string name="please_enter_take_period">복용 기간을 입력해주세요.</string>
 
     <string name="print_hello_msg">안녕하세요. %1$s님</string>
 
     <string name="no_search_data">검색 결과가 없습니다.</string>
 
     <string name="completed_take_medicine_srt">복용 완료</string>
-    
+
     <string name="are_you_sure_logout">로그아웃 하시겠습니까?</string>
     <string name="are_you_finish_app">앱을 종료하시겠습니까?</string>
+
+    <string name="add_patient_medicine_srt">복용 약 추가</string>
+    <string name="add_medicine">약 추가</string>
 
 </resources>

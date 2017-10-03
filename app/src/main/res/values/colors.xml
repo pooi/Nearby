@@ -27,6 +27,8 @@
     <color name="pastel_blue">#547fdd</color>
     <color name="pastel_orange">#dd7b54</color>
     <color name="pastel_yellow">#ebd541</color>
+    <color name="pastel_green">#5cb85c</color>
+    <color name="pastel_red">#d9534f</color>
 
     <!-- ptr -->
     <color name="red">#FFC93437</color>

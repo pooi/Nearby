@@ -15,10 +15,69 @@
         android:id="@+id/rv"
         android:clipToPadding="false"
         android:paddingTop="@dimen/custom_actionbar_size"
+        android:paddingBottom="75dp"
         android:layout_above="@+id/li_btn"
         android:clipChildren="false"
         >
     </android.support.v7.widget.RecyclerView>
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorName="LineSpinFadeLoaderIndicator"
+        app:indicatorColor="@color/colorPrimary"
+        style="@style/AVLoadingIndicatorView.Small"
+        android:layout_centerInParent="true"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/no_search_data"
+            android:textColor="@color/dark_gray"
+            />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_add_medicine"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="@dimen/menu_btn_radius"
+        app:cardElevation="@dimen/menu_btn_elevation"
+        app:cardBackgroundColor="@color/pastel_green"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:layout_above="@id/li_btn"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/add_patient_medicine_srt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/default_menu_font_size"
+                />
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
     <LinearLayout
         android:id="@+id/li_btn"

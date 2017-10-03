@@ -12,7 +12,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cv"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         app:cardCornerRadius="@dimen/menu_btn_radius"
         app:cardElevation="@dimen/menu_btn_elevation"
         app:cardBackgroundColor="@color/white"
@@ -25,7 +25,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             >
 
             <LinearLayout
@@ -33,27 +33,51 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:orientation="vertical"
+                android:layout_toRightOf="@+id/img_profile"
                 android:layout_toLeftOf="@+id/li_btn"
+                android:padding="10dp"
                 >
 
                 <TextView
-                    android:id="@+id/tv_title"
+                    android:id="@+id/tv_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Title"
+                    android:text="Medicine Name"
                     android:textColor="@color/dark_gray"
-                    android:textSize="25sp"
-                    android:gravity="center"
+                    android:textSize="@dimen/default_font_size"
+                    android:gravity="left"
                     />
 
                 <TextView
-                    android:id="@+id/tv_period"
+                    android:id="@+id/tv_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Period"
+                    android:text="Code"
                     android:textColor="@color/gray"
-                    android:textSize="15sp"
-                    android:gravity="center"
+                    android:textSize="@dimen/default_font_size"
+                    android:gravity="left"
+                    android:layout_marginTop="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="sd/ndd/tdd/usage"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/default_font_size"
+                    android:gravity="left"
+                    android:layout_marginTop="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="아침/점심/저녁"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/default_font_size"
+                    android:gravity="left"
                     android:layout_marginTop="5dp"
                     />
 
@@ -61,30 +85,19 @@
 
             <LinearLayout
                 android:id="@+id/li_btn"
-                android:layout_width="100dp"
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_alignParentRight="true"
                 >
 
                 <Button
-                    android:id="@+id/btn_complete"
+                    android:id="@+id/btn_delete"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:background="@drawable/two_btn_active_right_top_radius"
-                    android:text="@string/completed_take_medicine_srt"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/default_font_size"
-                    />
-
-                <Button
-                    android:id="@+id/btn_show_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/two_btn_inactive_right_bottom_radius"
-                    android:text="@string/detail_srt"
+                    android:background="@drawable/two_btn_active_right_radius_red"
+                    android:text="@string/delete_srt"
                     android:textColor="@color/white"
                     android:textSize="@dimen/default_font_size"
                     />

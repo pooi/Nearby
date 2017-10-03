@@ -225,6 +225,120 @@
 			
 			echo "]}";
 
+		}else if($service == "getPatientMedicineList"){
+
+			$patient_id = $_POST['patient_id'];
+
+			$page = $_POST['page'];
+			$page = $page*30;
+
+			$sql = "select * from patient_medicine WHERE patient_id = '$patient_id' ORDER BY id DESC LIMIT $page, 30;";
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+			
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+			
+			$i=0;
+			
+			while($row = mysqli_fetch_array($ret)){
+			
+				$id = $row['id'];
+				$title = $row['title'];
+				$start_date = $row['start_date'];
+				$finish_date = $row['finish_date'];
+				$patient_id = $row['patient_id'];
+				$registered_date = $row['registered_date'];
+
+				echo "{\"id\":\"$id\",
+				\"title\":\"$title\",
+				\"start_date\":\"$start_date\",
+				\"finish_date\":\"$finish_date\",
+				\"patient_id\":\"$patient_id\",
+				\"registered_date\":\"$registered_date\"
+				}";
+				
+				if($i<$count-1){
+					echo ",";
+				}
+				
+				$i++;
+				
+			}
+			
+			echo "]}";
+
+		}else if($service == "getPatientMedicineDetailList"){
+			
+			$patient_medicine_id = $_POST['patient_medicine_id'];
+
+			$sql = "SELECT A.*, B.id as medicine_id, B.type as medicine_type, B.code as medicine_code, B.name as medicine_name, B.company as medicine_company, B.standard as medicine_standard, B.unit as medicine_unit 
+					FROM patient_medicine_detail as A LEFT OUTER JOIN (
+					SELECT *
+					FROM medicine
+					GROUP BY id) as B
+					ON (B.id = A.medicine_id)
+					WHERE A.patient_medicine_id like '$patient_medicine_id' 
+					GROUP BY A.id;";
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+			
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+			
+			$i=0;
+			
+			while($row = mysqli_fetch_array($ret)){
+			
+				$id = $row['id'];
+				$patient_medicine_id = $row['patient_medicine_id'];
+				$medicine_id = $row['medicine_id'];
+				$sd = $row['single_dose'];
+				$ndd = $row['num_of_daily_dose'];
+				$tdd = $row['total_dosing_days'];
+				$description = $row['description'];
+				$time = $row['time'];
+				$medicine_type = $row['medicine_type'];
+				$medicine_code = $row['medicine_code'];
+				$medicine_name = $row['medicine_name'];
+				$medicine_company = $row['medicine_company'];
+				$medicine_standard = $row['medicine_standard'];
+				$medicine_unit = $row['medicine_unit'];
+
+				echo "{\"id\":\"$id\",
+				\"patient_medicine_id\":\"$patient_medicine_id\",
+				\"sd\":\"$sd\",
+				\"ndd\":\"$ndd\",
+				\"tdd\":\"$tdd\",
+				\"description\":\"$description\",
+				\"time\":\"$time\",
+				\"medicine_id\":\"$medicine_id\",
+				\"medicine_type\":\"$medicine_type\",
+				\"medicine_code\":\"$medicine_code\",
+				\"medicine_name\":\"$medicine_name\",
+				\"medicine_company\":\"$medicine_company\",
+				\"medicine_standard\":\"$medicine_standard\",
+				\"medicine_unit\":\"$medicine_unit\"
+				}";
+				
+				if($i<$count-1){
+					echo ",";
+				}
+				
+				$i++;
+				
+			}
+			
+			echo "]}";
+
 		}
 
 	}
