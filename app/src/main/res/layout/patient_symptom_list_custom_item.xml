@@ -25,47 +25,36 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             >
-
-            <ImageView
-                android:id="@+id/img"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:scaleType="centerCrop"
-                />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:orientation="vertical"
-                android:layout_toRightOf="@+id/img"
                 android:layout_toLeftOf="@+id/li_btn"
                 android:padding="10dp"
                 >
 
                 <TextView
-                    android:id="@+id/tv_name"
+                    android:id="@+id/tv_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name"
+                    android:text="Title"
                     android:textColor="@color/dark_gray"
-                    android:textSize="@dimen/default_font_size"
-                    android:gravity="left"
+                    android:textSize="25sp"
+                    android:gravity="center"
                     />
 
                 <TextView
-                    android:id="@+id/tv_dob"
+                    android:id="@+id/tv_period"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Date of Birth"
+                    android:text="Period"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/default_font_small_size"
-                    android:gravity="left"
+                    android:textSize="15sp"
+                    android:gravity="center"
                     android:layout_marginTop="5dp"
                     />
 
@@ -73,19 +62,19 @@
 
             <LinearLayout
                 android:id="@+id/li_btn"
-                android:layout_width="70dp"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_alignParentRight="true"
                 >
 
                 <Button
-                    android:id="@+id/btn_select"
+                    android:id="@+id/btn_complete"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:background="@drawable/two_btn_active_right_radius"
-                    android:text="@string/select_srt"
+                    android:text="@string/completed_symptom_srt"
                     android:textColor="@color/white"
                     android:textSize="@dimen/default_font_size"
                     />

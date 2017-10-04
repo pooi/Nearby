@@ -13,16 +13,14 @@ import cf.nearby.nearby.util.AdditionalFunc;
  * Created by tw on 2017. 10. 3..
  */
 
-public class PatientMedicineDetail implements Serializable {
+public class PatientSymptom implements Serializable {
 
-    String id, description, time;
-    double sd, ndd, tdd;
-    Medicine medicine;
+    String id, description, patientId;
+    long startDate, finishDate, registeredDate;
 
-    public PatientMedicineDetail(){
-        medicine = new Medicine();
+    public PatientSymptom(){
     }
-    public PatientMedicineDetail(String data){
+    public PatientSymptom(String data){
         this();
         build(data);
     }
@@ -59,23 +57,23 @@ public class PatientMedicineDetail implements Serializable {
             if(keySet.contains("id")){
                 id = (String) temp.get("id");
             }
+            if(keySet.contains("patient_id")){
+                patientId = (String) temp.get("patient_id");
+            }
             if(keySet.contains("description")){
                 description = (String) temp.get("description");
             }
-            if(keySet.contains("sd")){
-                sd = Double.parseDouble((String) temp.get("sd"));
+            if(keySet.contains("start_date")){
+                startDate = Long.parseLong((String) temp.get("start_date"));
             }
-            if(keySet.contains("ndd")){
-                ndd = Double.parseDouble((String) temp.get("ndd"));
+            if(keySet.contains("finish_date")){
+                finishDate = Long.parseLong((String) temp.get("finish_date"));
             }
-            if(keySet.contains("tdd")){
-                tdd = Double.parseDouble((String) temp.get("tdd"));
-            }
-            if(keySet.contains("time")){
-                time = (String) temp.get("time");
+            if(keySet.contains("registered_date")){
+                registeredDate = Long.parseLong((String) temp.get("registered_date"));
             }
 
-            medicine.convert(temp);
+
 
         }catch (Exception e){
             e.printStackTrace();
@@ -83,9 +81,9 @@ public class PatientMedicineDetail implements Serializable {
 
     }
 
-    public static ArrayList<PatientMedicineDetail> getPatientMedicineDetailList(String data){
+    public static ArrayList<PatientSymptom> getPatientSymptomList(String data){
 
-        ArrayList<PatientMedicineDetail> list = new ArrayList<>();
+        ArrayList<PatientSymptom> list = new ArrayList<>();
 
         try {
             JSONObject jObject = new JSONObject(data);
@@ -96,7 +94,7 @@ public class PatientMedicineDetail implements Serializable {
             for ( int i = 0; i < count; ++i ) {
                 JSONObject temp = results.getJSONObject(i);
 
-                PatientMedicineDetail pm = new PatientMedicineDetail();
+                PatientSymptom pm = new PatientSymptom();
                 pm.convert(temp);
 
                 list.add(pm);
@@ -127,43 +125,39 @@ public class PatientMedicineDetail implements Serializable {
         this.description = description;
     }
 
-    public double getSd() {
-        return sd;
+    public String getPatientId() {
+        return patientId;
     }
 
-    public void setSd(double sd) {
-        this.sd = sd;
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
     }
 
-    public double getNdd() {
-        return ndd;
+    public long getStartDate() {
+        return startDate;
     }
 
-    public void setNdd(double ndd) {
-        this.ndd = ndd;
+    public void setStartDate(long startDate) {
+        this.startDate = startDate;
     }
 
-    public double getTdd() {
-        return tdd;
+    public long getFinishDate() {
+        return finishDate;
     }
 
-    public void setTdd(double tdd) {
-        this.tdd = tdd;
+    public void setFinishDate(long finishDate) {
+        this.finishDate = finishDate;
     }
 
-    public String getTime() {
-        return time;
+    public String getPeriodString(){
+        return AdditionalFunc.getDateString((long)startDate) + " ~ " + AdditionalFunc.getDateString((long)finishDate);
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public long getRegisteredDate() {
+        return registeredDate;
     }
 
-    public Medicine getMedicine() {
-        return medicine;
-    }
-
-    public void setMedicine(Medicine medicine) {
-        this.medicine = medicine;
+    public void setRegisteredDate(long registeredDate) {
+        this.registeredDate = registeredDate;
     }
 }

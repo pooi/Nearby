@@ -172,8 +172,17 @@ public class Medicine implements Serializable {
     public String getNameSrt(){
 
         String srtName = name;
-        if(name.length() > 10)
+        if(name.length() > 8)
             srtName = name.substring(0, 8) + "...";
+        return srtName;
+
+    }
+
+    public String getNameSrt(int len){
+
+        String srtName = name;
+        if(name.length() > len)
+            srtName = name.substring(0, len) + "...";
         return srtName;
 
     }

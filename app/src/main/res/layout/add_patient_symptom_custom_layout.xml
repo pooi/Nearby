@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/symptom_srt"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/default_font_size" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/form_symptom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/default_font_size"
+        android:textColor="@color/profile_content"
+        android:hint="@string/please_enter_patient_symptom"
+        android:inputType="text"
+        app:met_primaryColor="@color/profile_content"
+        app:met_singleLineEllipsis="true"
+        app:met_minCharacters="1"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/symptom_start_date"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/default_font_size" />
+
+
+    <TextView
+        android:id="@+id/btn_date_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date_select"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:textSize="@dimen/default_font_size"
+        android:layout_marginTop="10dp"
+        />
+
+
+</LinearLayout>

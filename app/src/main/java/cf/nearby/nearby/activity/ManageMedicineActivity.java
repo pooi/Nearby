@@ -226,7 +226,7 @@ public class ManageMedicineActivity extends BaseActivity implements OnAdapterSup
 
     @Override
     public void redirectActivity(Intent intent) {
-
+        startActivity(intent);
     }
 
     private class MyHandler extends Handler {

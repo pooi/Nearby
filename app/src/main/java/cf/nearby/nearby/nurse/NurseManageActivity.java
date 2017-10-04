@@ -50,7 +50,7 @@ public class NurseManageActivity extends BaseActivity implements Serializable {
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), SearchPatientActivity.class);
-                intent.putExtra("nextActivity", Information.MANAGE_PATIENT_MEDICINE);
+                intent.putExtra("nextActivity", Information.NURSE_MANAGE_MENU);
                 startActivity(intent);
 
             }

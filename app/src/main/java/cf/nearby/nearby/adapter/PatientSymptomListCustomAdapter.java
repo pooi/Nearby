@@ -9,37 +9,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import cf.nearby.nearby.R;
-import cf.nearby.nearby.activity.SearchPatientActivity;
-import cf.nearby.nearby.obj.Patient;
+import cf.nearby.nearby.activity.ManageMedicineActivity;
+import cf.nearby.nearby.activity.ManageSymptomActivity;
+import cf.nearby.nearby.activity.ShowPatientMedicineDetailActivity;
+import cf.nearby.nearby.obj.PatientMedicine;
+import cf.nearby.nearby.obj.PatientSymptom;
 import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.OnAdapterSupport;
 import cf.nearby.nearby.util.OnLoadMoreListener;
-import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 
 /**
  * Created by tw on 2017-10-01.
  */
-public class PatientSearchListCustomAdapter extends RecyclerView.Adapter<PatientSearchListCustomAdapter.ViewHolder> {
+public class PatientSymptomListCustomAdapter extends RecyclerView.Adapter<PatientSymptomListCustomAdapter.ViewHolder> {
 
     // UI
     private Context context;
-    private SearchPatientActivity activity;
+    private ManageSymptomActivity activity;
 
     //    private MaterialNavigationDrawer activity;
     private OnAdapterSupport onAdapterSupport;
 
-    public ArrayList<Patient> list;
+    public ArrayList<PatientSymptom> list;
 
     // 무한 스크롤
     private OnLoadMoreListener onLoadMoreListener;
@@ -48,11 +46,11 @@ public class PatientSearchListCustomAdapter extends RecyclerView.Adapter<Patient
     private boolean loading = false;
 
     // 생성자
-    public PatientSearchListCustomAdapter(Context context, ArrayList<Patient> list, RecyclerView recyclerView, OnAdapterSupport listener, SearchPatientActivity activity) {
+    public PatientSymptomListCustomAdapter(Context context, ArrayList<PatientSymptom> list, RecyclerView recyclerView, OnAdapterSupport listener, ManageSymptomActivity activity) {
         this.context = context;
         this.list = list;
         this.onAdapterSupport = listener;
-        this.activity = (SearchPatientActivity) activity;
+        this.activity = (ManageSymptomActivity) activity;
 
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
             recyclerView.addOnScrollListener(new ScrollListener() {
@@ -72,27 +70,34 @@ public class PatientSearchListCustomAdapter extends RecyclerView.Adapter<Patient
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //recycler view에 반복될 아이템 레이아웃 연결
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_search_list_custom_item,null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_symptom_list_custom_item,null);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        final Patient patient = list.get(position);
+        final PatientSymptom ps = list.get(position);
         final int pos = position;
 
-        Picasso.with(context)
-                .load(patient.getPic())
-                .into(holder.img);
-        holder.tv_name.setText(patient.getName());
-        holder.tv_dob.setText(AdditionalFunc.getDateString((long)patient.getDob()));
-        holder.btn_select.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                activity.redirectNextActivity(patient);
-            }
-        });
+        holder.tv_title.setText(ps.getDescription());
 
+        if(ps.getFinishDate() == 0.0){
+            String text = "발병일 : " + AdditionalFunc.getDateString(ps.getStartDate());
+            holder.tv_period.setText(text);
+
+            holder.li_btn.setVisibility(View.VISIBLE);
+            holder.tv_title.setTextColor(activity.getColorId(R.color.dark_gray));
+            holder.tv_period.setTextColor(activity.getColorId(R.color.gray));
+            holder.cv.setCardBackgroundColor(activity.getColorId(R.color.white));
+        }else{
+            String text = "기간 : " + AdditionalFunc.getDateString(ps.getStartDate()) + " ~ " + AdditionalFunc.getDateString(ps.getFinishDate());
+            holder.tv_period.setText(text);
+
+            holder.li_btn.setVisibility(View.GONE);
+            holder.tv_title.setTextColor(activity.getColorId(R.color.white));
+            holder.tv_period.setTextColor(activity.getColorId(R.color.light_gray2));
+            holder.cv.setCardBackgroundColor(activity.getColorId(R.color.dark_gray));
+        }
 
     }
 
@@ -170,18 +175,18 @@ public class PatientSearchListCustomAdapter extends RecyclerView.Adapter<Patient
     public final static class ViewHolder extends RecyclerView.ViewHolder {
 
         CardView cv;
-        ImageView img;
-        TextView tv_name;
-        TextView tv_dob;
-        Button btn_select;
+        TextView tv_title;
+        TextView tv_period;
+        Button btn_complete;
+        LinearLayout li_btn;
 
         public ViewHolder(View v) {
             super(v);
             cv = (CardView)v.findViewById(R.id.cv);
-            img = (ImageView)v.findViewById(R.id.img);
-            tv_name = (TextView)v.findViewById(R.id.tv_name);
-            tv_dob = (TextView)v.findViewById(R.id.tv_dob);
-            btn_select = (Button)v.findViewById(R.id.btn_select);
+            tv_title = (TextView)v.findViewById(R.id.tv_title);
+            tv_period = (TextView)v.findViewById(R.id.tv_period);
+            btn_complete = (Button)v.findViewById(R.id.btn_complete);
+            li_btn = (LinearLayout)v.findViewById(R.id.li_btn);
         }
     }
 

@@ -12,6 +12,6 @@ public class Information {
     public static String ADMINISTRATOR_EMAIL = "ldaytw@gmail.com";
 
     // Activity Name
-    public static final String MANAGE_PATIENT_MEDICINE = "manage_patient_medicine";
+    public static final String NURSE_MANAGE_MENU = "nurse_manage_menu";
 
 }

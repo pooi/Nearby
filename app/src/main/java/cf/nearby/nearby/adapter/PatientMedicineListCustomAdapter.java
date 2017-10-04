@@ -1,6 +1,7 @@
 package cf.nearby.nearby.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.activity.ManageMedicineActivity;
 import cf.nearby.nearby.activity.SearchPatientActivity;
+import cf.nearby.nearby.activity.ShowPatientMedicineDetailActivity;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.obj.PatientMedicine;
 import cf.nearby.nearby.util.AdditionalFunc;
@@ -79,6 +81,14 @@ public class PatientMedicineListCustomAdapter extends RecyclerView.Adapter<Patie
         holder.tv_title.setText(pm.getTitle());
         holder.tv_period.setText(pm.getPeriodString());
 
+        holder.btn_show_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ShowPatientMedicineDetailActivity.class);
+                intent.putExtra("patient_medicine", pm);
+                onAdapterSupport.redirectActivity(intent);
+            }
+        });
 
     }
 

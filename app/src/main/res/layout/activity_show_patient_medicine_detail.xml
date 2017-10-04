@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cf.nearby.nearby.activity.ShowPatientMedicineDetailActivity"
+    android:background="@color/white"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/li_btn"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/custom_actionbar_size"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:minHeight="40dp"
+                    >
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_srt"
+                        android:textSize="18sp"
+                        android:textColor="@color/profile_title"
+                        android:gravity="right"
+                        android:paddingRight="5dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/li_reference_field"
+                        android:text="@string/title_srt"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/default_font_size"
+                        android:gravity="center"
+                        android:layout_marginBottom="3dp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:minHeight="40dp"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/take_period_start_srt"
+                        android:textSize="18sp"
+                        android:textColor="@color/profile_title"
+                        android:gravity="right"
+                        android:paddingRight="5dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_take_period_start"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/li_reference_field"
+                        android:text="@string/take_period_start_srt"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/default_font_size"
+                        android:gravity="center"
+                        android:layout_marginBottom="3dp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:minHeight="40dp"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/take_period_finish_srt"
+                        android:textSize="18sp"
+                        android:textColor="@color/profile_title"
+                        android:gravity="right"
+                        android:paddingRight="5dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_take_period_finish"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/li_reference_field"
+                        android:text="@string/select"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/default_font_size"
+                        android:gravity="center"
+                        android:layout_marginBottom="3dp"
+                        />
+
+                </LinearLayout>
+
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/loading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:indicatorName="LineSpinFadeLoaderIndicator"
+                    app:indicatorColor="@color/colorPrimary"
+                    style="@style/AVLoadingIndicatorView.Small"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/li_medicine_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    >
+
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/li_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+
+        >
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/dark_gray"
+            android:text="@string/back_srt"
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_font_size"
+            />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:contentInsetStart="0dp"
+        android:layout_height="@dimen/custom_actionbar_size"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        >
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/manage_medicine_srt"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_centerInParent="true"
+                />
+
+        </RelativeLayout>
+
+
+
+    </android.support.v7.widget.Toolbar>
+
+</RelativeLayout>

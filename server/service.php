@@ -433,6 +433,72 @@
 			}
 
 
+		}else if($service == "getPatientSymptomList"){
+			
+			$patient_id = $_POST['patient_id'];
+
+			$page = $_POST['page'];
+			$page = $page*30;
+
+			$sql = "select * from symptom_history WHERE patient_id = '$patient_id' ORDER BY id DESC LIMIT $page, 30;";
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+			
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+			
+			$i=0;
+			
+			while($row = mysqli_fetch_array($ret)){
+			
+				$id = $row['id'];
+				$patient_id = $row['patient_id'];
+				$description = $row['description'];
+				$start_date = $row['start_date'];
+				$finish_date = $row['finish_date'];
+				$registered_date = $row['registered_date'];
+
+				echo "{\"id\":\"$id\",
+				\"patient_id\":\"$patient_id\",
+				\"start_date\":\"$start_date\",
+				\"finish_date\":\"$finish_date\",
+				\"description\":\"$description\",
+				\"registered_date\":\"$registered_date\"
+				}";
+				
+				if($i<$count-1){
+					echo ",";
+				}
+				
+				$i++;
+				
+			}
+			
+			echo "]}";
+
+		}else if($service == "save_patient_symptom"){
+			
+			$patient_id = $_POST['patient_id'];
+			$start_date = $_POST['start_date'];
+			$description = $_POST['description'];
+			$registered_date = time() * 1000;
+
+			$sql = "INSERT INTO symptom_history(patient_id, description, start_date, finish_date, registered_date) 
+					VALUES('$patient_id', '$description', '$start_date', '0', '$registered_date');";
+
+			$ret = mysqli_query($con, $sql);
+
+			if($ret == '1' && $i == $num_of_detail){
+				echo json_encode(array('status'=>'success', 'message'=>"save success"));
+			}else{
+				echo json_encode(array('status'=>'fail1', 'message'=>"save fail"));
+			}
+
+
 		}
 
 	}

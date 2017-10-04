@@ -22,6 +22,7 @@
 
     <!-- Font Size-->
     <dimen name="default_font_size">20sp</dimen>
+    <dimen name="default_font_small_size">18sp</dimen>
     <dimen name="default_menu_font_size">30sp</dimen>
 
     <!-- Menu Button -->

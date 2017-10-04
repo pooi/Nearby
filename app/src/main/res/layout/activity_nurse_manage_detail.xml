@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cf.nearby.nearby.nurse.NurseManageDetailActivity"
+    android:background="@color/white"
+    >
+
+    <ScrollView
+        android:id="@+id/sc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_back"
+        android:clipChildren="false"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clipChildren="false"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                >
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="120dp"
+                    android:layout_height="160dp"
+                    android:scaleType="centerCrop"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/img"
+                    android:paddingLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/li_reference_field"
+                        android:text="@string/name"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="12sp"
+                        android:gravity="left"
+                        android:layout_marginBottom="3dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/li_reference_field"
+                        android:text="Name"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/default_font_size"
+                        android:gravity="left"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/li_reference_field"
+                        android:text="@string/dob"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="12sp"
+                        android:gravity="left"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="5dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_dob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/li_reference_field"
+                        android:text="Date of Birth"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/default_font_size"
+                        android:gravity="left"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/li_reference_field"
+                        android:text="@string/location_registered_date"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="12sp"
+                        android:gravity="left"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="5dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_registered_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/li_reference_field"
+                        android:text="Registered Date"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/default_font_size"
+                        android:gravity="left"
+                        />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_manage_symptom"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:cardCornerRadius="@dimen/menu_btn_radius"
+                app:cardElevation="@dimen/menu_btn_elevation"
+                app:cardBackgroundColor="@color/white"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/manage_symptom_srt"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/default_menu_font_size"
+                        />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_manage_medicine"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:cardCornerRadius="@dimen/menu_btn_radius"
+                app:cardElevation="@dimen/menu_btn_elevation"
+                app:cardBackgroundColor="@color/white"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/manage_medicine_srt"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/default_menu_font_size"
+                        />
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_manage_weight"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:cardCornerRadius="@dimen/menu_btn_radius"
+                app:cardElevation="@dimen/menu_btn_elevation"
+                app:cardBackgroundColor="@color/white"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/manage_weight_srt"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/default_menu_font_size"
+                        />
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/dark_gray"
+        android:text="@string/back_srt"
+        android:textColor="@color/white"
+        android:textSize="@dimen/default_font_size"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>
