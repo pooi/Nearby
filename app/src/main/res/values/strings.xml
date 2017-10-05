@@ -52,6 +52,7 @@
     <string name="symptom_srt">증상</string>
     <string name="symptom_start_date">발병일</string>
     <string name="date_select">날짜 선택</string>
+    <string name="modify_srt">수정</string>
 
 
     <!-- Menu -->
@@ -89,10 +90,12 @@
     <string name="please_enter_tdd">총 투약일수를 입력해주세요.</string>
     <string name="please_enter_usage">용법을 입력해주세요.</string>
     <string name="please_enter_patient_symptom">증상을 입력해주세요.</string>
+    <string name="please_enter_weight">몸무게를 입력해주세요.</string>
 
     <string name="print_hello_msg">안녕하세요. %1$s님</string>
 
     <string name="no_search_data">검색 결과가 없습니다.</string>
+    <string name="there_are_no_data">표시할 데이터가 없습니다.</string>
 
     <string name="completed_take_medicine_srt">복용 완료</string>
 
@@ -100,8 +103,9 @@
     <string name="are_you_finish_app">앱을 종료하시겠습니까?</string>
 
     <string name="add_patient_medicine_srt">복용 약 추가</string>
-   <string name="add_patient_symptom_srt">증상 추가</string>
+    <string name="add_patient_symptom_srt">증상 추가</string>
     <string name="add_medicine">약 추가</string>
+    <string name="edit_weight">몸무게 수정</string>
 
     <string name="enter_more_information">추가 정보 입력</string>
 

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:williamchart="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cf.nearby.nearby.activity.ManageWeightActivity"
+    android:background="@color/white"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/li_btn"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            >
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_graph"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                app:cardCornerRadius="@dimen/menu_btn_radius"
+                app:cardElevation="@dimen/menu_btn_elevation"
+                app:cardBackgroundColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:layout_gravity="center_horizontal"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/rl_graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:id="@+id/loading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:indicatorName="LineSpinFadeLoaderIndicator"
+                        app:indicatorColor="@color/colorPrimary"
+                        style="@style/AVLoadingIndicatorView.Small"
+                        android:layout_centerInParent="true"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_msg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/there_are_no_data"
+                        android:textColor="@color/dark_gray"
+                        />
+
+                    <com.db.chart.view.LineChartView
+                        android:id="@+id/chart_weight"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        williamchart:chart_axis="false"
+                        williamchart:chart_axisBorderSpacing="0dp"
+                        williamchart:chart_barSpacing="4dp"
+                        williamchart:chart_fontSize="12dp"
+                        williamchart:chart_labelColor="#FF8E8A84"
+                        >
+
+                    </com.db.chart.view.LineChartView>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                >
+
+                <TextView
+                    android:id="@+id/tv_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/edit_weight"
+                    android:textSize="@dimen/default_font_size"
+                    android:textColor="@color/dark_gray"
+                    />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/edit_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/default_font_size"
+                    android:textColor="@color/profile_content"
+                    android:layout_toRightOf="@+id/tv_weight"
+                    android:layout_marginLeft="10dp"
+                    android:hint="@string/please_enter_weight"
+                    android:inputType="number"
+                    app:met_primaryColor="@color/profile_content"
+                    app:met_singleLineEllipsis="true"
+                    app:met_minCharacters="1"
+                    />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_edit_weight"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                app:cardCornerRadius="@dimen/menu_btn_radius"
+                app:cardElevation="@dimen/menu_btn_elevation"
+                app:cardBackgroundColor="@color/pastel_green"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:layout_gravity="center_horizontal"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/modify_srt"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/default_menu_font_size"
+                        />
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/li_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+
+        >
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/dark_gray"
+            android:text="@string/back_srt"
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_font_size"
+            />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:contentInsetStart="0dp"
+        android:layout_height="@dimen/custom_actionbar_size"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        >
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/manage_weight_srt"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_centerInParent="true"
+                />
+
+        </RelativeLayout>
+
+
+
+    </android.support.v7.widget.Toolbar>
+
+</RelativeLayout>

@@ -492,12 +492,68 @@
 
 			$ret = mysqli_query($con, $sql);
 
-			if($ret == '1' && $i == $num_of_detail){
+			if($ret == '1'){
 				echo json_encode(array('status'=>'success', 'message'=>"save success"));
 			}else{
 				echo json_encode(array('status'=>'fail1', 'message'=>"save fail"));
 			}
 
+
+		}else if($service == "getPatientWeightList"){
+
+			$patient_id = $_POST['patient_id'];
+
+			$sql = "select * from weight_history WHERE patient_id = '$patient_id' ORDER BY id ASC;";
+			
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+			
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+			
+			$i=0;
+			
+			while($row = mysqli_fetch_array($ret)){
+			
+				$id = $row['id'];
+				$patient_id = $row['patient_id'];
+				$weight = $row['weight'];
+				$registered_date = $row['registered_date'];
+
+				echo "{\"id\":\"$id\",
+				\"patient_id\":\"$patient_id\",
+				\"weight\":\"$weight\",
+				\"registered_date\":\"$registered_date\"
+				}";
+				
+				if($i<$count-1){
+					echo ",";
+				}
+				
+				$i++;
+				
+			}
+			
+			echo "]}";
+
+		}else if($service == "savePatientWeight"){
+
+			$patient_id = $_POST['patient_id'];
+			$weight = $_POST['weight'];
+			$registered_date = time() * 1000;
+			
+			$sql = "INSERT INTO weight_history(patient_id, weight, registered_date) VALUES('$patient_id', '$weight', '$registered_date');";
+
+			$ret = mysqli_query($con, $sql);
+
+			if($ret == '1'){
+				echo json_encode(array('status'=>'success', 'message'=>"save success"));
+			}else{
+				echo json_encode(array('status'=>'fail1', 'message'=>"save fail"));
+			}
 
 		}
 

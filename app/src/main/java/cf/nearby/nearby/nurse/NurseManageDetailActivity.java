@@ -14,6 +14,7 @@ import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.activity.ManageMedicineActivity;
 import cf.nearby.nearby.activity.ManageSymptomActivity;
+import cf.nearby.nearby.activity.ManageWeightActivity;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.AdditionalFunc;
 
@@ -64,6 +65,16 @@ public class NurseManageDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), ManageMedicineActivity.class);
+                intent.putExtra("patient", selectedPatient);
+                startActivity(intent);
+
+            }
+        });
+        findViewById(R.id.cv_manage_weight).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), ManageWeightActivity.class);
                 intent.putExtra("patient", selectedPatient);
                 startActivity(intent);
 
