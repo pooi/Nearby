@@ -58,6 +58,8 @@
 
 
     <!-- Menu -->
+    <string name="fail">빈 칸을 모두 채워주세요</string>
+    <string name="back">뒤로 돌아갑니다</string>
     <string name="record_srt">기록</string>
     <string name="manage_srt">관리</string>
     <string name="inquiry_srt">조회</string>

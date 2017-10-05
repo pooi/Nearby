@@ -30,14 +30,14 @@
                 android:layout_margin="10dp"
                 android:gravity="top"/>
             <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/patient_id"
+                android:id="@+id/patient_ln"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/default_font_size"
                 android:textColor="@color/profile_content"
                 android:hint="@string/please_enter_ln"
                 app:met_primaryColor="@color/profile_content"
-                app:met_floatingLabel="normal"
+                app:met_floatingLabel="none"
                 app:met_floatingLabelText="@string/ln"
                 app:met_singleLineEllipsis="true"
                 android:layout_marginLeft="10dp"
@@ -55,14 +55,14 @@
                 android:text="@string/fn"
                 android:layout_margin="10dp"/>
             <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/patient_firstname"
+                android:id="@+id/patient_fn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/default_font_size"
                 android:textColor="@color/profile_content"
                 android:hint="@string/please_enter_fn"
                 app:met_primaryColor="@color/profile_content"
-                app:met_floatingLabel="normal"
+                app:met_floatingLabel="none"
                 app:met_floatingLabelText="@string/fn"
                 app:met_singleLineEllipsis="true"
                 android:layout_marginLeft="10dp"
@@ -80,6 +80,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/gender"
                 android:layout_margin="10dp"/>
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/selectgender">
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,6 +100,7 @@
                 android:buttonTint="@color/black"
                 android:id="@+id/female"
                 />
+            </RadioGroup>
         </LinearLayout>
 
         <LinearLayout
@@ -114,7 +121,7 @@
                 android:textColor="@color/profile_content"
                 android:hint="@string/please_enter_address"
                 app:met_primaryColor="@color/profile_content"
-                app:met_floatingLabel="normal"
+                app:met_floatingLabel="none"
                 app:met_floatingLabelText="@string/id"
                 app:met_singleLineEllipsis="true"
                 android:layout_marginLeft="10dp"
@@ -140,7 +147,7 @@
                 android:textColor="@color/profile_content"
                 android:hint="@string/please_enter_zip"
                 app:met_primaryColor="@color/profile_content"
-                app:met_floatingLabel="normal"
+                app:met_floatingLabel="none"
                 app:met_floatingLabelText="@string/zip"
                 app:met_singleLineEllipsis="true"
                 android:layout_marginLeft="10dp"
@@ -168,7 +175,7 @@
                 android:hint="@string/please_enter_phone"
                 android:textColor="@color/profile_content"
                 android:textSize="@dimen/default_font_size"
-                app:met_floatingLabel="normal"
+                app:met_floatingLabel="none"
                 app:met_floatingLabelText="@string/phone"
                 app:met_primaryColor="@color/profile_content"
                 app:met_singleLineEllipsis="true" />
@@ -184,7 +191,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/bla"
                 android:layout_margin="10dp"/>
-            <RadioButton
+            <CheckBox
                 android:layout_width="wrap_content"
                 android:id="@+id/patient_bla"
                 android:layout_height="wrap_content"
@@ -211,7 +218,7 @@
                 android:textColor="@color/profile_content"
                 android:hint="@string/please_enter_height"
                 app:met_primaryColor="@color/profile_content"
-                app:met_floatingLabel="normal"
+                app:met_floatingLabel="none"
                 app:met_floatingLabelText="@string/id"
                 app:met_singleLineEllipsis="true"
                 android:layout_marginLeft="10dp"
@@ -226,6 +233,7 @@
                 android:orientation="horizontal"
                 android:gravity="center_horizontal">
                 <TextView
+                    android:id="@+id/startdate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/startdate"
@@ -238,8 +246,8 @@
                 android:background="@color/background_color"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal">
-
                 <TextView
+                    android:id="@+id/registerdate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/registerdate"
@@ -254,6 +262,7 @@
                 android:orientation="horizontal"
                 android:gravity="center_horizontal">
                 <TextView
+                    android:id="@+id/dob"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/dob"
@@ -279,7 +288,7 @@
                     android:textColor="@color/profile_content"
                     android:hint="@string/please_enter_description"
                     app:met_primaryColor="@color/profile_content"
-                    app:met_floatingLabel="normal"
+                    app:met_floatingLabel="none"
                     app:met_floatingLabelText="@string/id"
                     app:met_singleLineEllipsis="true"
                     android:layout_marginLeft="10dp"
