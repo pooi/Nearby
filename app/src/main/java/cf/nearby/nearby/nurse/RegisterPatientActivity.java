@@ -22,6 +22,7 @@ import java.util.HashMap;
 
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
+import cf.nearby.nearby.StartActivity;
 import cf.nearby.nearby.obj.Employee;
 import cf.nearby.nearby.util.ParsePHP;
 
@@ -92,8 +93,7 @@ public class RegisterPatientActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     progressDialog.show();
-                    Intent intent = new Intent(RegisterPatientActivity.this,NurseRegisterActivity.class);
-                    startActivity(intent);
+                    finish();
                 }
             });
 
@@ -106,27 +106,32 @@ public class RegisterPatientActivity extends AppCompatActivity {
             }
             });
     }
-    private void register_patient(){
-            boolean check = CheckInfo();
-            if(check){
-                HashMap<String,String> map = new HashMap<String,String>();
-                map.put("service","registerPatient");
-                map.put("patient_ln",patient_ln.toString());
-                map.put("patient_fn",patient_fn.toString());
-                map.put("patient_address",patient_address.toString());
-                map.put("patient_zip",patient_zip.toString());
-                map.put("patient_gender", textradio());
-                map.put("patient_phone", patient_phone.toString());
-                map.put("patient_bla", chbla());
-                map.put("patient_height", patient_height.toString());
-                map.put("patient_description",patient_description.toString());
+    private void register_patient() {
+        boolean check = CheckInfo();
+        System.out.print(check);
+        System.out.print(patient_fn.toString());
+        if (check) {
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("service", "registerPatient");
+            map.put("patient_ln", patient_ln.getText().toString());
+            map.put("patient_fn", patient_fn.getText().toString());
+            map.put("patient_address", patient_address.getText().toString());
+            map.put("patient_zip", patient_zip.getText().toString());
+            map.put("patient_gender", textradio());
+            map.put("patient_pic","");
+            map.put("location_id", StartActivity.employee.getLocation().getId());
+            map.put("patient_phone", patient_phone.getText().toString());
+            map.put("patient_bla", chbla());
+            map.put("patient_height", patient_height.getText().toString());
+            map.put("patient_description", patient_description.getText().toString());
 
-                new ParsePHP(Information.MAIN_SERVER_ADDRESS, map){
-                    @Override
-                    protected void afterThreadFinish(String data) {
-                    }
-                }.start();
-            }
+            new ParsePHP(Information.MAIN_SERVER_ADDRESS, map) {
+                @Override
+                protected void afterThreadFinish(String data) {
+                    System.out.print(data);
+                }
+            }.start();
+        }
     }
 
     private boolean checkradiobtn(){
@@ -168,7 +173,8 @@ public class RegisterPatientActivity extends AppCompatActivity {
 
         if(status){
             return true;
-        }else{
+        }
+        else{
             progressDialog.setContent(R.string.fail);
             progressDialog.show();
             return false;
