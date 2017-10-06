@@ -53,6 +53,8 @@
     <string name="symptom_start_date">발병일</string>
     <string name="date_select">날짜 선택</string>
     <string name="modify_srt">수정</string>
+    <string name="nursing_home_meal_srt">병원 식단</string>
+    <string name="water_gruel">미음</string>
 
 
     <!-- Menu -->
@@ -69,6 +71,11 @@
     <string name="register_patient_srt">환자등록</string>
     <string name="manage_supporter_srt">보호자관리</string>
     <string name="monthly_event_register_srt">이달의행사</string>
+    <string name="record_vital_sign">Vital Sign</string>
+    <string name="record_patient_medicine">약 복용 여부</string>
+    <string name="record_patient_meal">식사 여부</string>
+    <string name="record_remark">특이사항</string>
+    <string name="record_photo">사진</string>
 
     <string name="please_enter_id">아이디를 입력해주세요.</string>
     <string name="please_enter_pw">비밀번호를 입력해주세요.</string>

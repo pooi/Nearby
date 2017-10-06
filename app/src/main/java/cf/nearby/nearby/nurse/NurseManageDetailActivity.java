@@ -44,14 +44,6 @@ public class NurseManageDetailActivity extends AppCompatActivity {
             }
         });
 
-        backBtn = (Button)findViewById(R.id.btn_back);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
         findViewById(R.id.cv_manage_symptom).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,9 +74,11 @@ public class NurseManageDetailActivity extends AppCompatActivity {
         });
 
         ImageView img = (ImageView)findViewById(R.id.img);
-        Picasso.with(getApplicationContext())
-                .load(selectedPatient.getPic())
-                .into(img);
+        if(selectedPatient.getPic() != null && !"".equals(selectedPatient.getPic())) {
+            Picasso.with(getApplicationContext())
+                    .load(selectedPatient.getPic())
+                    .into(img);
+        }
         TextView tv_name = (TextView)findViewById(R.id.tv_name);
         TextView tv_dob = (TextView)findViewById(R.id.tv_dob);
         TextView tv_registeredDate = (TextView)findViewById(R.id.tv_registered_date);

@@ -37,14 +37,6 @@ public class NurseManageActivity extends BaseActivity implements Serializable {
             }
         });
 
-        backBtn = (Button)findViewById(R.id.btn_back);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
         findViewById(R.id.cv_edit_patient_record).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

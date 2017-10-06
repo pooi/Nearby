@@ -81,9 +81,11 @@ public class PatientSearchListCustomAdapter extends RecyclerView.Adapter<Patient
         final Patient patient = list.get(position);
         final int pos = position;
 
-        Picasso.with(context)
-                .load(patient.getPic())
-                .into(holder.img);
+        if(patient.getPic() != null && !"".equals(patient.getPic())) {
+            Picasso.with(context)
+                    .load(patient.getPic())
+                    .into(holder.img);
+        }
         holder.tv_name.setText(patient.getName());
         holder.tv_dob.setText(AdditionalFunc.getDateString((long)patient.getDob()));
         holder.btn_select.setOnClickListener(new View.OnClickListener() {

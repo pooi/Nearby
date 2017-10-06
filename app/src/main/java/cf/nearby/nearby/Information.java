@@ -13,5 +13,6 @@ public class Information {
 
     // Activity Name
     public static final String NURSE_MANAGE_MENU = "nurse_manage_menu";
+    public static final String NURSE_RECORD_MENU = "nurse_record_menu";
 
 }

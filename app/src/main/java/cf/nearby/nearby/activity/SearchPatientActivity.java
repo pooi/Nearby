@@ -23,6 +23,7 @@ import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
 import cf.nearby.nearby.adapter.PatientSearchListCustomAdapter;
 import cf.nearby.nearby.nurse.NurseManageDetailActivity;
+import cf.nearby.nearby.nurse.NurseRecordActivity;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.DividerItemDecoration;
@@ -203,6 +204,12 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
         switch (nextActivity){
             case Information.NURSE_MANAGE_MENU: {
                 Intent intent = new Intent(SearchPatientActivity.this, NurseManageDetailActivity.class);
+                intent.putExtra("patient", patient);
+                startActivity(intent);
+                break;
+            }
+            case Information.NURSE_RECORD_MENU:{
+                Intent intent = new Intent(SearchPatientActivity.this, NurseRecordActivity.class);
                 intent.putExtra("patient", patient);
                 startActivity(intent);
                 break;

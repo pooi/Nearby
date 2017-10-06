@@ -9,6 +9,17 @@
 		return $s1;
 	}
 
+	function getMilliseconds($year, $month, $day){
+		if(strlen($month) <2){
+				$month = "0".$month;
+		}
+		if(strlen($day) <2){
+				$day = "0".$day;
+		}
+		$dob = strtotime($year.'-'.$month.'-'.$day) * 1000;
+		return $dob;
+	}
+
 	ini_set('max_execution_time','600');
 	ini_set('max_input_time','600');
 	ini_set('memory_limit','100');
@@ -117,9 +128,39 @@
 
 			echo "]}";
 
-		}else if($service == 'login_user'){
+		}else if($service == 'registerPatient'){
 
+			$patient_fn = $_POST['patient_fn'];
+			$patient_ln = $_POST['patient_ln'];
+			$patient_gender = $_POST['patient_gender'];
+			$dob = $_POST['patient_dob'];
+			$patient_dob = (double)$dob;
+			$patient_hegiht = $_POST['patient_height'];
+			$patient_bla = (double)$_POST['patient_bla'];
+			// echo $dob;
+			$patient_zip = $_POST['patient_zip'];
+			$patient_address = $_POST['patient_address'];
+			$patient_phone = $_POST['patient_phone'];
+			$patient_license = $_POST['patient_license'];
+			$patient_major = $_POST['patient_major'];
+			$start_date = 1;
+			$patient_description = $_POST['patient_description'];
+			// echo '<br>';
+			$current_time = time() * 1000;
+			// echo 'timestamp : ' . $timestamp;
+			// echo '<br>';
 
+			$sql = "INSERT INTO
+					patient(first_name, last_name, gender, address, zip, phone, date_of_birth, height, basic_living_allowance, start_date, description, registered_date)
+					VALUES('$patient_fn', '$patient_ln', '$patient_gender', '$patient_address', '$patient_zip', '$patient_phone', '$patient_dob', '$patient_hegiht', '$patient_bla', '$start_date', '$patient_description', '$current_time');";
+
+			// echo $sql;
+			$ret = mysqli_query($con, $sql);
+			if($ret == '1'){
+				echo json_encode(array('status'=>'success', 'message'=>"save success"));
+			}else{
+				echo json_encode(array('status'=>'fail', 'message'=>"save fail"));
+			}
 
 		}else if($service == 'getPatientList'){
 
@@ -158,13 +199,13 @@
 			}else{
 				exit();
 			}
-			
+
 			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
-			
+
 			$i=0;
-			
+
 			while($row = mysqli_fetch_array($ret)){
-			
+
 				$id = $row['id'];
 				$first_name = $row['first_name'];
 				$last_name = $row['last_name'];
@@ -214,15 +255,15 @@
 				\"location_phone\":\"$location_phone\",
 				\"location_url\":\"$location_url\"
 				}";
-				
+
 				if($i<$count-1){
 					echo ",";
 				}
-				
+
 				$i++;
-				
+
 			}
-			
+
 			echo "]}";
 
 		}else if($service == "getPatientMedicineList"){
@@ -240,13 +281,13 @@
 			}else{
 				exit();
 			}
-			
+
 			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
-			
+
 			$i=0;
-			
+
 			while($row = mysqli_fetch_array($ret)){
-			
+
 				$id = $row['id'];
 				$title = $row['title'];
 				$start_date = $row['start_date'];
@@ -261,28 +302,28 @@
 				\"patient_id\":\"$patient_id\",
 				\"registered_date\":\"$registered_date\"
 				}";
-				
+
 				if($i<$count-1){
 					echo ",";
 				}
-				
+
 				$i++;
-				
+
 			}
-			
+
 			echo "]}";
 
 		}else if($service == "getPatientMedicineDetailList"){
-			
+
 			$patient_medicine_id = $_POST['patient_medicine_id'];
 
-			$sql = "SELECT A.*, B.id as medicine_id, B.type as medicine_type, B.code as medicine_code, B.name as medicine_name, B.company as medicine_company, B.standard as medicine_standard, B.unit as medicine_unit 
+			$sql = "SELECT A.*, B.id as medicine_id, B.type as medicine_type, B.code as medicine_code, B.name as medicine_name, B.company as medicine_company, B.standard as medicine_standard, B.unit as medicine_unit
 					FROM patient_medicine_detail as A LEFT OUTER JOIN (
 					SELECT *
 					FROM medicine
 					GROUP BY id) as B
 					ON (B.id = A.medicine_id)
-					WHERE A.patient_medicine_id like '$patient_medicine_id' 
+					WHERE A.patient_medicine_id like '$patient_medicine_id'
 					GROUP BY A.id;";
 
 			$ret = mysqli_query($con, $sql);
@@ -291,13 +332,13 @@
 			}else{
 				exit();
 			}
-			
+
 			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
-			
+
 			$i=0;
-			
+
 			while($row = mysqli_fetch_array($ret)){
-			
+
 				$id = $row['id'];
 				$patient_medicine_id = $row['patient_medicine_id'];
 				$medicine_id = $row['medicine_id'];
@@ -328,15 +369,15 @@
 				\"medicine_standard\":\"$medicine_standard\",
 				\"medicine_unit\":\"$medicine_unit\"
 				}";
-				
+
 				if($i<$count-1){
 					echo ",";
 				}
-				
+
 				$i++;
-				
+
 			}
-			
+
 			echo "]}";
 
 		}else if($service == "getMedicineList"){
@@ -358,13 +399,13 @@
 			}else{
 				exit();
 			}
-			
+
 			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
-			
+
 			$i=0;
-			
+
 			while($row = mysqli_fetch_array($ret)){
-			
+
 				$id = $row['id'];
 				$type = $row['type'];
 				$code = $row['code'];
@@ -381,15 +422,15 @@
 				\"standard\":\"$standard\",
 				\"unit\":\"$unit\"
 				}";
-				
+
 				if($i<$count-1){
 					echo ",";
 				}
-				
+
 				$i++;
-				
+
 			}
-			
+
 			echo "]}";
 
 		}else if($service == "save_patient_medicine"){
@@ -401,7 +442,7 @@
 			$num_of_detail = $_POST['count'];
 			$registered_date = time() * 1000;
 
-			$sql = "INSERT INTO patient_medicine(title, start_date, finish_date, patient_id, registered_date) 
+			$sql = "INSERT INTO patient_medicine(title, start_date, finish_date, patient_id, registered_date)
 					VALUES('$title', '$start_date', '$finish_date', '$patient_id', '$registered_date');";
 
 			$ret = mysqli_query($con, $sql);
@@ -417,7 +458,7 @@
 				$time = $_POST['time'.$i];
 				$medicine_id = $_POST['medicine_id'.$i];
 
-				$sql2 = "INSERT INTO patient_medicine_detail(patient_medicine_id, medicine_id, single_dose, num_of_daily_dose, total_dosing_days, description, time) 
+				$sql2 = "INSERT INTO patient_medicine_detail(patient_medicine_id, medicine_id, single_dose, num_of_daily_dose, total_dosing_days, description, time)
 						VALUES('$patient_medicine_id', '$medicine_id', '$sd', '$ndd', '$tdd', '$description', '$time');";
 				$ret2 = mysqli_query($con, $sql2);
 				if($ret2 != 1){
@@ -434,7 +475,7 @@
 
 
 		}else if($service == "getPatientSymptomList"){
-			
+
 			$patient_id = $_POST['patient_id'];
 
 			$page = $_POST['page'];
@@ -448,13 +489,13 @@
 			}else{
 				exit();
 			}
-			
+
 			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
-			
+
 			$i=0;
-			
+
 			while($row = mysqli_fetch_array($ret)){
-			
+
 				$id = $row['id'];
 				$patient_id = $row['patient_id'];
 				$description = $row['description'];
@@ -469,25 +510,25 @@
 				\"description\":\"$description\",
 				\"registered_date\":\"$registered_date\"
 				}";
-				
+
 				if($i<$count-1){
 					echo ",";
 				}
-				
+
 				$i++;
-				
+
 			}
-			
+
 			echo "]}";
 
 		}else if($service == "save_patient_symptom"){
-			
+
 			$patient_id = $_POST['patient_id'];
 			$start_date = $_POST['start_date'];
 			$description = $_POST['description'];
 			$registered_date = time() * 1000;
 
-			$sql = "INSERT INTO symptom_history(patient_id, description, start_date, finish_date, registered_date) 
+			$sql = "INSERT INTO symptom_history(patient_id, description, start_date, finish_date, registered_date)
 					VALUES('$patient_id', '$description', '$start_date', '0', '$registered_date');";
 
 			$ret = mysqli_query($con, $sql);
@@ -504,20 +545,20 @@
 			$patient_id = $_POST['patient_id'];
 
 			$sql = "select * from weight_history WHERE patient_id = '$patient_id' ORDER BY id ASC;";
-			
+
 			$ret = mysqli_query($con, $sql);
 			if($ret){
 				$count = mysqli_num_rows($ret);
 			}else{
 				exit();
 			}
-			
+
 			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
-			
+
 			$i=0;
-			
+
 			while($row = mysqli_fetch_array($ret)){
-			
+
 				$id = $row['id'];
 				$patient_id = $row['patient_id'];
 				$weight = $row['weight'];
@@ -528,15 +569,15 @@
 				\"weight\":\"$weight\",
 				\"registered_date\":\"$registered_date\"
 				}";
-				
+
 				if($i<$count-1){
 					echo ",";
 				}
-				
+
 				$i++;
-				
+
 			}
-			
+
 			echo "]}";
 
 		}else if($service == "savePatientWeight"){
@@ -544,7 +585,7 @@
 			$patient_id = $_POST['patient_id'];
 			$weight = $_POST['weight'];
 			$registered_date = time() * 1000;
-			
+
 			$sql = "INSERT INTO weight_history(patient_id, weight, registered_date) VALUES('$patient_id', '$weight', '$registered_date');";
 
 			$ret = mysqli_query($con, $sql);
@@ -552,7 +593,7 @@
 			if($ret == '1'){
 				echo json_encode(array('status'=>'success', 'message'=>"save success"));
 			}else{
-				echo json_encode(array('status'=>'fail1', 'message'=>"save fail"));
+				echo json_encode(array('status'=>'fail', 'message'=>"save fail"));
 			}
 
 		}
