@@ -1,7 +1,9 @@
 package cf.nearby.nearby.nurse;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,15 +17,18 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.w3c.dom.Text;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
 import cf.nearby.nearby.obj.Employee;
+import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.ParsePHP;
 
 
@@ -52,6 +57,14 @@ public class RegisterPatientActivity extends AppCompatActivity {
 
     private RadioButton male;
     private RadioButton female;
+
+    private long start_Date;
+    private long register_Date;
+    private long date_of_Birth;
+
+    private boolean isSelectStartDate;
+    private boolean isSelectRegisterDate;
+    private boolean isSelectDob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +102,19 @@ public class RegisterPatientActivity extends AppCompatActivity {
                 .theme(Theme.LIGHT)
                 .build();
 
+            startdate.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    startDatePick();
+                }
+            });
+
+            registerdate.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                 registerDatePick();
+                }
+            });
             back_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -108,8 +134,6 @@ public class RegisterPatientActivity extends AppCompatActivity {
     }
     private void register_patient() {
         boolean check = CheckInfo();
-        System.out.print(check);
-        System.out.print(patient_fn.toString());
         if (check) {
             HashMap<String, String> map = new HashMap<String, String>();
             map.put("service", "registerPatient");
@@ -119,6 +143,9 @@ public class RegisterPatientActivity extends AppCompatActivity {
             map.put("patient_zip", patient_zip.getText().toString());
             map.put("patient_gender", textradio());
             map.put("patient_pic","");
+            map.put("start_date", Long.toString(start_Date));
+            map.put("register_date", Long.toString(register_Date));
+            map.put("dob", Long.toString(date_of_Birth));
             map.put("location_id", StartActivity.employee.getLocation().getId());
             map.put("patient_phone", patient_phone.getText().toString());
             map.put("patient_bla", chbla());
@@ -160,6 +187,80 @@ public class RegisterPatientActivity extends AppCompatActivity {
             return "0";
     }
 
+    private void startDatePick(){
+        Calendar now = Calendar.getInstance();
+        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        start_Date = AdditionalFunc.getMilliseconds(year, monthOfYear+1, dayOfMonth);
+                        isSelectStartDate = true;
+                        setDateText(startdate, AdditionalFunc.getDateString(start_Date));
+                        registerDatePick();
+                    }
+                },
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        dpd.setTitle(getString(R.string.startdate));
+        dpd.setVersion(DatePickerDialog.Version.VERSION_2);
+        dpd.show(getFragmentManager(), "Datepickerdialog");
+    }
+
+    private void registerDatePick(){
+        Calendar now = Calendar.getInstance();
+        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        register_Date = AdditionalFunc.getMilliseconds(year, monthOfYear+1, dayOfMonth);
+                        isSelectRegisterDate = true;
+                        setDateText(registerdate, AdditionalFunc.getDateString(register_Date));
+                        dobDatePick();
+                    }
+                },
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        dpd.setTitle(getString(R.string.registerdate));
+        dpd.setVersion(DatePickerDialog.Version.VERSION_2);
+        dpd.show(getFragmentManager(), "Datepickerdialog");
+    }
+
+    private void dobDatePick(){
+        Calendar now = Calendar.getInstance();
+        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        date_of_Birth = AdditionalFunc.getMilliseconds(year, monthOfYear+1, dayOfMonth);
+                        isSelectDob = true;
+                        setDateText(dob, AdditionalFunc.getDateString(date_of_Birth));
+                    }
+                },
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        dpd.setTitle(getString(R.string.dob));
+        dpd.setVersion(DatePickerDialog.Version.VERSION_2);
+        dpd.show(getFragmentManager(), "Datepickerdialog");
+    }
+
+    private void setDateText(TextView tv, String text){
+
+        tv.setText(text);
+        tv.setTextColor(getColorId(R.color.dark_gray));
+        tv.setTypeface(tv.getTypeface(), Typeface.NORMAL);
+
+    }
+
+    public int getColorId(int id){
+        return ContextCompat.getColor(getApplicationContext(), id);
+    }
+
     private boolean CheckInfo(){
 
         boolean patientinfo1 = !patient_fn.getText().toString().isEmpty();
@@ -169,7 +270,7 @@ public class RegisterPatientActivity extends AppCompatActivity {
         boolean patientinfo5 = !patient_zip.getText().toString().isEmpty();
         boolean patientinfo = !patient_height.getText().toString().isEmpty();
         boolean patientinfo6 = checkradiobtn();
-        boolean status = patientinfo && patientinfo1 && patientinfo2 && patientinfo3 && patientinfo4 && patientinfo5 && patientinfo6;
+        boolean status = patientinfo && patientinfo1 && patientinfo2 && patientinfo3 && patientinfo4 && patientinfo5 && patientinfo6 &&isSelectDob &&isSelectRegisterDate&&isSelectStartDate;
 
         if(status){
             return true;

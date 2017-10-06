@@ -133,12 +133,14 @@
 			$patient_fn = $_POST['patient_fn'];
 			$patient_ln = $_POST['patient_ln'];
 			$patient_gender = $_POST['patient_gender'];
-			$dob = $_POST['patient_dob'];
-			$patient_dob = (double)$dob;
+			$dob = $_POST['dob'];
 			$patient_hegiht = $_POST['patient_height'];
 			$patient_bla = (double)$_POST['patient_bla'];
+			$location_id = $_POST['location_id'];
 			// echo $dob;
 			$patient_zip = $_POST['patient_zip'];
+			$start_date = $_POST['start_date'];
+			$register_date = $_POST['register_date'];
 			$patient_address = $_POST['patient_address'];
 			$patient_phone = $_POST['patient_phone'];
 			$patient_license = $_POST['patient_license'];
@@ -151,9 +153,9 @@
 			// echo '<br>';
 
 			$sql = "INSERT INTO
-					patient(first_name, last_name, gender, address, zip, phone, date_of_birth, height, basic_living_allowance, start_date, description, registered_date)
-					VALUES('$patient_fn', '$patient_ln', '$patient_gender', '$patient_address', '$patient_zip', '$patient_phone', '$patient_dob', '$patient_hegiht', '$patient_bla', '$start_date', '$patient_description', '$current_time');";
-
+					patient(first_name, last_name, gender, address, zip, phone, date_of_birth, height, basic_living_allowance, start_date, description, registered_date, location_id)
+					VALUES('$patient_fn', '$patient_ln', '$patient_gender', '$patient_address', '$patient_zip', '$patient_phone', '$dob', '$patient_hegiht', '$patient_bla', '$start_date', '$patient_description', '$register_date', '$location_id');";
+			echo $sql;
 			// echo $sql;
 			$ret = mysqli_query($con, $sql);
 			if($ret == '1'){
