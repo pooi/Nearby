@@ -69,12 +69,12 @@
                 >
 
                 <Button
-                    android:id="@+id/btn_complete"
+                    android:id="@+id/btn_medicine"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:background="@drawable/two_btn_active_right_top_radius"
-                    android:text="@string/completed_take_medicine_srt"
+                    android:text="@string/take_medicine_srt"
                     android:textColor="@color/white"
                     android:textSize="@dimen/default_font_size"
                     />

@@ -12,20 +12,26 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.activity.RecordMealActivity;
+import cf.nearby.nearby.activity.RecordMedicineActivity;
 import cf.nearby.nearby.obj.HaveMeal;
 import cf.nearby.nearby.obj.Patient;
+import cf.nearby.nearby.obj.TakeMedicine;
 import cf.nearby.nearby.util.AdditionalFunc;
 
 public class NurseRecordActivity extends BaseActivity {
 
-    public static final int UPDATE_MEAL = 400;
+    public static final int UPDATE_MEDICINE = 402;
+    public static final int UPDATE_MEAL = 403;
 
     private Button saveBtn;
 
     private Patient selectedPatient;
+    private ArrayList<TakeMedicine> takeMedicines;
     private HaveMeal haveMeal;
 
     @Override
@@ -35,6 +41,7 @@ public class NurseRecordActivity extends BaseActivity {
 
         selectedPatient = (Patient)getIntent().getSerializableExtra("patient");
         haveMeal = new HaveMeal();
+        takeMedicines = new ArrayList<>();
 
         init();
 
@@ -51,6 +58,15 @@ public class NurseRecordActivity extends BaseActivity {
 
         saveBtn = (Button)findViewById(R.id.btn_save);
 
+        findViewById(R.id.cv_record_patient_medicine).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NurseRecordActivity.this, RecordMedicineActivity.class);
+                intent.putExtra("take_medicines", takeMedicines);
+                intent.putExtra("patient", selectedPatient);
+                startActivityForResult(intent, UPDATE_MEDICINE);
+            }
+        });
         findViewById(R.id.cv_record_patient_meal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,11 +122,14 @@ public class NurseRecordActivity extends BaseActivity {
 
     private void checkChangeBtn(){
 
+        // 복용약 여부
+        boolean isTakeMedicine = takeMedicines != null && takeMedicines.size() > 0;
+        changeBtnColor((CardView)findViewById(R.id.cv_record_patient_medicine), isTakeMedicine);
         // 식사 여부
         boolean isHaveMeal = haveMeal.getType() != null && !haveMeal.getType().isEmpty();
         changeBtnColor((CardView)findViewById(R.id.cv_record_patient_meal), isHaveMeal);
 
-        boolean status = isHaveMeal;
+        boolean status = isTakeMedicine && isHaveMeal;
 
         saveBtn.setEnabled(status);
         if(status){
@@ -132,6 +151,11 @@ public class NurseRecordActivity extends BaseActivity {
                     checkChangeBtn();
                 }
                 break;
+            case UPDATE_MEDICINE:
+                if(data != null){
+                    takeMedicines = (ArrayList<TakeMedicine>)data.getSerializableExtra("take_medicines");
+                    checkChangeBtn();
+                }
             default:
                 break;
         }

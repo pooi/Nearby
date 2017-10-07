@@ -55,6 +55,8 @@
     <string name="modify_srt">수정</string>
     <string name="nursing_home_meal_srt">병원 식단</string>
     <string name="water_gruel">미음</string>
+    <string name="etc">기타</string>
+    <string name="take_medicine_srt">복용</string>
 
 
     <!-- Menu -->

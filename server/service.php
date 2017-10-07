@@ -271,11 +271,17 @@
 		}else if($service == "getPatientMedicineList"){
 
 			$patient_id = $_POST['patient_id'];
+			$isAvailable = $_POST['isAvailable'];
+			$current_time = time() * 1000;
 
 			$page = $_POST['page'];
 			$page = $page*30;
 
-			$sql = "select * from patient_medicine WHERE patient_id = '$patient_id' ORDER BY id DESC LIMIT $page, 30;";
+			$sql = "select * from patient_medicine WHERE patient_id = '$patient_id' ";
+			if($isAvailable == '1'){
+				$sql = $sql."and finish_date >= '$current_time' ";
+			}
+			$sql = $sql."ORDER BY id DESC LIMIT $page, 30;";
 
 			$ret = mysqli_query($con, $sql);
 			if($ret){
