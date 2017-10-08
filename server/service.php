@@ -604,6 +604,43 @@
 				echo json_encode(array('status'=>'fail', 'message'=>"save fail"));
 			}
 
+		}else if($service == "getSymptomList"){
+
+			$page = $_POST['page'];
+			$page = $page*30;
+
+			$sql = "SELECT * FROM symptom LIMIT $page, 30;";
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+			$i=0;
+
+			while($row = mysqli_fetch_array($ret)){
+
+				$id = $row['id'];
+				$description = $row['description'];
+
+				echo "{\"id\":\"$id\",
+				\"description\":\"$description\"
+				}";
+
+				if($i<$count-1){
+					echo ",";
+				}
+
+				$i++;
+
+			}
+
+			echo "]}";
+
 		}
 
 	}

@@ -18,8 +18,10 @@ import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.activity.RecordMealActivity;
 import cf.nearby.nearby.activity.RecordMedicineActivity;
+import cf.nearby.nearby.activity.RecordRemarkActivity;
 import cf.nearby.nearby.obj.HaveMeal;
 import cf.nearby.nearby.obj.Patient;
+import cf.nearby.nearby.obj.PatientRemark;
 import cf.nearby.nearby.obj.TakeMedicine;
 import cf.nearby.nearby.util.AdditionalFunc;
 
@@ -27,11 +29,13 @@ public class NurseRecordActivity extends BaseActivity {
 
     public static final int UPDATE_MEDICINE = 402;
     public static final int UPDATE_MEAL = 403;
+    public static final int UPDATE_REMARK = 404;
 
     private Button saveBtn;
 
     private Patient selectedPatient;
     private ArrayList<TakeMedicine> takeMedicines;
+    private ArrayList<PatientRemark> remarks;
     private HaveMeal haveMeal;
 
     @Override
@@ -42,6 +46,7 @@ public class NurseRecordActivity extends BaseActivity {
         selectedPatient = (Patient)getIntent().getSerializableExtra("patient");
         haveMeal = new HaveMeal();
         takeMedicines = new ArrayList<>();
+        remarks = new ArrayList<>();
 
         init();
 
@@ -73,6 +78,15 @@ public class NurseRecordActivity extends BaseActivity {
                 Intent intent = new Intent(NurseRecordActivity.this, RecordMealActivity.class);
                 intent.putExtra("have_meal", haveMeal);
                 startActivityForResult(intent, UPDATE_MEAL);
+            }
+        });
+        findViewById(R.id.cv_record_remark).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NurseRecordActivity.this, RecordRemarkActivity.class);
+                intent.putExtra("remarks", remarks);
+                intent.putExtra("patient", selectedPatient);
+                startActivityForResult(intent, UPDATE_REMARK);
             }
         });
 
@@ -128,8 +142,11 @@ public class NurseRecordActivity extends BaseActivity {
         // 식사 여부
         boolean isHaveMeal = haveMeal.getType() != null && !haveMeal.getType().isEmpty();
         changeBtnColor((CardView)findViewById(R.id.cv_record_patient_meal), isHaveMeal);
+        // 특이사항
+        boolean isRemark = remarks != null && remarks.size() > 0;
+        changeBtnColor((CardView)findViewById(R.id.cv_record_remark), isRemark);
 
-        boolean status = isTakeMedicine && isHaveMeal;
+        boolean status = isTakeMedicine || isHaveMeal || isRemark;
 
         saveBtn.setEnabled(status);
         if(status){
@@ -156,6 +173,13 @@ public class NurseRecordActivity extends BaseActivity {
                     takeMedicines = (ArrayList<TakeMedicine>)data.getSerializableExtra("take_medicines");
                     checkChangeBtn();
                 }
+                break;
+            case UPDATE_REMARK:
+                if(data != null){
+                    remarks = (ArrayList<PatientRemark>)data.getSerializableExtra("remarks");
+                    checkChangeBtn();
+                }
+                break;
             default:
                 break;
         }
