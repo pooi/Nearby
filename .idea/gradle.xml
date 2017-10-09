@@ -7,8 +7,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
+            <option value="$USER_HOME$/Google 드라이브/개발/dev/Android/Nearby" />
+            <option value="$USER_HOME$/Google 드라이브/개발/dev/Android/Nearby/app" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.R;
+import cf.nearby.nearby.activity.CameraActivity;
 import cf.nearby.nearby.activity.RecordMealActivity;
 import cf.nearby.nearby.activity.RecordMedicineActivity;
 import cf.nearby.nearby.activity.RecordRemarkActivity;
@@ -30,6 +31,7 @@ public class NurseRecordActivity extends BaseActivity {
     public static final int UPDATE_MEDICINE = 402;
     public static final int UPDATE_MEAL = 403;
     public static final int UPDATE_REMARK = 404;
+    public static final int UPDATE_PHOTO = 405;
 
     private Button saveBtn;
 
@@ -37,6 +39,7 @@ public class NurseRecordActivity extends BaseActivity {
     private ArrayList<TakeMedicine> takeMedicines;
     private ArrayList<PatientRemark> remarks;
     private HaveMeal haveMeal;
+//    private byte[] photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class NurseRecordActivity extends BaseActivity {
         haveMeal = new HaveMeal();
         takeMedicines = new ArrayList<>();
         remarks = new ArrayList<>();
+        CameraActivity.photo = new byte[0];
+//        photo = new byte[0];
 
         init();
 
@@ -87,6 +92,14 @@ public class NurseRecordActivity extends BaseActivity {
                 intent.putExtra("remarks", remarks);
                 intent.putExtra("patient", selectedPatient);
                 startActivityForResult(intent, UPDATE_REMARK);
+            }
+        });
+        findViewById(R.id.cv_record_photo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NurseRecordActivity.this, CameraActivity.class);
+//                intent.putExtra("photo", photo);
+                startActivityForResult(intent, UPDATE_PHOTO);
             }
         });
 
@@ -145,8 +158,11 @@ public class NurseRecordActivity extends BaseActivity {
         // 특이사항
         boolean isRemark = remarks != null && remarks.size() > 0;
         changeBtnColor((CardView)findViewById(R.id.cv_record_remark), isRemark);
+        // 사진
+        boolean isPhoto = CameraActivity.photo.length > 0;
+        changeBtnColor((CardView)findViewById(R.id.cv_record_photo), isPhoto);
 
-        boolean status = isTakeMedicine || isHaveMeal || isRemark;
+        boolean status = isTakeMedicine || isHaveMeal || isRemark || isPhoto;
 
         saveBtn.setEnabled(status);
         if(status){
@@ -179,6 +195,13 @@ public class NurseRecordActivity extends BaseActivity {
                     remarks = (ArrayList<PatientRemark>)data.getSerializableExtra("remarks");
                     checkChangeBtn();
                 }
+                break;
+            case UPDATE_PHOTO:
+//                if(data != null){
+////                    photo = data.getByteArrayExtra("photo");
+//
+//                }
+                checkChangeBtn();
                 break;
             default:
                 break;

@@ -1,5 +1,5 @@
 <h1 align=center><img src="https://github.com/pooi/Nearby/blob/master/image/nearby%20logo.png" width=40%/></h1>
-<p align=center>요양원 전자정보 기록 시스템</p>
+<p align=center>요양원 전자정보 기록 및 조회 시스템</p>
 <br>
 
 ## Feature

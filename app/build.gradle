@@ -53,5 +53,7 @@ dependencies {
     compile 'com.wang.avi:library:2.1.2'
     compile 'com.wdullaer:materialdatetimepicker:3.3.1'
     compile 'com.diogobernardino:williamchart:2.5.0'
+    compile 'com.karumi:dexter:4.1.0'
+    compile 'com.flurgle:camerakit:0.9.17'
     testCompile 'junit:junit:4.12'
 }

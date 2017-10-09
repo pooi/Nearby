@@ -57,6 +57,8 @@
     <string name="water_gruel">미음</string>
     <string name="etc">기타</string>
     <string name="take_medicine_srt">복용</string>
+    <string name="take_photo_srt">촬영</string>
+    <string name="take_photo_again_srt">다시찍기</string>
 
 
     <!-- Menu -->
