@@ -113,7 +113,7 @@ public class SearchPatientByLocationIdActivity extends BaseActivity implements O
         if(!isLoadFinish) {
             loading.show();
             HashMap<String, String> map = new HashMap<>();
-            map.put("service", "getPatientList");
+            map.put("service", "getPatientListByLocationId");
             map.put("location_id", StartActivity.employee.getLocation().getId());
             map.put("page", Integer.toString(page));
 

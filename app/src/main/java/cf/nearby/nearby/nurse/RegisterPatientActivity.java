@@ -27,12 +27,16 @@ import java.util.HashMap;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
+import cf.nearby.nearby.activity.SearchPatientActivity;
 import cf.nearby.nearby.obj.Employee;
+import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.ParsePHP;
 
 
 public class RegisterPatientActivity extends AppCompatActivity {
+
+    private String nextActivity;
 
     private MaterialEditText patient_ln;
     private MaterialEditText patient_fn;
@@ -70,6 +74,8 @@ public class RegisterPatientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_patient);
+        Intent intent = getIntent();
+        nextActivity = intent.getStringExtra("nextActivity");
         init();
     }
 
@@ -126,13 +132,17 @@ public class RegisterPatientActivity extends AppCompatActivity {
             register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                register_patient();
+                int a = register_patient();
+                if(a==1){
                 Intent intent = new Intent(RegisterPatientActivity.this,NurseRegisterActivity.class);
-                startActivity(intent);
+                startActivity(intent);}
+                else{
+                    progressDialog.hide();
+                }
             }
             });
     }
-    private void register_patient() {
+    private int register_patient() {
         boolean check = CheckInfo();
         if (check) {
             HashMap<String, String> map = new HashMap<String, String>();
@@ -158,7 +168,10 @@ public class RegisterPatientActivity extends AppCompatActivity {
                     System.out.print(data);
                 }
             }.start();
+            return 1;
         }
+        else
+            return 0;
     }
 
     private boolean checkradiobtn(){
@@ -273,12 +286,18 @@ public class RegisterPatientActivity extends AppCompatActivity {
         boolean status = patientinfo && patientinfo1 && patientinfo2 && patientinfo3 && patientinfo4 && patientinfo5 && patientinfo6 &&isSelectDob &&isSelectRegisterDate&&isSelectStartDate;
 
         if(status){
+            register_btn.setBackgroundColor(getColorId(R.color.colorAccent));
             return true;
         }
         else{
             progressDialog.setContent(R.string.fail);
             progressDialog.show();
+
             return false;
         }
+    }
+
+    public void redirectNextActivity(Patient patient){
+        Intent intent = new Intent(RegisterPatientActivity.this, RegisterPatientActivity.class);
     }
 }
