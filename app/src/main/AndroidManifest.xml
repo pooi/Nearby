@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -211,7 +211,8 @@
                 <category android:name="cf.nearby.nearby" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SearchPatientByLocationIdActivity"
+        <activity
+            android:name=".activity.SearchPatientByLocationIdActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
@@ -223,6 +224,17 @@
         </activity>
         <activity
             android:name=".activity.CameraActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="cf.nearby.nearby" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.RecordVitalSignActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">

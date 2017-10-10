@@ -20,6 +20,7 @@ import cf.nearby.nearby.activity.CameraActivity;
 import cf.nearby.nearby.activity.RecordMealActivity;
 import cf.nearby.nearby.activity.RecordMedicineActivity;
 import cf.nearby.nearby.activity.RecordRemarkActivity;
+import cf.nearby.nearby.activity.RecordVitalSignActivity;
 import cf.nearby.nearby.obj.HaveMeal;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.obj.PatientRemark;
@@ -28,6 +29,7 @@ import cf.nearby.nearby.util.AdditionalFunc;
 
 public class NurseRecordActivity extends BaseActivity {
 
+    public static final int UPDATE_VITAL = 401;
     public static final int UPDATE_MEDICINE = 402;
     public static final int UPDATE_MEAL = 403;
     public static final int UPDATE_REMARK = 404;
@@ -68,6 +70,13 @@ public class NurseRecordActivity extends BaseActivity {
 
         saveBtn = (Button)findViewById(R.id.btn_save);
 
+        findViewById(R.id.cv_record_vital_sign).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NurseRecordActivity.this, RecordVitalSignActivity.class);
+                startActivityForResult(intent, UPDATE_VITAL);
+            }
+        });
         findViewById(R.id.cv_record_patient_medicine).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,6 +187,9 @@ public class NurseRecordActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
+            case UPDATE_VITAL:
+                checkChangeBtn();
+                break;
             case UPDATE_MEAL:
                 if(data != null){
                     haveMeal = (HaveMeal)data.getSerializableExtra("have_meal");
