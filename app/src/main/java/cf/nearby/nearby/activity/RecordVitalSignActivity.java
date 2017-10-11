@@ -17,6 +17,7 @@ import java.util.Random;
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.nurse.NurseRecordActivity;
+import cf.nearby.nearby.obj.VitalSign;
 
 public class RecordVitalSignActivity extends BaseActivity {
 
@@ -29,6 +30,7 @@ public class RecordVitalSignActivity extends BaseActivity {
     private LinearLayout li_resultMsg;
     private TextView tv_resultMsg;
 
+    private ArrayList<VitalSign> vitalSigns;
     private ArrayList<Double> list;
     private int time;
     private boolean recordEnable;
@@ -38,6 +40,7 @@ public class RecordVitalSignActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_vital_sign);
 
+        vitalSigns = (ArrayList<VitalSign>)getIntent().getSerializableExtra("vital_signs");
         list = new ArrayList<>();
         time = 0;
         recordEnable = true;
@@ -59,12 +62,16 @@ public class RecordVitalSignActivity extends BaseActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                VitalSign sign = new VitalSign();
+                sign.setPulse(getAverage());
+                vitalSigns.add(sign);
                 Intent intent = new Intent();
-//                intent.putExtra("remarks", remarks);
+                intent.putExtra("vital_signs", vitalSigns);
                 setResult(NurseRecordActivity.UPDATE_VITAL, intent);
                 finish();
             }
         });
+        saveBtn.setVisibility(View.GONE);
 
         tv_time = (TextView)findViewById(R.id.tv_time);
         li_result = (LinearLayout)findViewById(R.id.li_result);
@@ -86,13 +93,10 @@ public class RecordVitalSignActivity extends BaseActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            double avg = 0.0;
-                            for(double d : list){
-                                avg += d;
-                            }
-                            avg /= list.size();
+                            double avg = getAverage();
                             tv_resultMsg.setText(avg + "");
 
+                            saveBtn.setVisibility(View.VISIBLE);
                             sc_result.setVisibility(View.GONE);
                             li_resultMsg.setVisibility(View.VISIBLE);
                         }
@@ -123,6 +127,15 @@ public class RecordVitalSignActivity extends BaseActivity {
             }
         }.start();
 
+    }
+
+    private double getAverage(){
+        double avg = 0.0;
+        for(double d : list){
+            avg += d;
+        }
+        avg /= list.size();
+        return avg;
     }
 
     private void createNewData(){

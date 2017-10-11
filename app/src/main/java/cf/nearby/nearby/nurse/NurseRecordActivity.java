@@ -25,6 +25,7 @@ import cf.nearby.nearby.obj.HaveMeal;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.obj.PatientRemark;
 import cf.nearby.nearby.obj.TakeMedicine;
+import cf.nearby.nearby.obj.VitalSign;
 import cf.nearby.nearby.util.AdditionalFunc;
 
 public class NurseRecordActivity extends BaseActivity {
@@ -38,6 +39,7 @@ public class NurseRecordActivity extends BaseActivity {
     private Button saveBtn;
 
     private Patient selectedPatient;
+    private ArrayList<VitalSign> vitalSigns;
     private ArrayList<TakeMedicine> takeMedicines;
     private ArrayList<PatientRemark> remarks;
     private HaveMeal haveMeal;
@@ -49,6 +51,7 @@ public class NurseRecordActivity extends BaseActivity {
         setContentView(R.layout.activity_nurse_record);
 
         selectedPatient = (Patient)getIntent().getSerializableExtra("patient");
+        vitalSigns = new ArrayList<>();
         haveMeal = new HaveMeal();
         takeMedicines = new ArrayList<>();
         remarks = new ArrayList<>();
@@ -70,10 +73,12 @@ public class NurseRecordActivity extends BaseActivity {
 
         saveBtn = (Button)findViewById(R.id.btn_save);
 
+        // Menu Buttons
         findViewById(R.id.cv_record_vital_sign).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(NurseRecordActivity.this, RecordVitalSignActivity.class);
+                intent.putExtra("vital_signs", vitalSigns);
                 startActivityForResult(intent, UPDATE_VITAL);
             }
         });
@@ -112,6 +117,7 @@ public class NurseRecordActivity extends BaseActivity {
             }
         });
 
+        // Profile
         ImageView img = (ImageView)findViewById(R.id.img);
         if(selectedPatient.getPic() != null && !"".equals(selectedPatient.getPic())) {
             Picasso.with(getApplicationContext())
@@ -158,6 +164,9 @@ public class NurseRecordActivity extends BaseActivity {
 
     private void checkChangeBtn(){
 
+        // vital sign
+        boolean isVital = vitalSigns != null && vitalSigns.size() > 0;
+        changeBtnColor((CardView)findViewById(R.id.cv_record_vital_sign), isVital);
         // 복용약 여부
         boolean isTakeMedicine = takeMedicines != null && takeMedicines.size() > 0;
         changeBtnColor((CardView)findViewById(R.id.cv_record_patient_medicine), isTakeMedicine);
@@ -171,7 +180,7 @@ public class NurseRecordActivity extends BaseActivity {
         boolean isPhoto = CameraActivity.photo.length > 0;
         changeBtnColor((CardView)findViewById(R.id.cv_record_photo), isPhoto);
 
-        boolean status = isTakeMedicine || isHaveMeal || isRemark || isPhoto;
+        boolean status = isVital || isTakeMedicine || isHaveMeal || isRemark || isPhoto;
 
         saveBtn.setEnabled(status);
         if(status){
@@ -188,7 +197,10 @@ public class NurseRecordActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
             case UPDATE_VITAL:
-                checkChangeBtn();
+                if(data != null){
+                    vitalSigns = (ArrayList<VitalSign>)data.getSerializableExtra("vital_signs");
+                    checkChangeBtn();
+                }
                 break;
             case UPDATE_MEAL:
                 if(data != null){
