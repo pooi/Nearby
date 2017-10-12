@@ -22,88 +22,340 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cv_etc"
+    <RelativeLayout
+        android:id="@+id/rl_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="@dimen/menu_btn_radius"
-        app:cardElevation="@dimen/menu_btn_elevation"
-        app:cardBackgroundColor="@color/white"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
-        android:clipToPadding="false"
-        android:clipChildren="false"
         android:layout_below="@+id/rl_bluetooth"
-        android:layout_above="@+id/tv_time"
-        android:layout_margin="20dp"
+        android:layout_above="@+id/li_btn"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingBottom="10dp"
+        android:visibility="gone"
         >
 
-        <ScrollView
-            android:id="@+id/sc_result"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+        <!--<ScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:clipChildren="false"-->
+            <!--android:clipToPadding="false"-->
+            <!--&gt;-->
 
             <LinearLayout
-                android:id="@+id/li_result"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="10dp"
                 android:orientation="vertical"
+                android:gravity="center"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 >
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cv_temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="@dimen/menu_btn_radius"
+                    app:cardElevation="@dimen/menu_btn_elevation"
+                    app:cardBackgroundColor="@color/white"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/temperature_srt"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/default_menu_font_size"
+                            />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cv_pulse"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="@dimen/menu_btn_radius"
+                    app:cardElevation="@dimen/menu_btn_elevation"
+                    app:cardBackgroundColor="@color/white"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/pulse_srt"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/default_menu_font_size"
+                            />
+
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cv_bp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="@dimen/menu_btn_radius"
+                    app:cardElevation="@dimen/menu_btn_elevation"
+                    app:cardBackgroundColor="@color/white"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/blood_pressure_srt"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/default_menu_font_size"
+                            />
+
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
 
-        </ScrollView>
+        <!--</ScrollView>-->
 
-        <LinearLayout
-            android:id="@+id/li_result_msg"
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_measurement"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_bluetooth"
+        android:layout_above="@+id/li_btn"
+        android:visibility="visible"
+        >
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_etc"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:visibility="visible"
+            app:cardCornerRadius="@dimen/menu_btn_radius"
+            app:cardElevation="@dimen/menu_btn_elevation"
+            app:cardBackgroundColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:layout_above="@+id/tv_time"
+            android:layout_margin="20dp"
             >
 
-            <TextView
+            <ScrollView
+                android:id="@+id/sc_result"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="측정결과"
-                android:textColor="@color/gray"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                />
+                android:layout_height="match_parent"
+                >
 
-            <TextView
-                android:id="@+id/tv_result_msg"
+                <LinearLayout
+                    android:id="@+id/li_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:orientation="vertical"
+                    >
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/li_result_msg"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="측정결과"
-                android:textColor="@color/dark_gray"
-                android:textSize="45sp"
-                android:textStyle="bold"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:gravity="center"
-                android:layout_marginTop="10dp"
-                />
+                android:visibility="visible"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                >
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="측정결과"
+                    android:textColor="@color/gray"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    />
 
-    </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/tv_result_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="측정결과"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="45sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cv_del_measurement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="@dimen/menu_btn_radius"
+                        app:cardElevation="@dimen/menu_btn_elevation"
+                        app:cardBackgroundColor="@color/pastel_red"
+                        android:layout_marginRight="10dp"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        >
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="@string/delete_srt"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/default_font_small_size"
+                                android:padding="10dp"
+                                />
 
 
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Time"
-        android:textColor="@color/dark_gray"
-        android:textSize="@dimen/default_font_size"
-        android:layout_above="@+id/li_btn"
-        android:gravity="center"
-        android:layout_marginBottom="10dp"
-        />
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cv_re_measurement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="@dimen/menu_btn_radius"
+                        app:cardElevation="@dimen/menu_btn_elevation"
+                        app:cardBackgroundColor="@color/white"
+                        android:layout_marginRight="10dp"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        >
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="@string/re_measurement_srt"
+                                android:textColor="@color/dark_gray"
+                                android:textSize="@dimen/default_font_small_size"
+                                android:padding="10dp"
+                                />
+
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cv_measurement_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="@dimen/menu_btn_radius"
+                        app:cardElevation="@dimen/menu_btn_elevation"
+                        app:cardBackgroundColor="@color/pastel_green"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
+                        >
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="@string/save_srt"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/default_font_small_size"
+                                android:padding="10dp"
+                                />
+
+
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/default_font_size"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            />
+
+    </RelativeLayout>
+
+
 
 
     <LinearLayout

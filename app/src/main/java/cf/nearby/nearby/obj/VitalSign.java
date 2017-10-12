@@ -82,6 +82,10 @@ public class VitalSign implements Serializable {
 
     }
 
+    public boolean isEmpty(){
+        return bpMax == null && bpMin == null && pulse == null && temperature == null;
+    }
+
     public String getId() {
         return id;
     }

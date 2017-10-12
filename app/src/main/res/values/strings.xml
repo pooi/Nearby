@@ -59,6 +59,11 @@
     <string name="take_medicine_srt">복용</string>
     <string name="take_photo_srt">촬영</string>
     <string name="take_photo_again_srt">다시찍기</string>
+    <string name="blood_pressure_srt">혈압</string>
+    <string name="pulse_srt">맥박</string>
+    <string name="temperature_srt">체온</string>
+    <string name="re_measurement_srt">다시측정</string>
+    <string name="save_result_srt">결과저장</string>
 
 
     <!-- Menu -->

@@ -39,7 +39,7 @@ public class NurseRecordActivity extends BaseActivity {
     private Button saveBtn;
 
     private Patient selectedPatient;
-    private ArrayList<VitalSign> vitalSigns;
+    private VitalSign vitalSign;
     private ArrayList<TakeMedicine> takeMedicines;
     private ArrayList<PatientRemark> remarks;
     private HaveMeal haveMeal;
@@ -51,7 +51,7 @@ public class NurseRecordActivity extends BaseActivity {
         setContentView(R.layout.activity_nurse_record);
 
         selectedPatient = (Patient)getIntent().getSerializableExtra("patient");
-        vitalSigns = new ArrayList<>();
+        vitalSign = new VitalSign();
         haveMeal = new HaveMeal();
         takeMedicines = new ArrayList<>();
         remarks = new ArrayList<>();
@@ -78,7 +78,7 @@ public class NurseRecordActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(NurseRecordActivity.this, RecordVitalSignActivity.class);
-                intent.putExtra("vital_signs", vitalSigns);
+                intent.putExtra("vital_sign", vitalSign);
                 startActivityForResult(intent, UPDATE_VITAL);
             }
         });
@@ -165,7 +165,7 @@ public class NurseRecordActivity extends BaseActivity {
     private void checkChangeBtn(){
 
         // vital sign
-        boolean isVital = vitalSigns != null && vitalSigns.size() > 0;
+        boolean isVital = !vitalSign.isEmpty();
         changeBtnColor((CardView)findViewById(R.id.cv_record_vital_sign), isVital);
         // 복용약 여부
         boolean isTakeMedicine = takeMedicines != null && takeMedicines.size() > 0;
@@ -198,7 +198,7 @@ public class NurseRecordActivity extends BaseActivity {
         switch (resultCode) {
             case UPDATE_VITAL:
                 if(data != null){
-                    vitalSigns = (ArrayList<VitalSign>)data.getSerializableExtra("vital_signs");
+                    vitalSign = (VitalSign)data.getSerializableExtra("vital_sign");
                     checkChangeBtn();
                 }
                 break;
