@@ -90,6 +90,24 @@ public class PatientMedicineListCustomAdapter extends RecyclerView.Adapter<Patie
             }
         });
 
+        if(AdditionalFunc.getTodayMilliseconds() > pm.getFinishDate()){ // 마감
+
+            holder.btn_complete.setVisibility(View.GONE);
+            holder.btn_show_detail.setBackgroundResource(R.drawable.two_btn_inactive_right_radius);
+            holder.cv.setCardBackgroundColor(activity.getColorId(R.color.deep_dark_gray));
+            holder.tv_title.setTextColor(activity.getColorId(R.color.white));
+            holder.tv_period.setTextColor(activity.getColorId(R.color.white));
+
+        }else{ // 복용 기간 내
+
+            holder.btn_complete.setVisibility(View.VISIBLE);
+            holder.btn_show_detail.setBackgroundResource(R.drawable.two_btn_inactive_right_bottom_radius);
+            holder.cv.setCardBackgroundColor(activity.getColorId(R.color.white));
+            holder.tv_title.setTextColor(activity.getColorId(R.color.dark_gray));
+            holder.tv_period.setTextColor(activity.getColorId(R.color.gray));
+
+        }
+
     }
 
 
