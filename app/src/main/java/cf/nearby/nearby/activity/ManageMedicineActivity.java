@@ -180,6 +180,13 @@ public class ManageMedicineActivity extends BaseActivity implements OnAdapterSup
             setFadeInAnimation(tv_msg);
         }
 
+        Collections.sort(list, new Comparator<PatientMedicine>() {
+            @Override
+            public int compare(PatientMedicine patientMedicine, PatientMedicine t1) {
+                return t1.getFinishDate() < patientMedicine.getFinishDate() ? -1 : t1.getFinishDate() == patientMedicine.getFinishDate() ? 0 : 1;
+            }
+        });
+
         adapter = new PatientMedicineListCustomAdapter(getApplicationContext(), list, rv, this, this);
 
         rv.setAdapter(adapter);
