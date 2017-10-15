@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cf.nearby.nearby.admin.AdminMainActivity"
+    tools:context="cf.nearby.nearby.nurse.NurseManageActivity"
     android:background="@color/white"
     >
 
@@ -13,9 +13,8 @@
         android:id="@+id/sc"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btn_logout"
+        android:layout_above="@+id/btn_back"
         android:clipChildren="false"
-        android:clipToPadding="false"
         >
 
         <LinearLayout
@@ -24,11 +23,10 @@
             android:orientation="vertical"
             android:gravity="center"
             android:clipChildren="false"
-            android:clipToPadding="false"
             >
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cv_manage"
+                android:id="@+id/cv_inquiry_location_patient"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 app:cardCornerRadius="@dimen/menu_btn_radius"
@@ -50,7 +48,39 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="@string/manage_srt"
+                        android:text="@string/inquiry_location_patient"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/default_menu_font_size"
+                        />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_inquiry_patient_record"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:cardCornerRadius="@dimen/menu_btn_radius"
+                app:cardElevation="@dimen/menu_btn_elevation"
+                app:cardBackgroundColor="@color/white"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/inquiry_patient_record"
                         android:textColor="@color/dark_gray"
                         android:textSize="@dimen/default_menu_font_size"
                         />
@@ -61,7 +91,7 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cv_inquiry"
+                android:id="@+id/cv_inquiry_log"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 app:cardCornerRadius="@dimen/menu_btn_radius"
@@ -83,40 +113,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="@string/inquiry_srt"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="@dimen/default_menu_font_size"
-                        />
-
-
-                </RelativeLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv_register"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                app:cardCornerRadius="@dimen/menu_btn_radius"
-                app:cardElevation="@dimen/menu_btn_elevation"
-                app:cardBackgroundColor="@color/white"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:clipToPadding="false"
-                android:clipChildren="false"
-                >
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/register_srt"
+                        android:text="@string/inquiry_log"
                         android:textColor="@color/dark_gray"
                         android:textSize="@dimen/default_menu_font_size"
                         />
@@ -131,11 +128,11 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/btn_logout"
+        android:id="@+id/btn_back"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/dark_gray"
-        android:text="@string/logout"
+        android:text="@string/back_srt"
         android:textColor="@color/white"
         android:textSize="@dimen/default_font_size"
         android:layout_alignParentBottom="true"

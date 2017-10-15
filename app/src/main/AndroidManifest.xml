@@ -244,6 +244,39 @@
                 <category android:name="cf.nearby.nearby" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".admin.AdminMainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="cf.nearby.nearby" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".admin.AdminManageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="cf.nearby.nearby" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".admin.AdminInquiryActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="cf.nearby.nearby" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

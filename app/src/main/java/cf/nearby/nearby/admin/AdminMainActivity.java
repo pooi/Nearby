@@ -38,6 +38,23 @@ public class AdminMainActivity extends BaseActivity {
 
         showSnackbar(String.format(getString(R.string.print_hello_msg), StartActivity.employee.getName()));
 
+
+        findViewById(R.id.cv_manage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminMainActivity.this, AdminManageActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.cv_inquiry).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminMainActivity.this, AdminInquiryActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
