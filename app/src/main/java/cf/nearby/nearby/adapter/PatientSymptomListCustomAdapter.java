@@ -86,6 +86,12 @@ public class PatientSymptomListCustomAdapter extends RecyclerView.Adapter<Patien
             holder.tv_period.setText(text);
 
             holder.li_btn.setVisibility(View.VISIBLE);
+            holder.btn_complete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.markCompleteDate(pos);
+                }
+            });
             holder.tv_title.setTextColor(activity.getColorId(R.color.dark_gray));
             holder.tv_period.setTextColor(activity.getColorId(R.color.gray));
             holder.cv.setCardBackgroundColor(activity.getColorId(R.color.white));

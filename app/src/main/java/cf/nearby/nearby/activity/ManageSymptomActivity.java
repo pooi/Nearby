@@ -61,6 +61,8 @@ public class ManageSymptomActivity extends BaseActivity implements OnAdapterSupp
     private final int MSG_MESSAGE_PROGRESS_HIDE = 502;
     private final int MSG_MESSAGE_SUCCESS = 504;
     private final int MSG_MESSAGE_FAIL = 505;
+    private final int MSG_MESSAGE_MARK_SUCCESS = 506;
+    private final int MSG_MESSAGE_MARK_FAIL = 507;
 
     private TextView tv_msg;
     private AVLoadingIndicatorView loading;
@@ -254,6 +256,45 @@ public class ManageSymptomActivity extends BaseActivity implements OnAdapterSupp
 
     }
 
+    public void markCompleteDate(int index){
+
+        PatientSymptom patientSymptom = list.get(index);
+
+        progressDialog.show();
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("service", "updateSymptomFinishDate");
+        map.put("symptom_history_id", patientSymptom.getId());
+        map.put("date", Long.toString( AdditionalFunc.getTodayMilliseconds() ) );
+
+        new ParsePHP(Information.MAIN_SERVER_ADDRESS, map) {
+
+            @Override
+            protected void afterThreadFinish(String data) {
+
+                try {
+                    JSONObject jObj = new JSONObject(data);
+                    String status = jObj.getString("status");
+
+                    if("success".equals(status)){
+                        handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_MARK_SUCCESS));
+                    }else{
+                        handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_MARK_FAIL));
+                    }
+
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_MARK_FAIL));
+                }
+
+            }
+        }.start();
+
+
+    }
+
     private void checkDialog(){
 
         boolean isSymptom = form_symptom.isCharactersCountValid();
@@ -402,6 +443,18 @@ public class ManageSymptomActivity extends BaseActivity implements OnAdapterSupp
                     getPatientSymptomList();
                     break;
                 case MSG_MESSAGE_FAIL:
+                    progressDialog.hide();
+                    new MaterialDialog.Builder(ManageSymptomActivity.this)
+                            .title(R.string.fail_srt)
+                            .positiveText(R.string.ok)
+                            .show();
+                    break;
+                case MSG_MESSAGE_MARK_SUCCESS:
+                    progressDialog.hide();
+                    initLoadValue();
+                    getPatientSymptomList();
+                    break;
+                case MSG_MESSAGE_MARK_FAIL:
                     progressDialog.hide();
                     new MaterialDialog.Builder(ManageSymptomActivity.this)
                             .title(R.string.fail_srt)
