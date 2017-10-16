@@ -12,6 +12,7 @@ import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.activity.SearchPatientActivity;
+import cf.nearby.nearby.activity.SearchPatientByLocationIdActivity;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.OnSearchPatientSupport;
 
@@ -37,6 +38,16 @@ public class NurseManageActivity extends BaseActivity implements Serializable {
             }
         });
 
+        findViewById(R.id.cv_edit_patient_info).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), SearchPatientByLocationIdActivity.class);
+                intent.putExtra("nextActivity", Information.NURSE_MANAGE_MENU);
+                startActivity(intent);
+
+            }
+        });
         findViewById(R.id.cv_edit_patient_record).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

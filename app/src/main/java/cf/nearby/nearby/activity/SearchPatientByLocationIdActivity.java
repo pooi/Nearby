@@ -203,7 +203,7 @@ public class SearchPatientByLocationIdActivity extends BaseActivity implements O
     public void redirectNextActivity(Patient patient){
         switch (nextActivity){
             case Information.NURSE_MANAGE_MENU: {
-                Intent intent = new Intent(SearchPatientByLocationIdActivity.this, NurseManageDetailActivity.class);
+                Intent intent = new Intent(SearchPatientByLocationIdActivity.this, ManagePatientRegisterInfoActivity.class);
                 intent.putExtra("patient", patient);
                 startActivity(intent);
                 break;

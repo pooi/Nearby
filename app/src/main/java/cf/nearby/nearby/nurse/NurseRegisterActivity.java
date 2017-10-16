@@ -45,14 +45,14 @@ public class NurseRegisterActivity extends BaseActivity {
             }
         });
 
-        findViewById(R.id.monthly_event_register).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(NurseRegisterActivity.this,SearchPatientByLocationIdActivity.class);
-                intent.putExtra("nextActivity", Information.NURSE_REGISTER_MENU);
-                startActivity(intent);
-            }
-        });
+//        findViewById(R.id.monthly_event_register).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(NurseRegisterActivity.this,SearchPatientByLocationIdActivity.class);
+//                intent.putExtra("nextActivity", Information.NURSE_REGISTER_MENU);
+//                startActivity(intent);
+//            }
+//        });
 
         progressDialog = new MaterialDialog.Builder(this)
                 .content(R.string.please_wait)
