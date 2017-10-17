@@ -53,9 +53,32 @@ public class AdditionalFunc {
 
     }
 
+    public static long getMilliseconds(int year, int month, int day, int hour, int min, int sec){
+
+        long days = 0;
+
+        try {
+            String cdate = String.format("%d%02d%02d %02d%02d%02d", year, month, day, hour, min, sec);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd hhmmss");
+            Date date = sdf.parse(cdate);
+            days = date.getTime();
+            System.out.println(days);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return days;
+
+    }
+
     public static long getTodayMilliseconds(){
         Calendar now = Calendar.getInstance();
         return getMilliseconds(now.get(Calendar.YEAR), now.get(Calendar.MONTH)+1, now.get(Calendar.DAY_OF_MONTH));
+    }
+
+    public static long getTodayMillisecondsWithTime(){
+        Calendar now = Calendar.getInstance();
+        return getMilliseconds(now.get(Calendar.YEAR), now.get(Calendar.MONTH)+1, now.get(Calendar.DAY_OF_MONTH), now.HOUR, now.MINUTE, now.SECOND);
     }
 
     public static int getDday(long eTime){

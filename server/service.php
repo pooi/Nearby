@@ -751,9 +751,12 @@
         else if($service == 'ManagePatientRegisterInfo'){
 
             $patient_fn = $_POST['patient_fn'];
+						$location_id = $_POST['location_id'];
+						$patient_ln = $_POST['patient_ln'];
+						$patient_dob = $_POST['patient_dob'];
 
             // $sql = "SELECT * FROM employee WHERE id like '$login_id' and password like '$login_pw';";
-            $sql = "SELECT * FROM patient as A WHERE A.patient_fn like '$patient_fn'";
+            $sql = "SELECT * FROM patient as A WHERE A.first_name like '$patient_fn'";
 
             $ret = mysqli_query($con, $sql);
             if($ret){
@@ -770,58 +773,35 @@
 
                 $id = $row['id'];
                 $login_id = $row['login_id'];
-                $email = $row['email'];
                 $first_name = $row['first_name'];
                 $last_name = $row['last_name'];
-                $role = $row['role'];
-                $license = $row['license'];
                 $gender = $row['gender'];
                 $address = $row['address'];
                 $zip = $row['zip'];
                 $phone = $row['phone'];
                 $pic = $row['pic'];
+								$height = $row['height'];
                 $date_of_birth = $row['date_of_birth'];
-                $major = $row['major'];
                 $start_date = $row['start_date'];
                 $description = $row['description'];
                 $registered_date = $row['registered_date'];
-
                 $location_id = $row['location_id'];
-                $location_name = $row['location_name'];
-                $location_pic = $row['location_pic'];
-                $location_director = $row['location_director'];
-                $location_capacity = $row['location_capacity'];
-                $location_major = $row['location_major'];
-                $location_construction_year = $row['location_construction_year'];
-                $location_phone = $row['location_phone'];
-                $location_url = $row['location_url'];
+
 
                 echo "{\"id\":\"$id\",
-				\"login_id\":\"$login_id\",
-				\"email\":\"$email\",
 				\"first_name\":\"$first_name\",
 				\"last_name\":\"$last_name\",
-				\"role\":\"$role\",
-				\"license\":\"$license\",
 				\"gender\":\"$gender\",
 				\"address\":\"$address\",
 				\"zip\":\"$zip\",
 				\"phone\":\"$phone\",
 				\"pic\":\"$pic\",
 				\"date_of_birth\":\"$date_of_birth\",
-				\"major\":\"$major\",
+				\"height\":\"$height\",
 				\"start_date\":\"$start_date\",
 				\"description\":\"$description\",
 				\"registered_date\":\"$registered_date\",
-				\"location_id\":\"$location_id\",
-				\"location_name\":\"$location_name\",
-				\"location_pic\":\"$location_pic\",
-				\"location_director\":\"$location_director\",
-				\"location_capacity\":\"$location_capacity\",
-				\"location_major\":\"$location_major\",
-				\"location_construction_year\":\"$location_construction_year\",
-				\"location_phone\":\"$location_phone\",
-				\"location_url\":\"$location_url\"
+				\"location_id\":\"$location_id\"
 				}";
 
                 if($i<$count-1){
@@ -840,6 +820,21 @@
 			$date = $_POST['date'];
 
             $sql = "UPDATE symptom_history SET finish_date='$date' WHERE id='$symptom_history_id';";
+
+            $ret = mysqli_query($con, $sql);
+
+            if($ret == '1'){
+                echo json_encode(array('status'=>'success', 'message'=>"update success"));
+            }else{
+                echo json_encode(array('status'=>'fail', 'message'=>"update fail"));
+            }
+
+		}else if($service == "updateMedicineFinishDate"){
+
+            $patient_medicine_id = $_POST['patient_medicine_id'];
+			$date = $_POST['date'];
+
+            $sql = "UPDATE patient_medicine SET finish_date='$date' WHERE id='$patient_medicine_id';";
 
             $ret = mysqli_query($con, $sql);
 

@@ -14,10 +14,14 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.wang.avi.AVLoadingIndicatorView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,6 +53,8 @@ public class ManageMedicineActivity extends BaseActivity implements OnAdapterSup
     private final int MSG_MESSAGE_MAKE_LIST = 500;
     private final int MSG_MESSAGE_MAKE_ENDLESS_LIST = 501;
     private final int MSG_MESSAGE_PROGRESS_HIDE = 502;
+    private final int MSG_MESSAGE_MARK_SUCCESS = 506;
+    private final int MSG_MESSAGE_MARK_FAIL = 507;
 
     private TextView tv_msg;
     private AVLoadingIndicatorView loading;
@@ -203,6 +209,44 @@ public class ManageMedicineActivity extends BaseActivity implements OnAdapterSup
 
     }
 
+    public void updateFinishDate(int index){
+
+        PatientMedicine patientMedicine = list.get(index);
+
+        progressDialog.show();
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("service", "updateMedicineFinishDate");
+        map.put("patient_medicine_id", patientMedicine.getId());
+        map.put("date", Long.toString( AdditionalFunc.getTodayMilliseconds() ) );
+
+        new ParsePHP(Information.MAIN_SERVER_ADDRESS, map) {
+
+            @Override
+            protected void afterThreadFinish(String data) {
+
+                try {
+                    JSONObject jObj = new JSONObject(data);
+                    String status = jObj.getString("status");
+
+                    if("success".equals(status)){
+                        handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_MARK_SUCCESS));
+                    }else{
+                        handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_MARK_FAIL));
+                    }
+
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+//                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_MARK_FAIL));
+                }
+
+            }
+        }.start();
+
+    }
+
     private void addList(){
 
         for(int i=0; i<tempList.size(); i++){
@@ -257,6 +301,18 @@ public class ManageMedicineActivity extends BaseActivity implements OnAdapterSup
                 case MSG_MESSAGE_PROGRESS_HIDE:
                     progressDialog.hide();
                     loading.hide();
+                    break;
+                case MSG_MESSAGE_MARK_SUCCESS:
+                    progressDialog.hide();
+                    initLoadValue();
+                    getPatientMedicineList();
+                    break;
+                case MSG_MESSAGE_MARK_FAIL:
+                    progressDialog.hide();
+                    new MaterialDialog.Builder(ManageMedicineActivity.this)
+                            .title(R.string.fail_srt)
+                            .positiveText(R.string.ok)
+                            .show();
                     break;
                 default:
                     break;

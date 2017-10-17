@@ -90,7 +90,7 @@ public class PatientMedicineListCustomAdapter extends RecyclerView.Adapter<Patie
             }
         });
 
-        if(AdditionalFunc.getTodayMilliseconds() > pm.getFinishDate()){ // 마감
+        if(AdditionalFunc.getTodayMillisecondsWithTime() > pm.getFinishDate()){ // 마감
 
             holder.btn_complete.setVisibility(View.GONE);
             holder.btn_show_detail.setBackgroundResource(R.drawable.two_btn_inactive_right_radius);
@@ -101,6 +101,12 @@ public class PatientMedicineListCustomAdapter extends RecyclerView.Adapter<Patie
         }else{ // 복용 기간 내
 
             holder.btn_complete.setVisibility(View.VISIBLE);
+            holder.btn_complete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.updateFinishDate(pos);
+                }
+            });
             holder.btn_show_detail.setBackgroundResource(R.drawable.two_btn_inactive_right_bottom_radius);
             holder.cv.setCardBackgroundColor(activity.getColorId(R.color.white));
             holder.tv_title.setTextColor(activity.getColorId(R.color.dark_gray));
