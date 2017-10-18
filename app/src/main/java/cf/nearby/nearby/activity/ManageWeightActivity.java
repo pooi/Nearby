@@ -36,6 +36,7 @@ import cf.nearby.nearby.R;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.obj.PatientMedicine;
 import cf.nearby.nearby.obj.PatientWeight;
+import cf.nearby.nearby.util.LogManager;
 import cf.nearby.nearby.util.ParsePHP;
 
 public class ManageWeightActivity extends BaseActivity {
@@ -153,6 +154,10 @@ public class ManageWeightActivity extends BaseActivity {
                     String status = jObj.getString("status");
 
                     if("success".equals(status)){
+                        new LogManager(ManageWeightActivity.this)
+                                .buildWeightMsg(selectedPatient, edit_weight.getText().toString())
+                                .record();
+
                         handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
                     }else{
                         handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_FAIL));

@@ -134,4 +134,9 @@
 
     <string name="enter_more_information">추가 정보 입력</string>
 
+    <!-- Message -->
+    <string name="log_add_weight">%1$s님의 몸무게 기록에 %2$skg 추가</string>
+
+
+
 </resources>

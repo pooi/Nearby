@@ -844,6 +844,24 @@
                 echo json_encode(array('status'=>'fail', 'message'=>"update fail"));
             }
 
+		}else if($service == "addLog"){
+			$location_id = $_POST['location_id'];
+			$employee_id = $_POST['employee_id'];
+			$patient_id = $_POST['patient_id'];
+			$type = $_POST['type'];
+			$msg = $_POST['msg'];
+			$registered_date = time() * 1000;
+
+			$sql = "INSERT INTO log(location_id, employee_id, patient_id, type, msg, registered_date) VALUES('$location_id', '$employee_id', '$patient_id', '$type', '$msg', '$registered_date');";
+			
+			$ret = mysqli_query($con, $sql);
+
+            if($ret == '1'){
+                echo json_encode(array('status'=>'success', 'message'=>"save success"));
+            }else{
+                echo json_encode(array('status'=>'fail', 'message'=>"save fail"));
+            }
+
 		}
 
 	}
