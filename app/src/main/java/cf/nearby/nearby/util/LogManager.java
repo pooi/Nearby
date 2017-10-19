@@ -9,6 +9,7 @@ import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
 import cf.nearby.nearby.obj.Employee;
 import cf.nearby.nearby.obj.Patient;
+import cf.nearby.nearby.obj.PatientSymptom;
 
 /**
  * Created by tw on 2017. 10. 17..
@@ -17,6 +18,7 @@ import cf.nearby.nearby.obj.Patient;
 public class LogManager {
 
     public final String TYPE_WEIGHT = "weight";
+    public final String TYPE_SYMPTOM = "symptom";
 
     Context context;
 
@@ -33,6 +35,15 @@ public class LogManager {
         this.patient = patient;
         this.msg = String.format(context.getString(R.string.log_add_weight), patient.getName(), weight);
 
+
+        return this;
+    }
+
+    public LogManager buildSymptomMsg(Patient patient, PatientSymptom symptom){
+
+        this.type = TYPE_SYMPTOM;
+        this.patient = patient;
+        this.msg = String.format(context.getString(R.string.log_add_symptom), patient.getName(), symptom.getDescription());
 
         return this;
     }

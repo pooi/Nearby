@@ -43,6 +43,7 @@ import cf.nearby.nearby.obj.PatientMedicine;
 import cf.nearby.nearby.obj.PatientSymptom;
 import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.DividerItemDecoration;
+import cf.nearby.nearby.util.LogManager;
 import cf.nearby.nearby.util.OnAdapterSupport;
 import cf.nearby.nearby.util.OnLoadMoreListener;
 import cf.nearby.nearby.util.ParsePHP;
@@ -149,7 +150,7 @@ public class ManageSymptomActivity extends BaseActivity implements OnAdapterSupp
 
     }
 
-    private void save(PatientSymptom ps){
+    private void save(final PatientSymptom ps){
 
         HashMap<String, String> map = new HashMap<>();
         map.put("service", "save_patient_symptom");
@@ -168,6 +169,8 @@ public class ManageSymptomActivity extends BaseActivity implements OnAdapterSupp
                     String status = jObj.getString("status");
 
                     if("success".equals(status)){
+                        new LogManager(ManageSymptomActivity.this).buildSymptomMsg(selectedPatient, ps).record();
+
                         handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
                     }else{
                         handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_FAIL));
