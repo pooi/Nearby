@@ -9,6 +9,7 @@ import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
 import cf.nearby.nearby.obj.Employee;
 import cf.nearby.nearby.obj.Patient;
+import cf.nearby.nearby.obj.PatientMedicine;
 import cf.nearby.nearby.obj.PatientSymptom;
 
 /**
@@ -19,6 +20,7 @@ public class LogManager {
 
     public final String TYPE_WEIGHT = "weight";
     public final String TYPE_SYMPTOM = "symptom";
+    public final String TYPE_MEDICINE = "medicine";
 
     Context context;
 
@@ -44,6 +46,15 @@ public class LogManager {
         this.type = TYPE_SYMPTOM;
         this.patient = patient;
         this.msg = String.format(context.getString(R.string.log_add_symptom), patient.getName(), symptom.getDescription());
+
+        return this;
+    }
+
+    public LogManager buildMedicineMsg(Patient patient, String title){
+
+        this.type = TYPE_MEDICINE;
+        this.patient = patient;
+        this.msg = String.format(context.getString(R.string.log_add_medicine), patient.getName(), title);
 
         return this;
     }

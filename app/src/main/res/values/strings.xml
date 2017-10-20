@@ -137,6 +137,7 @@
     <!-- Message -->
     <string name="log_add_weight">%1$s님의 몸무게 기록에 %2$skg 추가</string>
     <string name="log_add_symptom">%1$s님의 증상 관리에 %2$s 증상 추가</string>
+    <string name="log_add_medicine">%1$s님의 복용약 관리에 %2$s 추가</string>
 
 
 

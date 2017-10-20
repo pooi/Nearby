@@ -40,6 +40,7 @@ import cf.nearby.nearby.obj.Medicine;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.obj.PatientMedicineDetail;
 import cf.nearby.nearby.util.AdditionalFunc;
+import cf.nearby.nearby.util.LogManager;
 import cf.nearby.nearby.util.ParsePHP;
 
 public class AddPatientMedicineActivity extends BaseActivity {
@@ -251,6 +252,7 @@ public class AddPatientMedicineActivity extends BaseActivity {
                     String status = jObj.getString("status");
 
                     if("success".equals(status)){
+                        new LogManager(AddPatientMedicineActivity.this).buildMedicineMsg(selectedPatient, editTitle.getText().toString()).record();
                         handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
                     }else{
                         handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_FAIL));
