@@ -1,5 +1,6 @@
 package cf.nearby.nearby.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,11 +14,19 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.R;
+import cf.nearby.nearby.bluetooth.ConnectBLEActivity;
 import cf.nearby.nearby.nurse.NurseRecordActivity;
 import cf.nearby.nearby.obj.VitalSign;
 
@@ -117,6 +126,27 @@ public class RecordVitalSignActivity extends BaseActivity {
         tv_time = (TextView)findViewById(R.id.tv_time);
         li_result = (LinearLayout)findViewById(R.id.li_result);
         rl_bluetooth = (RelativeLayout)findViewById(R.id.rl_bluetooth);
+        rl_bluetooth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dexter.withActivity(RecordVitalSignActivity.this)
+                        .withPermissions(
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.ACCESS_COARSE_LOCATION
+                        ).withListener(new MultiplePermissionsListener() {
+                    @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
+
+                        if (report.areAllPermissionsGranted()){
+                            Intent intent = new Intent(RecordVitalSignActivity.this, ConnectBLEActivity.class);
+                            startActivity(intent);
+                        }
+
+                    }
+                    @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
+                }).check();
+            }
+        });
 
         sc_result = (ScrollView)findViewById(R.id.sc_result);
         li_resultMsg = (LinearLayout)findViewById(R.id.li_result_msg);

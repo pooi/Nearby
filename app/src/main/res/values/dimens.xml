@@ -30,4 +30,26 @@
     <dimen name="layout_elevation">10dp</dimen>
     <dimen name="menu_btn_radius">10dp</dimen>
 
+
+    <!-- Bluetooth -->
+    <dimen name="find_textsize">20sp</dimen>
+    <dimen name="battery_level_textsize">35sp</dimen>
+    <dimen name="textsize_medium">30sp</dimen>
+    <dimen name="textsize_small">25sp</dimen>
+    <dimen name="textsize_very_small">20sp</dimen>
+    <dimen name="textsize_tiny">15sp</dimen>
+
+        <!-- Paddings -->
+        <dimen name="blood_glucose_padding">10dp</dimen>
+        <dimen name="sensor_hub_padding">10dp</dimen>
+        <dimen name="sensor_hub_padding_child">20dp</dimen>
+        <dimen name="padding_child_ten">10dp</dimen>
+
+        <!-- margins -->
+        <dimen name="sensor_hub_margin">10dp</dimen>
+
+    <dimen name="hrm_measurement_heart_rate_textsize">40sp</dimen>
+    <dimen name="hrm_measurement_heart_rate_unit_size">15sp</dimen>
+    <dimen name="hrm_measurement_body_sensor_textsize">25sp</dimen>
+
 </resources>
