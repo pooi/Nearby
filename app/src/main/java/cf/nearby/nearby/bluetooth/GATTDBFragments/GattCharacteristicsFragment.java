@@ -94,7 +94,7 @@ public class GattCharacteristicsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_gatt_list,
                 container, false);
         mApplication = (CustomApplication) getActivity().getApplication();
-        getActivity().getActionBar().setTitle(R.string.gatt_db);
+//        getActivity().getActionBar().setTitle(R.string.gatt_db);
         mGattListView = (ListView) rootView
                 .findViewById(R.id.ListView_gatt_services);
         mTextHeading = (TextView) rootView.findViewById(R.id.txtservices);

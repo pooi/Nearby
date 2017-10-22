@@ -382,7 +382,7 @@ public class DeviceInformationService extends Fragment {
         mPnpId = (TextView) rootView.findViewById(R.id.div_pnp);
         mSysId = (TextView) rootView.findViewById(R.id.div_system);
         mRegulatoryCertificationDataList = (TextView) rootView.findViewById(R.id.div_regulatory);
-        getActivity().getActionBar().setTitle(R.string.device_info);
+//        getActivity().getActionBar().setTitle(R.string.device_info);
         setHasOptionsMenu(true);
         return rootView;
     }

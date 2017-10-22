@@ -696,10 +696,10 @@ public class Utils {
      * @param title
      */
     public static void setUpActionBar(Activity context, String title) {
-        ActionBar actionBar = context.getActionBar();
-        actionBar.setIcon(new ColorDrawable(context.getResources().getColor(
-                android.R.color.transparent)));
-        actionBar.setTitle(title);
+//        ActionBar actionBar = context.getActionBar();
+//        actionBar.setIcon(new ColorDrawable(context.getResources().getColor(
+//                android.R.color.transparent)));
+//        actionBar.setTitle(title);
     }
 
     /**

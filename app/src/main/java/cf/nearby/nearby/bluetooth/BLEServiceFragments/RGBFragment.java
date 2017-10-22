@@ -162,7 +162,7 @@ public class RGBFragment extends Fragment {
             mRootView = inflater.inflate(R.layout.rgb_view_portrait, container,
                     false);
         }
-        getActivity().getActionBar().setTitle(R.string.rgb_led);
+//        getActivity().getActionBar().setTitle(R.string.rgb_led);
         setUpControls();
         setDefaultColorPickerPositionColor();
         setHasOptionsMenu(true);

@@ -5,7 +5,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.cypress.cysmart.CommonUtils.CarouselLinearLayout
+    <cf.nearby.nearby.bluetooth.CommonUtils.CarouselLinearLayout
         android:id="@+id/root"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,6 +36,6 @@
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
             android:textStyle="bold" />
-    </com.cypress.cysmart.CommonUtils.CarouselLinearLayout>
+    </cf.nearby.nearby.bluetooth.CommonUtils.CarouselLinearLayout>
 
 </LinearLayout>
