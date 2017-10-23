@@ -81,6 +81,14 @@ public class HaveMeal implements Serializable {
 
     }
 
+    public boolean isEmpty(){
+        if(type == null || "".equals(type)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public String getId() {
         return id;
     }

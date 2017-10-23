@@ -164,7 +164,43 @@
 				echo json_encode(array('status'=>'fail', 'message'=>"save fail"));
 			}
 
-		}else if($service == 'getPatientList'){
+		}
+		else if($service == 'ModifyPatientRegisterInfo'){
+
+			$patient_fn = $_POST['patient_fn'];
+			$patient_ln = $_POST['patient_ln'];
+			$patient_gender = $_POST['patient_gender'];
+			$dob = $_POST['dob'];
+			$patient_hegiht = $_POST['patient_height'];
+			$patient_bla = (double)$_POST['patient_bla'];
+			$location_id = $_POST['location_id'];
+			// echo $dob;
+			$patient_zip = $_POST['patient_zip'];
+			$start_date = $_POST['start_date'];
+			$register_date = $_POST['register_date'];
+			$patient_address = $_POST['patient_address'];
+			$patient_phone = $_POST['patient_phone'];
+			$patient_license = $_POST['patient_license'];
+			$patient_major = $_POST['patient_major'];
+			$start_date = 1;
+			$patient_description = $_POST['patient_description'];
+			// echo '<br>';
+			$current_time = time() * 1000;
+			// echo 'timestamp : ' . $timestamp;
+			// echo '<br>';
+
+			$sql = "UPDATE patient SET first_name='$patient_fn', last_name='$patient_ln', gender='$patient_gender', address='$patient_address', zip='$patient_zip', phone='$patient_phone', date_of_birth='$dob', height='$patient_hegiht', basic_living_allowance='$patient_bla', start_date='$start_date', description='$patient_description', registered_date='$register_date' WHERE patient.first_name like '$patient_fn';";
+			echo $sql;
+			// echo $sql;
+			$ret = mysqli_query($con, $sql);
+			if($ret == '1'){
+				echo json_encode(array('status'=>'success', 'message'=>"save success"));
+			}else{
+				echo json_encode(array('status'=>'fail', 'message'=>"save fail"));
+			}
+
+		}
+		else if($service == 'getPatientList'){
 
 			$name = $_POST['name'];
 			$location_id = $_POST['location_id'];
@@ -853,7 +889,7 @@
 			$registered_date = time() * 1000;
 
 			$sql = "INSERT INTO log(location_id, employee_id, patient_id, type, msg, registered_date) VALUES('$location_id', '$employee_id', '$patient_id', '$type', '$msg', '$registered_date');";
-			
+
 			$ret = mysqli_query($con, $sql);
 
             if($ret == '1'){
@@ -861,6 +897,97 @@
             }else{
                 echo json_encode(array('status'=>'fail', 'message'=>"save fail"));
             }
+
+		}else if($service == "recordData"){
+
+			$patient_id = $_POST['patient_id'];
+			$employee_id = $_POST['employee_id'];
+			$location_id = $_POST['location_id'];
+			$registered_date = time() * 1000;
+
+			$sql = "INSERT INTO main_record(patient_id, employee_id, registered_date, location_id) 
+			VALUES('$patient_id', '$employee_id', '$registered_date', '$location_id');";
+
+
+			$isFail = "";
+			$ret = mysqli_query($con, $sql);
+
+			if($ret == '1'){
+				$main_record_id = mysqli_insert_id($con);
+				
+				
+				$have_meal = $_POST['have_meal'];
+				if($have_meal == "1"){
+					$have_meal_type = $_POST['have_meal_type'];
+					$have_meal_description = $_POST['have_meal_description'];
+	
+					$sql_haveMeal = "INSERT INTO have_meal(main_record_id, patient_id, type, description, registered_date) 
+					VALUES('$main_record_id', '$patient_id', '$have_meal_type', '$have_meal_description', '$registered_date');";
+					
+					$ret_haveMeal = mysqli_query($con, $sql_haveMeal);
+					if($ret_haveMeal != '1'){
+						$isFail = $isFail."/have meal".$sql_haveMeal;
+					}
+				}
+
+				$vital_sign = $_POST['vital_sign'];
+				if($vital_sign == "1"){
+					$vital_sign_bp_max = $_POST['vital_sign_bp_max'];
+					$vital_sign_bp_min = $_POST['vital_sign_bp_min'];
+					$vital_sign_pulse = $_POST['vital_sign_pulse'];
+					$vital_sign_temperature = $_POST['vital_sign_temperature'];
+
+					$sql_vitalSign = "INSERT INTO vital_sign(main_record_id, patient_id, blood_pressure_max, blood_pressure_min, pulse, temperature, registered_date) 
+					VALUES('$main_record_id', '$patient_id', '$vital_sign_bp_max', '$vital_sign_bp_min', '$vital_sign_pulse', '$vital_sign_temperature', '$registered_date');";
+
+					$ret_vitalSign = mysqli_query($con, $sql_vitalSign);
+					if($ret_vitalSign != '1'){
+						$isFail = $isFail."/vital sign".$sql_vitalSign;
+					}
+				}
+
+				$remarks = $_POST['remarks'];
+				if($remarks == "1"){
+					$remarksSize = $_POST['remarks_size'];
+					for($k=0; $k<$remarksSize; $k++){
+						$remarks_description = $_POST['remarks_description'.$k];
+
+						$sql_remarks = "INSERT INTO remarks(main_record_id, patient_id, symptom_id, description, registered_date) 
+						VALUES('$main_record_id', '$patient_id', null, '$remarks_description', '$registered_date');";
+	
+						$ret_remarks = mysqli_query($con, $sql_remarks);
+						if($ret_remarks != '1'){
+							$isFail = $isFail."/remarks".$k.$sql_remarks;
+						}
+					}
+				}
+
+				$take_medicines = $_POST['take_medicines'];
+				if($take_medicines == "1"){
+					$takeMedicinesSize = $_POST['take_medicines_size'];
+					for($k=0; $k<$takeMedicinesSize; $k++){
+						$take_medicines_patient_medicine_id = $_POST['take_medicines_patient_medicine_id'.$k];
+
+						$sql_take_medicines = "INSERT INTO take_medicine(main_record_id, patient_id, patient_medicine_id, registered_date) 
+						VALUES('$main_record_id', '$patient_id', '$take_medicines_patient_medicine_id', '$registered_date');";
+	
+						$ret_take_medicines = mysqli_query($con, $sql_take_medicines);
+						if($ret_take_medicines != '1'){
+							$isFail = $isFail."/take medicines".$k.$sql_take_medicines;
+						}
+					}
+				}
+
+				if($isFail == ""){
+					echo json_encode(array('status'=>'success', 'message'=>"record success"));
+				}else{
+					echo json_encode(array('status'=>'fail', 'message'=>$isFail));
+				}
+
+			}else{
+				echo json_encode(array('status'=>'fail', 'message'=>"Main record save failed"));
+			}
+			
 
 		}
 

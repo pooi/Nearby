@@ -64,6 +64,7 @@
     <string name="temperature_srt">체온</string>
     <string name="re_measurement_srt">다시측정</string>
     <string name="save_result_srt">결과저장</string>
+    <string name="success_srt">성공</string>
 
 
     <!-- Menu -->
@@ -119,6 +120,7 @@
 
     <string name="no_search_data">검색 결과가 없습니다.</string>
     <string name="there_are_no_data">표시할 데이터가 없습니다.</string>
+    <string name="successfully_recorded">성공적으로 기록하였습니다.</string>
 
     <string name="completed_take_medicine_srt">복용 완료</string>
 
