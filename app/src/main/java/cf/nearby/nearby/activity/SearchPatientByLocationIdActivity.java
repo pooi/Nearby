@@ -206,6 +206,7 @@ public class SearchPatientByLocationIdActivity extends BaseActivity implements O
                 Intent intent = new Intent(SearchPatientByLocationIdActivity.this, ManagePatientRegisterInfoActivity.class);
                 intent.putExtra("patient", patient);
                 startActivity(intent);
+                finish();
                 break;
             }
             case Information.NURSE_RECORD_MENU:{
