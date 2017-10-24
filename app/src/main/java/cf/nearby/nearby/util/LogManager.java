@@ -21,6 +21,7 @@ public class LogManager {
     public final String TYPE_WEIGHT = "weight";
     public final String TYPE_SYMPTOM = "symptom";
     public final String TYPE_MEDICINE = "medicine";
+    public final String TYPE_RECORD = "record";
 
     Context context;
 
@@ -55,6 +56,14 @@ public class LogManager {
         this.type = TYPE_MEDICINE;
         this.patient = patient;
         this.msg = String.format(context.getString(R.string.log_add_medicine), patient.getName(), title);
+
+        return this;
+    }
+
+    public LogManager buildRecordMsg(Patient patient, String content){
+        this.type = TYPE_RECORD;
+        this.patient = patient;
+        this.msg = String.format(context.getString(R.string.log_add_record), patient.getName(), content);
 
         return this;
     }

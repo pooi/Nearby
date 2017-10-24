@@ -40,6 +40,7 @@ import cf.nearby.nearby.obj.PatientRemark;
 import cf.nearby.nearby.obj.TakeMedicine;
 import cf.nearby.nearby.obj.VitalSign;
 import cf.nearby.nearby.util.AdditionalFunc;
+import cf.nearby.nearby.util.LogManager;
 import cf.nearby.nearby.util.ParsePHP;
 
 public class NurseRecordActivity extends BaseActivity {
@@ -131,6 +132,8 @@ public class NurseRecordActivity extends BaseActivity {
                     String status = jObj.getString("status");
 
                     if("success".equals(status)){
+                        new LogManager(NurseRecordActivity.this).buildRecordMsg(selectedPatient, buildLogMsg()).record();
+
                         handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
                     }else{
                         handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_FAIL));
@@ -232,6 +235,29 @@ public class NurseRecordActivity extends BaseActivity {
         tv_registeredDate.setText(AdditionalFunc.getDateString(selectedPatient.getRegisteredDate()));
 
 
+    }
+
+    private String buildLogMsg(){
+
+        ArrayList<String> msgs = new ArrayList<>();
+
+        if(!haveMeal.isEmpty()){
+            msgs.add("meal");
+        }
+
+        if(!vitalSign.isEmpty()){
+            msgs.add("vital sign");
+        }
+
+        if(remarks.size() > 0){
+            msgs.add("remarks");
+        }
+
+        if(takeMedicines.size() > 0){
+            msgs.add("medicine");
+        }
+
+        return AdditionalFunc.arrayListToString(msgs);
     }
 
     private void changeBtnColor(CardView cv, boolean check){
