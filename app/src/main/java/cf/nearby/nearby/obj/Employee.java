@@ -167,7 +167,7 @@ public class Employee implements Serializable {
     }
 
     public String getName(){
-        return fn + ln;
+        return ln + fn;
     }
 
     public String getRole() {

@@ -4,37 +4,30 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import cf.nearby.nearby.util.AdditionalFunc;
 
 /**
- * Created by ewon on 2017-10-01.
+ * Created by tw on 2017. 10. 25..
  */
 
-public class Patient implements Serializable {
-    String id, loginId, email, fn, ln, role, license, gender, address, zip, phone, pic, major, description;
-    long startDate, dob, registeredDate;
-    double height, basicLivingAllowance;
-    Location location;
+public class Supporter {
 
-    public Patient(){
+    String id, loginId, email, fn, ln, role, gender, address, zip, phone, pic, relationship;
+    long dob, registeredDate;
 
-        location = new Location();
+    public Supporter(){
 
     }
 
-    public Patient (String data){
+    public Supporter (String data){
         this();
         build(data);
     }
 
     public boolean isEmpty(){
-        if(id == null){
-            return true;
-        }
-        return "".equals(id);
+        return (id == null || "".equals(id));
     }
 
     public void build(String data){
@@ -82,9 +75,6 @@ public class Patient implements Serializable {
             if (keySet.contains("role")) {
                 role = (String) temp.get("role");
             }
-            if (keySet.contains("license")) {
-                license = (String) temp.get("license");
-            }
             if (keySet.contains("gender")) {
                 gender = (String) temp.get("gender");
             }
@@ -100,39 +90,56 @@ public class Patient implements Serializable {
             if (keySet.contains("pic")) {
                 pic = (String) temp.get("pic");
             }
-            if (keySet.contains("major")) {
-                major = (String) temp.get("major");
-            }
-            if (keySet.contains("description")) {
-                description = (String) temp.get("description");
-            }
-            if (keySet.contains("start_date")) {
-                startDate = Long.parseLong((String) temp.get("start_date"));
-            }
             if (keySet.contains("date_of_birth")) {
                 dob = Long.parseLong((String) temp.get("date_of_birth"));
             }
             if (keySet.contains("registered_date")) {
                 registeredDate = Long.parseLong((String) temp.get("registered_date"));
             }
-
-            if (keySet.contains("height")) {
-                height = Double.parseDouble((String) temp.get("height"));
+            if (keySet.contains("relationship")){
+                relationship = (String) temp.get("relationship");
             }
-            if (keySet.contains("basic_living_allowance")) {
-                basicLivingAllowance = Double.parseDouble((String) temp.get("basic_living_allowance"));
-            }
-
-            location.convert(temp);
 
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public static ArrayList<Patient> getPatientList(String data){
+    public void convertSrt(JSONObject temp){
+        ArrayList<String> keySet = AdditionalFunc.getKeySet(temp.keys());
 
-        ArrayList<Patient> list = new ArrayList<>();
+        try {
+
+            if (keySet.contains("user_id")) {
+                id = (String) temp.get("user_id");
+            }
+            if (keySet.contains("user_login_id")) {
+                loginId = (String) temp.get("user_login_id");
+            }
+            if (keySet.contains("user_email")) {
+                email = (String) temp.get("user_email");
+            }
+            if (keySet.contains("user_first_name")) {
+                fn = (String) temp.get("user_first_name");
+            }
+            if (keySet.contains("user_last_name")) {
+                ln = (String) temp.get("user_last_name");
+            }
+            if (keySet.contains("user_phone")) {
+                phone = (String) temp.get("user_phone");
+            }
+            if (keySet.contains("relationship")){
+                relationship = (String) temp.get("relationship");
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Supporter> getSupporterList(String data){
+
+        ArrayList<Supporter> list = new ArrayList<>();
 
         try {
             JSONObject jObject = new JSONObject(data);
@@ -143,10 +150,38 @@ public class Patient implements Serializable {
             for ( int i = 0; i < count; ++i ) {
                 JSONObject temp = results.getJSONObject(i);
 
-                Patient patient = new Patient();
-                patient.convert(temp);
+                Supporter supporter = new Supporter();
+                supporter.convert(temp);
 
-                list.add(patient);
+                list.add(supporter);
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+
+    }
+
+    public static ArrayList<Supporter> getSrtSupporterList(String data){
+
+        ArrayList<Supporter> list = new ArrayList<>();
+
+        try {
+            JSONObject jObject = new JSONObject(data);
+            JSONArray results = jObject.getJSONArray("result");
+            String countTemp = (String)jObject.get("num_result");
+            int count = Integer.parseInt(countTemp);
+
+            for ( int i = 0; i < count; ++i ) {
+                JSONObject temp = results.getJSONObject(i);
+
+                Supporter supporter = new Supporter();
+                supporter.convertSrt(temp);
+
+                list.add(supporter);
 
             }
 
@@ -210,14 +245,6 @@ public class Patient implements Serializable {
         this.role = role;
     }
 
-    public String getLicense() {
-        return license;
-    }
-
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
     public String getGender() {
         return gender;
     }
@@ -258,30 +285,6 @@ public class Patient implements Serializable {
         this.pic = pic;
     }
 
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public long getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(long startDate) {
-        this.startDate = startDate;
-    }
-
     public long getDob() {
         return dob;
     }
@@ -298,27 +301,11 @@ public class Patient implements Serializable {
         this.registeredDate = registeredDate;
     }
 
-    public double getHeight() {
-        return height;
+    public String getRelationship() {
+        return relationship;
     }
 
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public double getBasicLivingAllowance() {
-        return basicLivingAllowance;
-    }
-
-    public void setBasicLivingAllowance(double basicLivingAllowance) {
-        this.basicLivingAllowance = basicLivingAllowance;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setRelationship(String relationship) {
+        this.relationship = relationship;
     }
 }
