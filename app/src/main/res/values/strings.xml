@@ -65,6 +65,7 @@
     <string name="re_measurement_srt">다시측정</string>
     <string name="save_result_srt">결과저장</string>
     <string name="success_srt">성공</string>
+    <string name="add_supporter">보호자 추가</string>
 
 
     <!-- Menu -->
@@ -120,6 +121,7 @@
 
     <string name="no_search_data">검색 결과가 없습니다.</string>
     <string name="there_are_no_data">표시할 데이터가 없습니다.</string>
+    <string name="there_are_no_supporter">등록된 보호자가 없습니다.</string>
     <string name="successfully_recorded">성공적으로 기록하였습니다.</string>
 
     <string name="completed_take_medicine_srt">복용 완료</string>
@@ -141,7 +143,6 @@
     <string name="log_add_symptom">%1$s님의 증상 관리에 %2$s 증상 추가</string>
     <string name="log_add_medicine">%1$s님의 복용약 관리에 %2$s 추가</string>
     <string name="log_add_record">%1$s님의 %2$s 기록 추가</string>
-
 
 
     <!-- Bluetooth String -->
@@ -166,9 +167,9 @@
     <!-- Keep them in order as the titles are in -->
 
     <!--<array name="nav_drawer_icons">-->
-        <!--<item>@drawable/bledevices</item>-->
-        <!--<item>@drawable/cypress</item>-->
-        <!--<item>@drawable/about</item>-->
+    <!--<item>@drawable/bledevices</item>-->
+    <!--<item>@drawable/cypress</item>-->
+    <!--<item>@drawable/about</item>-->
     <!--</array>-->
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

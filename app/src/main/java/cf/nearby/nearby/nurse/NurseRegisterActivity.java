@@ -14,6 +14,7 @@ import com.afollestad.materialdialogs.Theme;
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
+import cf.nearby.nearby.activity.SearchPatientActivity;
 import cf.nearby.nearby.activity.SearchPatientByLocationIdActivity;
 
 
@@ -41,6 +42,15 @@ public class NurseRegisterActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(NurseRegisterActivity.this,RegisterPatientActivity.class);
                 intent.putExtra("nextActivity", Information.NURSE_REGISTER_MENU);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.cv_manage_supporter).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SearchPatientActivity.class);
+                intent.putExtra("nextActivity", Information.MANAGE_SUPPORTER_MENU);
                 startActivity(intent);
             }
         });

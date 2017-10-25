@@ -208,8 +208,14 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
                 startActivity(intent);
                 break;
             }
-            case Information.NURSE_RECORD_MENU:{
+            case Information.NURSE_RECORD_MENU: {
                 Intent intent = new Intent(SearchPatientActivity.this, NurseRecordActivity.class);
+                intent.putExtra("patient", patient);
+                startActivity(intent);
+                break;
+            }
+            case Information.MANAGE_SUPPORTER_MENU:{
+                Intent intent = new Intent(SearchPatientActivity.this, ManageSupporterActivity.class);
                 intent.putExtra("patient", patient);
                 startActivity(intent);
                 break;

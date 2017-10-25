@@ -166,7 +166,7 @@
 
 		}
 		else if($service == 'ModifyPatientRegisterInfo'){
-
+			$patient_id = $_POST['patient_id'];
 			$patient_fn = $_POST['patient_fn'];
 			$patient_ln = $_POST['patient_ln'];
 			$patient_gender = $_POST['patient_gender'];
@@ -189,7 +189,7 @@
 			// echo 'timestamp : ' . $timestamp;
 			// echo '<br>';
 
-			$sql = "UPDATE patient SET first_name='$patient_fn', last_name='$patient_ln', gender='$patient_gender', address='$patient_address', zip='$patient_zip', phone='$patient_phone', date_of_birth='$dob', height='$patient_hegiht', basic_living_allowance='$patient_bla', start_date='$start_date', description='$patient_description', registered_date='$register_date' WHERE patient.first_name like '$patient_fn';";
+			$sql = "UPDATE patient SET first_name='$patient_fn', last_name='$patient_ln', gender='$patient_gender', address='$patient_address', zip='$patient_zip', phone='$patient_phone', date_of_birth='$dob', height='$patient_hegiht', basic_living_allowance='$patient_bla', start_date='$start_date', description='$patient_description', registered_date='$register_date' WHERE patient.id='$patient_id';";
 			echo $sql;
 			// echo $sql;
 			$ret = mysqli_query($con, $sql);
@@ -988,6 +988,68 @@
 				echo json_encode(array('status'=>'fail', 'message'=>"Main record save failed"));
 			}
 			
+
+		}else if($service == "getSupporterList"){
+
+			$patient_id = $_POST['patient_id'];
+
+			$sql = "SELECT A.*, B.login_id as user_login_id, B.email as user_email, B.first_name as user_first_name, B.last_name as user_last_name, B.phone as user_phone 
+					FROM user_patient as A LEFT OUTER JOIN ( 
+					SELECT * 
+					FROM user 
+					GROUP BY id) as B 
+					ON (B.id = A.user_id) 
+					WHERE A.patient_id='$patient_id' 
+					GROUP BY A.id;";
+
+			$ret = mysqli_query($con, $sql);
+            if($ret){
+                $count = mysqli_num_rows($ret);
+            }else{
+                exit();
+            }
+
+            echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+            $i=0;
+
+            while($row = mysqli_fetch_array($ret)){
+
+                $id = $row['id'];
+                $patient_id = $row['patient_id'];
+                $relationship = $row['relationship'];
+				$registered_date = $row['registered_date'];
+				
+                $user_id = $row['user_id'];
+				$user_login_id = $row['user_login_id'];
+				$user_email = $row['user_email'];
+				$user_first_name = $row['user_first_name'];
+				$user_last_name = $row['user_last_name'];
+				$user_phone = $row['user_phone'];
+
+
+
+                echo "{\"id\":\"$id\",
+				\"patient_id\":\"$patient_id\",
+				\"relationship\":\"$relationship\",
+				\"user_id\":\"$user_id\",
+				\"user_login_id\":\"$user_login_id\",
+				\"user_email\":\"$user_email\",
+				\"user_first_name\":\"$user_first_name\",
+				\"user_last_name\":\"$user_last_name\",
+				\"user_phone\":\"$user_phone\",
+				\"registered_date\":\"$registered_date\"
+				}";
+
+                if($i<$count-1){
+                    echo ",";
+                }
+
+                $i++;
+
+            }
+
+            echo "]}";
 
 		}
 
