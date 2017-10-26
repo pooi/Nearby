@@ -1,5 +1,6 @@
 package cf.nearby.nearby.activity;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -74,7 +75,8 @@ public class ManageSupporterActivity extends BaseActivity {
         addSupporterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(ManageSupporterActivity.this, RegisterSupporterActivity.class);
+                startActivity(intent);
             }
         });
 
