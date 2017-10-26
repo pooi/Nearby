@@ -197,6 +197,7 @@ public class ManageWeightActivity extends BaseActivity {
 
     }
 
+
     private void makeList(){
 
         if(list.size() > 0){
