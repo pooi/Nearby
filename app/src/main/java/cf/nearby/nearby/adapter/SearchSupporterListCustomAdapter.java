@@ -83,7 +83,7 @@ public class SearchSupporterListCustomAdapter extends RecyclerView.Adapter<Searc
         holder.li_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                activity.addNewSupporter(pos);
             }
         });
 

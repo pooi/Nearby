@@ -118,6 +118,7 @@
     <string name="please_enter_weight">몸무게를 입력해주세요.</string>
     <string name="please_input_remark">특이사항을 입력해주세요.</string>
     <string name="please_input_supporter_name_or_id">보호자 이름 및 아이디를 입력하세요.</string>
+    <string name="please_input_supporter_relationship">환자와의 관계를 입력해주세요.</string>
 
     <string name="print_hello_msg">안녕하세요. %1$s님</string>
 
@@ -130,6 +131,7 @@
 
     <string name="are_you_sure_logout">로그아웃 하시겠습니까?</string>
     <string name="are_you_finish_app">앱을 종료하시겠습니까?</string>
+    <string name="are_you_sure_you_want_to_delete_supporter">정말로 %1$s 보호자를 삭제하시겠습니까?</string>
 
     <string name="add_patient_medicine_srt">복용 약 추가</string>
     <string name="add_patient_symptom_srt">증상 추가</string>

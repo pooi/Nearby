@@ -1089,11 +1089,12 @@
 		}else if($service == "searchSupporter"){
 
 			$search = $_POST['search'];
+			$patient_id = $_POST['patient_id'];
 
 			$page = $_POST['page'];
 			$page = $page*30;
 
-			$sql = "SELECT * FROM user WHERE login_id like '%$search%' or (concat(last_name, first_name) like '%$search%' or last_name like '%$search%' or first_name like '%$search%') LIMIT $page, 30;";
+			$sql = "SELECT * FROM user WHERE login_id like '%$search%' or (concat(last_name, first_name) like '%$search%' or last_name like '%$search%' or first_name like '%$search%') and (id not in (SELECT user_id FROM user_patient WHERE patient_id = '$patient_id')) LIMIT $page, 30;";
 			$ret = mysqli_query($con, $sql);
             if($ret){
                 $count = mysqli_num_rows($ret);
@@ -1149,6 +1150,38 @@
             echo "]}";
 
 
+		}else if($service == "registerPatientSupporter"){
+
+			$patient_id = $_POST['patient_id'];
+			$user_id = $_POST['user_id'];
+			$relationship = $_POST['relationship'];
+			$registered_date = time() * 1000;
+
+			$sql = "INSERT INTO user_patient(patient_id, user_id, relationship, registered_date) VALUES('$patient_id', '$user_id', '$relationship', '$registered_date');";
+
+            $ret = mysqli_query($con, $sql);
+			
+			if($ret == '1'){
+				echo json_encode(array('status'=>'success', 'message'=>"update success"));
+			}else{
+				echo json_encode(array('status'=>'fail', 'message'=>"update fail"));
+			}
+
+		}else if($service == "removePatientSupporter"){
+
+			$patient_id = $_POST['patient_id'];
+			$user_id = $_POST['user_id'];
+
+			$sql = "DELETE FROM user_patient WHERE patient_id='$patient_id' and user_id='$user_id';";
+
+            $ret = mysqli_query($con, $sql);
+			
+			if($ret == '1'){
+				echo json_encode(array('status'=>'success', 'message'=>"update success"));
+			}else{
+				echo json_encode(array('status'=>'fail', 'message'=>"update fail"));
+			}
+			
 		}
 
 	}

@@ -24,6 +24,7 @@ import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.adapter.SearchSupporterListCustomAdapter;
+import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.obj.Supporter;
 import cf.nearby.nearby.util.DividerItemDecoration;
 import cf.nearby.nearby.util.OnAdapterSupport;
@@ -56,6 +57,7 @@ public class SearchSupporterActivity extends BaseActivity implements OnAdapterSu
     private Toolbar toolbar;
 
     private String search;
+    private Patient selectedPatient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class SearchSupporterActivity extends BaseActivity implements OnAdapterSu
         setContentView(R.layout.activity_search_supporter);
 
         search = getIntent().getStringExtra("search");
+        selectedPatient = (Patient)getIntent().getSerializableExtra("patient");
 
         list = new ArrayList<>();
         tempList = new ArrayList<>();
@@ -117,6 +120,7 @@ public class SearchSupporterActivity extends BaseActivity implements OnAdapterSu
             HashMap<String, String> map = new HashMap<>();
             map.put("service", "searchSupporter");
             map.put("search", search);
+            map.put("patient_id", selectedPatient.getId());
             map.put("page", Integer.toString(page));
 
             new ParsePHP(Information.MAIN_SERVER_ADDRESS, map) {
@@ -185,6 +189,14 @@ public class SearchSupporterActivity extends BaseActivity implements OnAdapterSu
 
         adapter.setLoaded();
 
+    }
+
+    public void addNewSupporter(int index){
+        Supporter supporter = list.get(index);
+        Intent intent = new Intent();
+        intent.putExtra("supporter", supporter);
+        setResult(ManageSupporterActivity.ADD_SUPPORTER, intent);
+        finish();
     }
 
     @Override

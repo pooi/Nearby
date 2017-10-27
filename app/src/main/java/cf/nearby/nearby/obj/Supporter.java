@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cf.nearby.nearby.util.AdditionalFunc;
@@ -12,7 +13,7 @@ import cf.nearby.nearby.util.AdditionalFunc;
  * Created by tw on 2017. 10. 25..
  */
 
-public class Supporter {
+public class Supporter implements Serializable {
 
     String id, loginId, email, fn, ln, role, gender, address, zip, phone, pic, relationship;
     long dob, registeredDate;
