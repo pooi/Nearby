@@ -3,9 +3,11 @@ package cf.nearby.nearby.activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,7 +16,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.squareup.picasso.Picasso;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -28,11 +32,14 @@ import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.obj.Patient;
+import cf.nearby.nearby.obj.PatientRemark;
 import cf.nearby.nearby.obj.Supporter;
 import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.ParsePHP;
 
 public class ManageSupporterActivity extends BaseActivity {
+
+    public final static int ADD_SUPPORTER = 100;
 
     private MyHandler handler = new MyHandler();
     private final int MSG_MESSAGE_MAKE_LIST = 500;
@@ -75,8 +82,9 @@ public class ManageSupporterActivity extends BaseActivity {
         addSupporterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ManageSupporterActivity.this, RegisterSupporterActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(ManageSupporterActivity.this, RegisterSupporterActivity.class);
+//                startActivity(intent);
+                addSupporter();
             }
         });
 
@@ -103,6 +111,34 @@ public class ManageSupporterActivity extends BaseActivity {
 
         getSupporterList();
 
+    }
+
+    private void addSupporter(){
+        new MaterialDialog.Builder(this)
+                .title(R.string.search_srt)
+                .inputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
+                        InputType.TYPE_TEXT_FLAG_CAP_WORDS)
+                .theme(Theme.LIGHT)
+                .positiveText(R.string.search_srt)
+                .negativeText(R.string.cancel)
+//                .neutralText(R.string.reset)
+//                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+//                    @Override
+//                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//
+//                    }
+//                })
+                .input(getResources().getString(R.string.please_input_supporter_name_or_id), "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        String text = input.toString();
+                        Intent intent = new Intent(ManageSupporterActivity.this, SearchSupporterActivity.class);
+                        intent.putExtra("search", text);
+                        startActivityForResult(intent, ADD_SUPPORTER);
+                    }
+                })
+                .show();
     }
 
     private void getSupporterList(){
@@ -153,6 +189,22 @@ public class ManageSupporterActivity extends BaseActivity {
             tv_relationship.setText(supporter.getRelationship());
 
             li_supporter.addView(v);
+        }
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case ADD_SUPPORTER:
+                if(data != null){
+
+                }
+                break;
+            default:
+                break;
         }
 
     }

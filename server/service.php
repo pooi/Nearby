@@ -128,7 +128,42 @@
 
 			echo "]}";
 
-		}else if($service == 'registerPatient'){
+		}
+		else if($service == 'registerSupporter'){
+
+			$supporter_id = $_POST['supporter_id'];
+			$supporter_password = $_POST['supporter_password'];
+			$supporter_email = $_POST['supporter_email'];
+			$supporter_fn = $_POST['supporter_fn'];
+			$supporter_ln = $_POST['supporter_ln'];
+			$supporter_gender = $_POST['supporter_gender'];
+			$supporter_role = $_POST['supporter_role'];
+			$dob = $_POST['dob'];
+			// echo $dob;
+			$supporter_zip = $_POST['supporter_zip'];
+			$register_date = $_POST['register_date'];
+			$supporter_address = $_POST['supporter_address'];
+			$supporter_phone = $_POST['supporter_phone'];
+			$supporter_description = $_POST['supporter_description'];
+			// echo '<br>';
+			$current_time = time() * 1000;
+			// echo 'timestamp : ' . $timestamp;
+			// echo '<br>';
+
+			$sql = "INSERT INTO
+					user(login_id,password, email, first_name, last_name, role, gender, address, zip, phone, date_of_birth, registered_date)
+					VALUES('$supporter_id','$supporter_password','$supporter_email','$supporter_fn', '$supporter_ln','$supporter_role','$supporter_gender', '$supporter_address', '$supporter_zip', '$supporter_phone', '$dob', '$register_date');";
+			echo $sql;
+			// echo $sql;
+			$ret = mysqli_query($con, $sql);
+			if($ret == '1'){
+				echo json_encode(array('status'=>'success', 'message'=>"save success"));
+			}else{
+				echo json_encode(array('status'=>'fail', 'message'=>"save fail"));
+			}
+
+		}
+		else if($service == 'registerPatient'){
 
 			$patient_fn = $_POST['patient_fn'];
 			$patient_ln = $_POST['patient_ln'];
@@ -905,7 +940,7 @@
 			$location_id = $_POST['location_id'];
 			$registered_date = time() * 1000;
 
-			$sql = "INSERT INTO main_record(patient_id, employee_id, registered_date, location_id) 
+			$sql = "INSERT INTO main_record(patient_id, employee_id, registered_date, location_id)
 			VALUES('$patient_id', '$employee_id', '$registered_date', '$location_id');";
 
 
@@ -914,16 +949,16 @@
 
 			if($ret == '1'){
 				$main_record_id = mysqli_insert_id($con);
-				
-				
+
+
 				$have_meal = $_POST['have_meal'];
 				if($have_meal == "1"){
 					$have_meal_type = $_POST['have_meal_type'];
 					$have_meal_description = $_POST['have_meal_description'];
-	
-					$sql_haveMeal = "INSERT INTO have_meal(main_record_id, patient_id, type, description, registered_date) 
+
+					$sql_haveMeal = "INSERT INTO have_meal(main_record_id, patient_id, type, description, registered_date)
 					VALUES('$main_record_id', '$patient_id', '$have_meal_type', '$have_meal_description', '$registered_date');";
-					
+
 					$ret_haveMeal = mysqli_query($con, $sql_haveMeal);
 					if($ret_haveMeal != '1'){
 						$isFail = $isFail."/have meal".$sql_haveMeal;
@@ -937,7 +972,7 @@
 					$vital_sign_pulse = $_POST['vital_sign_pulse'];
 					$vital_sign_temperature = $_POST['vital_sign_temperature'];
 
-					$sql_vitalSign = "INSERT INTO vital_sign(main_record_id, patient_id, blood_pressure_max, blood_pressure_min, pulse, temperature, registered_date) 
+					$sql_vitalSign = "INSERT INTO vital_sign(main_record_id, patient_id, blood_pressure_max, blood_pressure_min, pulse, temperature, registered_date)
 					VALUES('$main_record_id', '$patient_id', '$vital_sign_bp_max', '$vital_sign_bp_min', '$vital_sign_pulse', '$vital_sign_temperature', '$registered_date');";
 
 					$ret_vitalSign = mysqli_query($con, $sql_vitalSign);
@@ -952,9 +987,9 @@
 					for($k=0; $k<$remarksSize; $k++){
 						$remarks_description = $_POST['remarks_description'.$k];
 
-						$sql_remarks = "INSERT INTO remarks(main_record_id, patient_id, symptom_id, description, registered_date) 
+						$sql_remarks = "INSERT INTO remarks(main_record_id, patient_id, symptom_id, description, registered_date)
 						VALUES('$main_record_id', '$patient_id', null, '$remarks_description', '$registered_date');";
-	
+
 						$ret_remarks = mysqli_query($con, $sql_remarks);
 						if($ret_remarks != '1'){
 							$isFail = $isFail."/remarks".$k.$sql_remarks;
@@ -968,9 +1003,9 @@
 					for($k=0; $k<$takeMedicinesSize; $k++){
 						$take_medicines_patient_medicine_id = $_POST['take_medicines_patient_medicine_id'.$k];
 
-						$sql_take_medicines = "INSERT INTO take_medicine(main_record_id, patient_id, patient_medicine_id, registered_date) 
+						$sql_take_medicines = "INSERT INTO take_medicine(main_record_id, patient_id, patient_medicine_id, registered_date)
 						VALUES('$main_record_id', '$patient_id', '$take_medicines_patient_medicine_id', '$registered_date');";
-	
+
 						$ret_take_medicines = mysqli_query($con, $sql_take_medicines);
 						if($ret_take_medicines != '1'){
 							$isFail = $isFail."/take medicines".$k.$sql_take_medicines;
@@ -987,19 +1022,19 @@
 			}else{
 				echo json_encode(array('status'=>'fail', 'message'=>"Main record save failed"));
 			}
-			
+
 
 		}else if($service == "getSupporterList"){
 
 			$patient_id = $_POST['patient_id'];
 
-			$sql = "SELECT A.*, B.login_id as user_login_id, B.email as user_email, B.first_name as user_first_name, B.last_name as user_last_name, B.phone as user_phone 
-					FROM user_patient as A LEFT OUTER JOIN ( 
-					SELECT * 
-					FROM user 
-					GROUP BY id) as B 
-					ON (B.id = A.user_id) 
-					WHERE A.patient_id='$patient_id' 
+			$sql = "SELECT A.*, B.login_id as user_login_id, B.email as user_email, B.first_name as user_first_name, B.last_name as user_last_name, B.phone as user_phone
+					FROM user_patient as A LEFT OUTER JOIN (
+					SELECT *
+					FROM user
+					GROUP BY id) as B
+					ON (B.id = A.user_id)
+					WHERE A.patient_id='$patient_id'
 					GROUP BY A.id;";
 
 			$ret = mysqli_query($con, $sql);
@@ -1019,7 +1054,7 @@
                 $patient_id = $row['patient_id'];
                 $relationship = $row['relationship'];
 				$registered_date = $row['registered_date'];
-				
+
                 $user_id = $row['user_id'];
 				$user_login_id = $row['user_login_id'];
 				$user_email = $row['user_email'];
@@ -1050,6 +1085,69 @@
             }
 
             echo "]}";
+
+		}else if($service == "searchSupporter"){
+
+			$search = $_POST['search'];
+
+			$page = $_POST['page'];
+			$page = $page*30;
+
+			$sql = "SELECT * FROM user WHERE login_id like '%$search%' or (concat(last_name, first_name) like '%$search%' or last_name like '%$search%' or first_name like '%$search%') LIMIT $page, 30;";
+			$ret = mysqli_query($con, $sql);
+            if($ret){
+                $count = mysqli_num_rows($ret);
+            }else{
+                exit();
+            }
+
+            echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+            $i=0;
+
+            while($row = mysqli_fetch_array($ret)){
+
+                $id = $row['id'];
+				$login_id = $row['login_id'];
+				$email = $row['email'];
+				$first_name = $row['first_name'];
+				$last_name = $row['last_name'];
+				$role = $row['role'];
+				$gender = $row['gender'];
+				$address = $row['address'];
+				$zip = $row['zip'];
+				$phone = $row['phone'];
+				$pic = $row['pic'];
+				$date_of_birth = $row['date_of_birth'];
+				$registered_date = $row['registered_date'];
+
+
+
+                echo "{\"id\":\"$id\",
+				\"login_id\":\"$login_id\",
+				\"email\":\"$email\",
+				\"first_name\":\"$first_name\",
+				\"last_name\":\"$last_name\",
+				\"role\":\"$role\",
+				\"gender\":\"$gender\",
+				\"address\":\"$address\",
+				\"zip\":\"$zip\",
+				\"phone\":\"$phone\",
+				\"pic\":\"$pic\",
+				\"date_of_birth\":\"$date_of_birth\",
+				\"registered_date\":\"$registered_date\"
+				}";
+
+                if($i<$count-1){
+                    echo ",";
+                }
+
+                $i++;
+
+            }
+
+            echo "]}";
+
 
 		}
 

@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.HashMap;
 
+import cf.nearby.nearby.activity.RegisterSupporterActivity;
 import cf.nearby.nearby.admin.AdminMainActivity;
 import cf.nearby.nearby.nurse.NurseMainActivity;
 import cf.nearby.nearby.obj.Employee;
@@ -99,6 +100,13 @@ public class StartActivity extends BaseActivity {
         initLoginForm();
 
         tv_signupSupporterBtn = (TextView)findViewById(R.id.tv_signup_supporter);
+        tv_signupSupporterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(StartActivity.this, RegisterSupporterActivity.class);
+                startActivity(intent);
+            }
+        });
 
         progressDialog = new MaterialDialog.Builder(this)
                 .content(R.string.please_wait)

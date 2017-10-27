@@ -324,6 +324,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.SearchSupporterActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="cf.nearby.nearby" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".bluetooth.ConnectBLEActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme"
@@ -375,7 +386,8 @@
                 <category android:name="cf.nearby.nearby" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterSupporterActivity"
+        <activity
+            android:name=".activity.RegisterSupporterActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
@@ -384,7 +396,7 @@
 
                 <category android:name="cf.nearby.nearby" />
             </intent-filter>
-    </activity>
+        </activity>
     </application>
 
 </manifest>

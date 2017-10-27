@@ -100,7 +100,7 @@ public class RegisterSupporterActivity extends AppCompatActivity {
 
         back_btn = (Button)findViewById(R.id.btn_back);
         register_btn = (Button)findViewById(R.id.register_btn);
-        ;
+
 
         startdate = (TextView)findViewById(R.id.startdate);
         registerdate = (TextView)findViewById(R.id.registerdate);
@@ -130,8 +130,9 @@ public class RegisterSupporterActivity extends AppCompatActivity {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.show();
-                finish();
+//                progressDialog.show();
+//                finish();
+                RegisterSupporterActivity.this.onBackPressed();
             }
         });
 
@@ -282,6 +283,15 @@ public class RegisterSupporterActivity extends AppCompatActivity {
 
             return false;
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(RegisterSupporterActivity.this, StartActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+//        super.onBackPressed();
     }
 
 }
