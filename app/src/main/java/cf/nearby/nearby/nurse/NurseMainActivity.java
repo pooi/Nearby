@@ -63,6 +63,13 @@ public class NurseMainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        findViewById(R.id.cv_inquiry).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NurseMainActivity.this, NurseInquiryActivity.class);
+                startActivity(intent);
+            }
+        });
 
         findViewById(R.id.cv_manage).setOnClickListener(new View.OnClickListener() {
             @Override

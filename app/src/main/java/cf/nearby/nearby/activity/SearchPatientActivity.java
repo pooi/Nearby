@@ -220,6 +220,12 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
                 startActivity(intent);
                 break;
             }
+            case Information.INQUIRY_MAIN_MENU:{
+                Intent intent = new Intent(SearchPatientActivity.this, InquiryMainActivity.class);
+                intent.putExtra("patient", patient);
+                startActivity(intent);
+                break;
+            }
             default:
                 break;
         }

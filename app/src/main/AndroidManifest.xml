@@ -335,6 +335,28 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".nurse.NurseInquiryActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="cf.nearby.nearby" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.InquiryMainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="cf.nearby.nearby" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".bluetooth.ConnectBLEActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme"

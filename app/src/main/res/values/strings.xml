@@ -94,6 +94,8 @@
     <string name="inquiry_patient_record">환자 간호일지 조회</string>
     <string name="inquiry_log">로그 기록 조회</string>
     <string name="search_supporter">보호자 검색</string>
+    <string name="view_by_date">일자별 조회</string>
+    <string name="view_by_item">항목별 조회</string>
 
     <string name="please_enter_id">아이디를 입력해주세요.</string>
     <string name="please_enter_pw">비밀번호를 입력해주세요.</string>

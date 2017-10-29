@@ -56,5 +56,6 @@ dependencies {
     compile 'com.diogobernardino:williamchart:2.5.0'
     compile 'com.karumi:dexter:4.1.0'
     compile 'com.flurgle:camerakit:0.9.17'
+    compile 'com.github.devlight.navigationtabbar:navigationtabbar:1.2.3'
     testCompile 'junit:junit:4.12'
 }
