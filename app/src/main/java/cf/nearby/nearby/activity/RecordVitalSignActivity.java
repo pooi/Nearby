@@ -361,7 +361,7 @@ public class RecordVitalSignActivity extends BaseActivity {
     private void createNewData(ArrayList<Double> list){
 
         Random rand = new Random();
-        double temp = rand.nextDouble();
+        double temp = rand.nextDouble()*100;
         list.add(temp);
 
         TextView msg = new TextView(this);

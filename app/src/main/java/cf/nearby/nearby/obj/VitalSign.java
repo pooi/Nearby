@@ -5,7 +5,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import cf.nearby.nearby.util.AdditionalFunc;
 
@@ -59,16 +62,20 @@ public class VitalSign extends MainRecord implements Serializable {
                 patientId = (String) temp.get("patient_id");
             }
             if(keySet.contains("blood_pressure_max")){
-                bpMax = Double.parseDouble((String) temp.get("blood_pressure_max"));
+                String bp = (String) temp.get("blood_pressure_max");
+                bpMax = "".equals(bp) ? 0 : Double.parseDouble((String) temp.get("blood_pressure_max"));
             }
             if(keySet.contains("blood_pressure_min")){
-                bpMin = Double.parseDouble((String) temp.get("blood_pressure_min"));
+                String bp = (String) temp.get("blood_pressure_min");
+                bpMin = "".equals(bp) ? 0 : Double.parseDouble((String) temp.get("blood_pressure_min"));
             }
             if(keySet.contains("pulse")){
-                pulse = Double.parseDouble((String) temp.get("pulse"));
+                String pul = (String) temp.get("pulse");
+                pulse = "".equals(pul) ? 0 : Double.parseDouble((String) temp.get("pulse"));
             }
             if(keySet.contains("temperature")){
-                temperature = Double.parseDouble((String) temp.get("temperature"));
+                String tem = (String) temp.get("temperature");
+                temperature = "".equals(tem) ? 0 : Double.parseDouble((String) temp.get("temperature"));
             }
             if(keySet.contains("registered_date")){
                 registeredDate = Long.parseLong((String) temp.get("registered_date"));
@@ -79,6 +86,34 @@ public class VitalSign extends MainRecord implements Serializable {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+    }
+
+    public static ArrayList<VitalSign> getVitalSignList(String data){
+
+        ArrayList<VitalSign> list = new ArrayList<>();
+
+        try {
+            JSONObject jObject = new JSONObject(data);
+            JSONArray results = jObject.getJSONArray("result");
+            String countTemp = (String)jObject.get("num_result");
+            int count = Integer.parseInt(countTemp);
+
+            for ( int i = 0; i < count; ++i ) {
+                JSONObject temp = results.getJSONObject(i);
+
+                VitalSign vs = new VitalSign();
+                vs.convert(temp);
+
+                list.add(vs);
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return list;
 
     }
 
@@ -134,6 +169,13 @@ public class VitalSign extends MainRecord implements Serializable {
         this.temperature = temperature;
     }
 
+    public String getRegisteredDateStringSrt(){
+        Date currentDate = new Date(registeredDate);
+        DateFormat df = new SimpleDateFormat("MM.dd");
+        String str = df.format(currentDate);
+//        str.replace("/", "\n");
+        return str;
+    }
 //    public long getRegisteredDate() {
 //        return registeredDate;
 //    }

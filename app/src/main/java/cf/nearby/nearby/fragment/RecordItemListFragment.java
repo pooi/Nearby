@@ -37,7 +37,7 @@ public class RecordItemListFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // UI
-        view = inflater.inflate(R.layout.fragment_record_item_list, container, false);
+        view = inflater.inflate(R.layout.fragment_inquiry_item_list, container, false);
         context = container.getContext();
 
         init();

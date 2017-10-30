@@ -18,7 +18,7 @@ import java.util.HashMap;
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
-import cf.nearby.nearby.adapter.AllInOneRecordListCustomAdapter;
+import cf.nearby.nearby.adapter.AllInOneInquiryListCustomAdapter;
 import cf.nearby.nearby.obj.HaveMeal;
 import cf.nearby.nearby.obj.MainRecord;
 import cf.nearby.nearby.obj.Patient;
@@ -56,7 +56,7 @@ public class InquiryDetailActivity extends BaseActivity implements OnAdapterSupp
     // Recycle View
     private RecyclerView rv;
     private LinearLayoutManager mLinearLayoutManager;
-    private AllInOneRecordListCustomAdapter adapter;
+    private AllInOneInquiryListCustomAdapter adapter;
     private boolean isLoadFinish;
 
     @Override
@@ -186,7 +186,7 @@ public class InquiryDetailActivity extends BaseActivity implements OnAdapterSupp
         }
 
 
-        adapter = new AllInOneRecordListCustomAdapter(getApplicationContext(), list, rv, this, this);
+        adapter = new AllInOneInquiryListCustomAdapter(getApplicationContext(), list, rv, this, this);
 
         rv.setAdapter(adapter);
 
@@ -270,11 +270,6 @@ public class InquiryDetailActivity extends BaseActivity implements OnAdapterSupp
     public void redirectActivity(Intent intent) {
         startActivity(intent);
     }
-
-//    @Override
-//    public int getColorId(int id){
-//        return super.getColorId(id);
-//    }
 
 
 }

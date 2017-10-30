@@ -35,6 +35,7 @@ public class InquiryVitalSignActivity extends BaseActivity {
 
         selectedPatient = (Patient)getIntent().getSerializableExtra("patient");
         titles = new ArrayList<>();
+        // 순서 변경하면 안됨! 변경 시 InquiryVitalSignFragment에서 TYPE 순서 변경
         titles.add(getString(R.string.pulse_srt));
         titles.add(getString(R.string.temperature_srt));
         titles.add(getString(R.string.blood_pressure_srt));
@@ -55,7 +56,7 @@ public class InquiryVitalSignActivity extends BaseActivity {
         viewPagerContainer = (PagerContainer)findViewById(R.id.view_pager_container);
         viewPager = (CustomViewPager) findViewById(R.id.view_pager);
 
-        pagerAdapter = new NavigationAdapter(getSupportFragmentManager(), titles);
+        pagerAdapter = new NavigationAdapter(getSupportFragmentManager(), titles, selectedPatient);
         viewPager.setOffscreenPageLimit(titles.size());
         viewPager.setAdapter(pagerAdapter);
 //        viewPager.setPageMargin(0);
@@ -68,10 +69,12 @@ public class InquiryVitalSignActivity extends BaseActivity {
     private static class NavigationAdapter extends FragmentPagerAdapter {
 
         private ArrayList<String> titles;
+        private Patient selectedPatient;
 
-        public NavigationAdapter(FragmentManager fm, ArrayList<String> titles){
+        public NavigationAdapter(FragmentManager fm, ArrayList<String> titles, Patient selectedPatient){
             super(fm);
             this.titles = titles;
+            this.selectedPatient = selectedPatient;
         }
 
         @Override
@@ -82,7 +85,9 @@ public class InquiryVitalSignActivity extends BaseActivity {
             f = new InquiryVitalSignFragment();
             Bundle bdl = new Bundle(1);
             bdl.putInt("position", pattern);
+            bdl.putSerializable("patient", selectedPatient);
             bdl.putString("title", titles.get(pattern));
+            bdl.putInt("type", pattern);
             f.setArguments(bdl);
 //            f = new ArticleItemFragment();
 

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:williamchart="http://schemas.android.com/apk/res-auto"
     android:background="@color/transparency"
     >
 
@@ -11,6 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
+        app:cardCornerRadius="@dimen/menu_btn_radius"
+        app:cardElevation="@dimen/menu_btn_elevation"
+        app:cardBackgroundColor="@color/white"
         >
 
         <RelativeLayout
@@ -26,24 +30,60 @@
                 android:text="Title"
                 android:textSize="@dimen/default_font_size"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 android:gravity="center"
                 android:padding="10dp"
+                android:background="@drawable/title_radius_gray"
                 />
 
-            <RelativeLayout
-                android:id="@+id/rl_graph"
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_graph"
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
-                android:background="@color/light_gray"
+                android:layout_height="250dp"
+                app:cardCornerRadius="@dimen/menu_btn_radius"
+                app:cardElevation="@dimen/menu_btn_elevation"
+                app:cardBackgroundColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:layout_gravity="center_horizontal"
                 android:layout_below="@+id/tv_title"
                 >
 
-            </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+
+                    <com.db.chart.view.LineChartView
+                        android:id="@+id/chart_weight"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        williamchart:chart_axis="false"
+                        williamchart:chart_axisBorderSpacing="0dp"
+                        williamchart:chart_barSpacing="4dp"
+                        williamchart:chart_fontSize="12dp"
+                        williamchart:chart_labelColor="#FF8E8A84"
+                        >
+
+                    </com.db.chart.view.LineChartView>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/rl_graph"
+                android:layout_below="@+id/cv_graph"
                 >
 
                 <android.support.v7.widget.RecyclerView

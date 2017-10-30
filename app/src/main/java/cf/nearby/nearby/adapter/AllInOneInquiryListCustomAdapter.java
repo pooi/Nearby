@@ -9,8 +9,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -18,11 +16,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cf.nearby.nearby.R;
-import cf.nearby.nearby.activity.ManageSymptomActivity;
 import cf.nearby.nearby.obj.HaveMeal;
 import cf.nearby.nearby.obj.MainRecord;
 import cf.nearby.nearby.obj.PatientRemark;
-import cf.nearby.nearby.obj.PatientSymptom;
 import cf.nearby.nearby.obj.TakeMedicine;
 import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.OnAdapterSupport;
@@ -33,7 +29,7 @@ import cf.nearby.nearby.util.RecordListSupporter;
 /**
  * Created by tw on 2017-10-01.
  */
-public class AllInOneRecordListCustomAdapter extends RecyclerView.Adapter<AllInOneRecordListCustomAdapter.ViewHolder> {
+public class AllInOneInquiryListCustomAdapter extends RecyclerView.Adapter<AllInOneInquiryListCustomAdapter.ViewHolder> {
 
     // UI
     private Context context;
@@ -50,7 +46,7 @@ public class AllInOneRecordListCustomAdapter extends RecyclerView.Adapter<AllInO
     private boolean loading = false;
 
     // 생성자
-    public AllInOneRecordListCustomAdapter(Context context, ArrayList<MainRecord> list, RecyclerView recyclerView, OnAdapterSupport listener, RecordListSupporter recordSupporter) {
+    public AllInOneInquiryListCustomAdapter(Context context, ArrayList<MainRecord> list, RecyclerView recyclerView, OnAdapterSupport listener, RecordListSupporter recordSupporter) {
         this.context = context;
         this.list = list;
         this.onAdapterSupport = listener;
@@ -74,7 +70,7 @@ public class AllInOneRecordListCustomAdapter extends RecyclerView.Adapter<AllInO
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //recycler view에 반복될 아이템 레이아웃 연결
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.all_in_one_record_list_custom_item,null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.all_in_one_inquiry_list_custom_item,null);
         return new ViewHolder(v);
     }
 

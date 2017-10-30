@@ -1357,11 +1357,11 @@
 			$page = $page*30;
 
 			if($type == 'pulse'){
-				$sql = "SELECT id, main_record_id, patient_id, pulse, registered_date FROM vital_sign WHERE patient_id='$patient_id'";
+				$sql = "SELECT id, main_record_id, patient_id, pulse, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND pulse != '0'";
 			}else if($type == 'temperature'){
-				$sql = "SELECT id, main_record_id, patient_id, temperature, registered_date FROM vital_sign WHERE patient_id='$patient_id'";
+				$sql = "SELECT id, main_record_id, patient_id, temperature, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND temperature != '0'";
 			}else if($type == 'bp'){
-				$sql = "SELECT id, main_record_id, patient_id, blood_pressure_max, blood_pressure_min, registered_date FROM vital_sign WHERE patient_id='$patient_id'";
+				$sql = "SELECT id, main_record_id, patient_id, blood_pressure_max, blood_pressure_min, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND (blood_pressure_min != '0' AND blood_pressure_max != '0')";
 			}
 			
 			$sql = $sql." LIMIT $page, 30;";

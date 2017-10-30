@@ -22,7 +22,7 @@ public class RecordDateListFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // UI
-        view = inflater.inflate(R.layout.fragment_record_date_list, container, false);
+        view = inflater.inflate(R.layout.fragment_inquiry_date_list, container, false);
         context = container.getContext();
 
         init();

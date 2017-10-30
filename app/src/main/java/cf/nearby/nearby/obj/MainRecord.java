@@ -123,6 +123,39 @@ public class MainRecord implements Serializable {
 
     }
 
+    public static ArrayList<MainRecord> getVitalSignGroupingList(ArrayList<VitalSign> records){
+
+        ArrayList<MainRecord> list = new ArrayList<>();
+
+        HashMap<String, MainRecord> indexing = new HashMap<>();
+
+        for(int i=0; i<records.size(); i++){
+            MainRecord record = records.get(i);
+            String hash = Integer.toString(AdditionalFunc.getDday(record.getRegisteredDate()));
+
+            if(indexing.keySet().contains(hash)){
+                MainRecord groupRecord = indexing.get(hash);
+                groupRecord.getGroupList().add(record);
+            }else{
+                MainRecord mainRecord = new MainRecord();
+                mainRecord.setDate(AdditionalFunc.getDateString(record.getRegisteredDate()));
+                mainRecord.getGroupList().add(record);
+                indexing.put(hash, mainRecord);
+            }
+
+        }
+
+        Object[] keys = indexing.keySet().toArray();
+        Arrays.sort(keys);
+
+        for(Object key : keys){
+            list.add(indexing.get(key));
+        }
+
+        return list;
+
+    }
+
     public long getRegisteredDate() {
         return registeredDate;
     }

@@ -63,6 +63,9 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
 
         Intent intent = getIntent();
         nextActivity = intent.getStringExtra("nextActivity");
+        if(nextActivity == null){
+            nextActivity = "";
+        }
 
         list = new ArrayList<>();
         tempList = new ArrayList<>();
