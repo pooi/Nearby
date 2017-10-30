@@ -13,10 +13,10 @@ import cf.nearby.nearby.util.AdditionalFunc;
  * Created by tw on 2017. 10. 6..
  */
 
-public class HaveMeal implements Serializable {
+public class HaveMeal extends MainRecord implements Serializable {
 
     String id, mainRecordId, patientId, type, description;
-    long registeredDate;
+//    long registeredDate;
 
 
     public HaveMeal(){
@@ -81,6 +81,34 @@ public class HaveMeal implements Serializable {
 
     }
 
+    public static ArrayList<HaveMeal> getHaveMealList(String data){
+
+        ArrayList<HaveMeal> list = new ArrayList<>();
+
+        try {
+            JSONObject jObject = new JSONObject(data);
+            JSONArray results = jObject.getJSONArray("result");
+            String countTemp = (String)jObject.get("num_result");
+            int count = Integer.parseInt(countTemp);
+
+            for ( int i = 0; i < count; ++i ) {
+                JSONObject temp = results.getJSONObject(i);
+
+                HaveMeal hm = new HaveMeal();
+                hm.convert(temp);
+
+                list.add(hm);
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+
+    }
+
     public boolean isEmpty(){
         if(type == null || "".equals(type)){
             return true;
@@ -129,11 +157,11 @@ public class HaveMeal implements Serializable {
         this.description = description;
     }
 
-    public long getRegisteredDate() {
-        return registeredDate;
-    }
-
-    public void setRegisteredDate(long registeredDate) {
-        this.registeredDate = registeredDate;
-    }
+//    public long getRegisteredDate() {
+//        return registeredDate;
+//    }
+//
+//    public void setRegisteredDate(long registeredDate) {
+//        this.registeredDate = registeredDate;
+//    }
 }

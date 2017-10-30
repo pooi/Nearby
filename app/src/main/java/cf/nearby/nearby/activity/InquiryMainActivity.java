@@ -54,7 +54,7 @@ public class InquiryMainActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.vp_horizontal_ntb);
         viewPager.setOffscreenPageLimit(toolbarTitleList.length);
-        mPagerAdapter = new NavigationAdapter(getSupportFragmentManager());
+        mPagerAdapter = new NavigationAdapter(getSupportFragmentManager(), selectedPatient);
         viewPager.setAdapter(mPagerAdapter);
 
         final String[] colors = getResources().getStringArray(R.array.default_preview);
@@ -115,21 +115,28 @@ public class InquiryMainActivity extends AppCompatActivity {
 
     private static class NavigationAdapter extends FragmentStatePagerAdapter{
 
-        public NavigationAdapter(FragmentManager fm){
+        Patient patient;
+
+        public NavigationAdapter(FragmentManager fm, Patient patient){
             super(fm);
+            this.patient = patient;
         }
 
         @Override
         public Fragment getItem(int position) {
             Fragment f;
             final int pattern = position%2;
+            Bundle bdl = new Bundle(1);
+            bdl.putSerializable("patient", patient);
             switch (pattern){
                 case 0:{
                     f = new RecordItemListFragment();
+                    f.setArguments(bdl);
                     break;
                 }
                 case 1:{
                     f = new RecordDateListFragment();
+                    f.setArguments(bdl);
                     break;
                 }
                 default:{

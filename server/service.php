@@ -200,6 +200,18 @@
 			}
 
 		}
+		else if($service == 'ValidateInfo'){
+			$supporter_id = $_POST['supporter_id'];
+			$sql = "SELECT * FROM user WHERE user.patient_id='$supporter_id';";
+			echo $sql;
+			// echo $sql;
+			$ret = mysqli_query($con, $sql);
+			if($ret == '1'){
+				echo json_encode(array('status'=>'success', 'message'=>"cannot"));
+			}else{
+				echo json_encode(array('status'=>'fail', 'message'=>"can"));
+			}
+		}
 		else if($service == 'ModifyPatientRegisterInfo'){
 			$patient_id = $_POST['patient_id'];
 			$patient_fn = $_POST['patient_fn'];
@@ -1160,7 +1172,7 @@
 			$sql = "INSERT INTO user_patient(patient_id, user_id, relationship, registered_date) VALUES('$patient_id', '$user_id', '$relationship', '$registered_date');";
 
             $ret = mysqli_query($con, $sql);
-			
+
 			if($ret == '1'){
 				echo json_encode(array('status'=>'success', 'message'=>"update success"));
 			}else{
@@ -1175,13 +1187,226 @@
 			$sql = "DELETE FROM user_patient WHERE patient_id='$patient_id' and user_id='$user_id';";
 
             $ret = mysqli_query($con, $sql);
-			
+
 			if($ret == '1'){
 				echo json_encode(array('status'=>'success', 'message'=>"update success"));
 			}else{
 				echo json_encode(array('status'=>'fail', 'message'=>"update fail"));
 			}
+
+		}else if($service == "inquiryPatientMedicine"){
+
+			$patient_id = $_POST['patient_id'];
+
+			$page = $_POST['page'];
+			$page = $page*30;
+
+			$sql = "SELECT A.*, B.title as title
+					FROM take_medicine as A LEFT OUTER JOIN (
+					SELECT *
+					FROM patient_medicine
+					GROUP BY id) as B
+					ON (B.id = A.patient_medicine_id)
+					WHERE A.patient_id='$patient_id' 
+					GROUP BY A.id";
+
+			$sql = $sql." LIMIT $page, 30;";
+
+			$ret = mysqli_query($con, $sql);
+            if($ret){
+                $count = mysqli_num_rows($ret);
+            }else{
+                exit();
+            }
+
+            echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+            $i=0;
+
+            while($row = mysqli_fetch_array($ret)){
+
+				$id = $row['id'];
+				$main_record_id = $row['main_record_id'];
+				$patient_medicine_id = $row['patient_medicine_id'];
+				$medicine_id = $row['medicine_id'];
+				$registered_date = $row['registered_date'];
+				$title = $row['title'];
+
+
+
+                echo "{\"id\":\"$id\",
+				\"main_record_id\":\"$main_record_id\",
+				\"patient_medicine_id\":\"$patient_medicine_id\",
+				\"medicine_id\":\"$medicine_id\",
+				\"title\":\"$title\",
+				\"registered_date\":\"$registered_date\"
+				}";
+
+                if($i<$count-1){
+                    echo ",";
+                }
+
+                $i++;
+
+            }
+
+            echo "]}";
+
+		}else if($service == "inquiryPatientMeal"){
 			
+			$patient_id = $_POST['patient_id'];
+
+			$page = $_POST['page'];
+			$page = $page*30;
+
+			$sql = "SELECT * FROM have_meal WHERE patient_id='$patient_id'";
+
+			$sql = $sql." LIMIT $page, 30;";
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+			$i=0;
+
+			while($row = mysqli_fetch_array($ret)){
+
+				$id = $row['id'];
+				$main_record_id = $row['main_record_id'];
+				$type = $row['type'];
+				$description = $row['description'];
+				$registered_date = $row['registered_date'];
+
+
+				echo "{\"id\":\"$id\",
+				\"main_record_id\":\"$main_record_id\",
+				\"type\":\"$type\",
+				\"description\":\"$description\",
+				\"registered_date\":\"$registered_date\"
+				}";
+
+				if($i<$count-1){
+					echo ",";
+				}
+
+				$i++;
+
+			}
+
+			echo "]}";
+
+		}else if($service == "inquiryPatientRemarks"){
+			
+			$patient_id = $_POST['patient_id'];
+
+			$page = $_POST['page'];
+			$page = $page*30;
+
+			$sql = "SELECT * FROM remarks WHERE patient_id='$patient_id'";
+
+			$sql = $sql." LIMIT $page, 30;";
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+			$i=0;
+
+			while($row = mysqli_fetch_array($ret)){
+
+				$id = $row['id'];
+				$main_record_id = $row['main_record_id'];
+				$symptom_id = $row['symptom_id'];
+				$description = $row['description'];
+				$registered_date = $row['registered_date'];
+
+
+				echo "{\"id\":\"$id\",
+				\"main_record_id\":\"$main_record_id\",
+				\"symptom_id\":\"$symptom_id\",
+				\"description\":\"$description\",
+				\"registered_date\":\"$registered_date\"
+				}";
+
+				if($i<$count-1){
+					echo ",";
+				}
+
+				$i++;
+
+			}
+
+			echo "]}";
+
+		}else if($service == "inquiryPatientVitalSign"){
+			
+			$patient_id = $_POST['patient_id'];
+			$type = $_POST['type'];
+
+			$page = $_POST['page'];
+			$page = $page*30;
+
+			if($type == 'pulse'){
+				$sql = "SELECT id, main_record_id, patient_id, pulse, registered_date FROM vital_sign WHERE patient_id='$patient_id'";
+			}else if($type == 'temperature'){
+				$sql = "SELECT id, main_record_id, patient_id, temperature, registered_date FROM vital_sign WHERE patient_id='$patient_id'";
+			}else if($type == 'bp'){
+				$sql = "SELECT id, main_record_id, patient_id, blood_pressure_max, blood_pressure_min, registered_date FROM vital_sign WHERE patient_id='$patient_id'";
+			}
+			
+			$sql = $sql." LIMIT $page, 30;";
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+			$i=0;
+
+			while($row = mysqli_fetch_array($ret)){
+
+				$id = $row['id'];
+				$main_record_id = $row['main_record_id'];
+				$blood_pressure_max = $row['blood_pressure_max'];
+				$blood_pressure_min = $row['blood_pressure_min'];
+				$pulse = $row['pulse'];
+				$temperature = $row['temperature'];
+				$registered_date = $row['registered_date'];
+
+
+				echo "{\"id\":\"$id\",
+				\"main_record_id\":\"$main_record_id\",
+				\"blood_pressure_max\":\"$blood_pressure_max\",
+				\"blood_pressure_min\":\"$blood_pressure_min\",
+				\"pulse\":\"$pulse\",
+				\"temperature\":\"$temperature\",
+				\"registered_date\":\"$registered_date\"
+				}";
+
+				if($i<$count-1){
+					echo ",";
+				}
+
+				$i++;
+
+			}
+
+			echo "]}";
+
 		}
 
 	}

@@ -6,6 +6,8 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import cf.nearby.nearby.util.AdditionalFunc;
 
@@ -13,12 +15,12 @@ import cf.nearby.nearby.util.AdditionalFunc;
  * Created by tw on 2017. 10. 6..
  */
 
-public class TakeMedicine implements Serializable {
+public class TakeMedicine extends MainRecord implements Serializable {
 
-    String id, mainRecordId, patientId, patientMedicineId, medicineId;
-    long registeredDate;
+    String id, mainRecordId, patientId, patientMedicineId, medicineId, title;
     PatientMedicine patientMedicine;
     Medicine medicine;
+//    long registeredDate;
 
 
     public TakeMedicine(){
@@ -26,7 +28,7 @@ public class TakeMedicine implements Serializable {
     }
 
     public TakeMedicine(String data){
-
+        build(data);
     }
 
     public void build(String data){
@@ -76,12 +78,44 @@ public class TakeMedicine implements Serializable {
             if(keySet.contains("registered_date")){
                 registeredDate = Long.parseLong((String) temp.get("registered_date"));
             }
+            if(keySet.contains("title")){
+                title = (String) temp.get("title");
+            }
 
         }catch (Exception e){
             e.printStackTrace();
         }
 
     }
+
+    public static ArrayList<TakeMedicine> getTakeMedicineList(String data){
+
+        ArrayList<TakeMedicine> list = new ArrayList<>();
+
+        try {
+            JSONObject jObject = new JSONObject(data);
+            JSONArray results = jObject.getJSONArray("result");
+            String countTemp = (String)jObject.get("num_result");
+            int count = Integer.parseInt(countTemp);
+
+            for ( int i = 0; i < count; ++i ) {
+                JSONObject temp = results.getJSONObject(i);
+
+                TakeMedicine tm = new TakeMedicine();
+                tm.convert(temp);
+
+                list.add(tm);
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+
+    }
+
 
     public String getId() {
         return id;
@@ -123,14 +157,6 @@ public class TakeMedicine implements Serializable {
         this.medicineId = medicineId;
     }
 
-    public long getRegisteredDate() {
-        return registeredDate;
-    }
-
-    public void setRegisteredDate(long registeredDate) {
-        this.registeredDate = registeredDate;
-    }
-
     public PatientMedicine getPatientMedicine() {
         return patientMedicine;
     }
@@ -146,4 +172,20 @@ public class TakeMedicine implements Serializable {
     public void setMedicine(Medicine medicine) {
         this.medicine = medicine;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+//    public long getRegisteredDate() {
+//        return registeredDate;
+//    }
+//
+//    public void setRegisteredDate(long registeredDate) {
+//        this.registeredDate = registeredDate;
+//    }
 }

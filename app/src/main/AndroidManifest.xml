@@ -40,6 +40,59 @@
         </receiver>
 
         <activity
+            android:name=".bluetooth.ConnectBLEActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <!-- </intent-filter> -->
+            <!-- For email attachments -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:mimeType="application/octet-stream"
+                    android:pathPattern=".*\\.nbycf"
+                    android:scheme="content" />
+            </intent-filter>
+
+            <!-- For file browsers -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="*"
+                    android:mimeType="*/*"
+                    android:pathPattern=".*\\.nbycf"
+                    android:scheme="file" />
+            </intent-filter>
+
+            <!-- For web browsers -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="http" />
+                <data android:host="*" />
+                <data android:pathPattern=".*\\.nbycf" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="cf.nearby.nearby" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".StartActivity"
             android:noHistory="true">
             <intent-filter>
@@ -357,51 +410,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".bluetooth.ConnectBLEActivity"
+            android:name=".activity.InquiryVitalSignActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-
-            <!-- </intent-filter> -->
-            <!-- For email attachments -->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:mimeType="application/octet-stream"
-                    android:pathPattern=".*\\.nbycf"
-                    android:scheme="content" />
-            </intent-filter>
-
-            <!-- For file browsers -->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:host="*"
-                    android:mimeType="*/*"
-                    android:pathPattern=".*\\.nbycf"
-                    android:scheme="file" />
-            </intent-filter>
-
-            <!-- For web browsers -->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:scheme="http" />
-                <data android:host="*" />
-                <data android:pathPattern=".*\\.nbycf" />
-            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -410,6 +422,17 @@
         </activity>
         <activity
             android:name=".activity.RegisterSupporterActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="cf.nearby.nearby" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.InquiryDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan">

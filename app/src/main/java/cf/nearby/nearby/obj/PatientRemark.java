@@ -13,10 +13,9 @@ import cf.nearby.nearby.util.AdditionalFunc;
  * Created by tw on 2017. 10. 8..
  */
 
-public class PatientRemark implements Serializable {
+public class PatientRemark extends MainRecord {
 
     String id, mainRecordId, patientId, symptomId, description;
-    long registeredDate;
 
     public PatientRemark(){
 
@@ -78,6 +77,34 @@ public class PatientRemark implements Serializable {
 
     }
 
+    public static ArrayList<PatientRemark> getPatientRemarkList(String data){
+
+        ArrayList<PatientRemark> list = new ArrayList<>();
+
+        try {
+            JSONObject jObject = new JSONObject(data);
+            JSONArray results = jObject.getJSONArray("result");
+            String countTemp = (String)jObject.get("num_result");
+            int count = Integer.parseInt(countTemp);
+
+            for ( int i = 0; i < count; ++i ) {
+                JSONObject temp = results.getJSONObject(i);
+
+                PatientRemark pr = new PatientRemark();
+                pr.convert(temp);
+
+                list.add(pr);
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+
+    }
+
     public String getId() {
         return id;
     }
@@ -118,11 +145,4 @@ public class PatientRemark implements Serializable {
         this.description = description;
     }
 
-    public long getRegisteredDate() {
-        return registeredDate;
-    }
-
-    public void setRegisteredDate(long registeredDate) {
-        this.registeredDate = registeredDate;
-    }
 }

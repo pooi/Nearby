@@ -13,11 +13,11 @@ import cf.nearby.nearby.util.AdditionalFunc;
  * Created by tw on 2017. 10. 11..
  */
 
-public class VitalSign implements Serializable {
+public class VitalSign extends MainRecord implements Serializable {
 
     String id, patientId;
     Double bpMax, bpMin, pulse, temperature;
-    long registeredDate;
+//    long registeredDate;
 
     public VitalSign(){
 
@@ -134,11 +134,11 @@ public class VitalSign implements Serializable {
         this.temperature = temperature;
     }
 
-    public long getRegisteredDate() {
-        return registeredDate;
-    }
-
-    public void setRegisteredDate(long registeredDate) {
-        this.registeredDate = registeredDate;
-    }
+//    public long getRegisteredDate() {
+//        return registeredDate;
+//    }
+//
+//    public void setRegisteredDate(long registeredDate) {
+//        this.registeredDate = registeredDate;
+//    }
 }

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:layout_marginTop="5dp"
+    android:clipChildren="false"
+    >
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/menu_btn_radius"
+        app:cardElevation="@dimen/menu_btn_elevation"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:clipToPadding="false"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/tv_date_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Date Title"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/default_font_size"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    />
+
+                <TableLayout
+                    android:id="@+id/tl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:stretchColumns="*"
+                    >
+
+                    <!--<TableRow>-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/tv_title"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Title"-->
+                            <!--android:textSize="@dimen/default_font_size"-->
+                            <!--android:textColor="@color/dark_gray"-->
+                            <!--android:gravity="center"-->
+                            <!--/>-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/tv_date"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Title"-->
+                            <!--android:textSize="@dimen/default_font_size"-->
+                            <!--android:textColor="@color/dark_gray"-->
+                            <!--android:gravity="center"-->
+                            <!--/>-->
+
+                    <!--</TableRow>-->
+
+                </TableLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

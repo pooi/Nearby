@@ -126,6 +126,14 @@ public class AdditionalFunc {
 
     }
 
+    public static String getTimeString(long time){
+
+        Date currentDate = new Date(time);
+        DateFormat df = new SimpleDateFormat("HH시 mm분 ss초");
+        return df.format(currentDate);
+
+    }
+
     public static String parseDateString(String d, String t){
 
         String date = "";
