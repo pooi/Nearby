@@ -134,6 +134,18 @@ public class AdditionalFunc {
 
     }
 
+    public static long getNoTimeDateMs(long time){
+
+        Date currentDate = new Date(time);
+        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+        String dateStr = df.format(currentDate);
+        String year = dateStr.substring(0, 4);
+        String month = dateStr.substring(4, 6);
+        String sec = dateStr.substring(6);
+
+        return getMilliseconds(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(sec));
+    }
+
     public static String parseDateString(String d, String t){
 
         String date = "";

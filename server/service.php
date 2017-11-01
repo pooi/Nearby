@@ -128,6 +128,63 @@
 
 			echo "]}";
 
+		}else if($service == "login_supporter"){
+
+			$login_id = $_POST['login_id'];
+			$login_pw = $_POST['login_pw'];
+
+			$sql = "SELECT * FROM user WHERE login_id='$login_id' AND password='$login_pw';";
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+			$i=0;
+
+			while($row = mysqli_fetch_array($ret)){
+
+				$id = $row['id'];
+				$login_id = $row['login_id'];
+				$email = $row['email'];
+				$first_name = $row['first_name'];
+				$last_name = $row['last_name'];
+				$gender = $row['gender'];
+				$address = $row['address'];
+				$zip = $row['zip'];
+				$phone = $row['phone'];
+				$pic = $row['pic'];
+				$date_of_birth = $row['date_of_birth'];
+				$registered_date = $row['registered_date'];
+
+				echo "{\"id\":\"$id\",
+				\"login_id\":\"$login_id\",
+				\"email\":\"$email\",
+				\"first_name\":\"$first_name\",
+				\"last_name\":\"$last_name\",
+				\"gender\":\"$gender\",
+				\"address\":\"$address\",
+				\"zip\":\"$zip\",
+				\"phone\":\"$phone\",
+				\"pic\":\"$pic\",
+				\"date_of_birth\":\"$date_of_birth\",
+				\"registered_date\":\"$registered_date\"
+				}";
+
+				if($i<$count-1){
+					echo ",";
+				}
+
+				$i++;
+
+			}
+
+			echo "]}";
+
 		}
 		else if($service == 'registerSupporter'){
 
@@ -1197,20 +1254,38 @@
 		}else if($service == "inquiryPatientMedicine"){
 
 			$patient_id = $_POST['patient_id'];
+			$isDate = $_POST['isDate'];
+			$start_date = $_POST['start_date'];
+			$finish_date = $_POST['finish_date'];
 
 			$page = $_POST['page'];
 			$page = $page*30;
 
-			$sql = "SELECT A.*, B.title as title
-					FROM take_medicine as A LEFT OUTER JOIN (
-					SELECT *
-					FROM patient_medicine
-					GROUP BY id) as B
-					ON (B.id = A.patient_medicine_id)
-					WHERE A.patient_id='$patient_id' 
-					GROUP BY A.id";
+			if($isDate == "1"){
 
-			$sql = $sql." LIMIT $page, 30;";
+				$sql = "SELECT A.*, B.title as title
+				FROM take_medicine as A LEFT OUTER JOIN (
+				SELECT *
+				FROM patient_medicine
+				GROUP BY id) as B
+				ON (B.id = A.patient_medicine_id)
+				WHERE A.patient_id='$patient_id' AND ('$start_date' <= A.registered_date AND A.registered_date <= '$finish_date') 
+				GROUP BY A.id;";
+
+			}else{
+
+				$sql = "SELECT A.*, B.title as title
+				FROM take_medicine as A LEFT OUTER JOIN (
+				SELECT *
+				FROM patient_medicine
+				GROUP BY id) as B
+				ON (B.id = A.patient_medicine_id)
+				WHERE A.patient_id='$patient_id' 
+				GROUP BY A.id";
+
+				$sql = $sql." LIMIT $page, 30;";
+
+			}
 
 			$ret = mysqli_query($con, $sql);
             if($ret){
@@ -1255,13 +1330,21 @@
 		}else if($service == "inquiryPatientMeal"){
 			
 			$patient_id = $_POST['patient_id'];
+			$isDate = $_POST['isDate'];
+			$start_date = $_POST['start_date'];
+			$finish_date = $_POST['finish_date'];
 
 			$page = $_POST['page'];
 			$page = $page*30;
 
-			$sql = "SELECT * FROM have_meal WHERE patient_id='$patient_id'";
-
-			$sql = $sql." LIMIT $page, 30;";
+			if($isDate == '1'){
+				$sql = "SELECT * FROM have_meal WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
+			}else{
+				$sql = "SELECT * FROM have_meal WHERE patient_id='$patient_id'";
+				
+				$sql = $sql." LIMIT $page, 30;";
+			}
+			
 
 			$ret = mysqli_query($con, $sql);
 			if($ret){
@@ -1303,13 +1386,21 @@
 		}else if($service == "inquiryPatientRemarks"){
 			
 			$patient_id = $_POST['patient_id'];
+			$isDate = $_POST['isDate'];
+			$start_date = $_POST['start_date'];
+			$finish_date = $_POST['finish_date'];
 
 			$page = $_POST['page'];
 			$page = $page*30;
 
-			$sql = "SELECT * FROM remarks WHERE patient_id='$patient_id'";
-
-			$sql = $sql." LIMIT $page, 30;";
+			if($isDate == '1'){
+				$sql = "SELECT * FROM remarks WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
+			}else{
+				$sql = "SELECT * FROM remarks WHERE patient_id='$patient_id'";
+				
+				$sql = $sql." LIMIT $page, 30;";
+			}
+			
 
 			$ret = mysqli_query($con, $sql);
 			if($ret){
@@ -1352,19 +1443,34 @@
 			
 			$patient_id = $_POST['patient_id'];
 			$type = $_POST['type'];
+			$isDate = $_POST['isDate'];
+			$start_date = $_POST['start_date'];
+			$finish_date = $_POST['finish_date'];
 
 			$page = $_POST['page'];
 			$page = $page*30;
 
-			if($type == 'pulse'){
-				$sql = "SELECT id, main_record_id, patient_id, pulse, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND pulse != '0'";
-			}else if($type == 'temperature'){
-				$sql = "SELECT id, main_record_id, patient_id, temperature, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND temperature != '0'";
-			}else if($type == 'bp'){
-				$sql = "SELECT id, main_record_id, patient_id, blood_pressure_max, blood_pressure_min, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND (blood_pressure_min != '0' AND blood_pressure_max != '0')";
+			if($isDate == '1'){
+				$sql = "SELECT id, main_record_id, patient_id, pulse, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
+				// if($type == 'pulse'){
+				// 	$sql = "SELECT id, main_record_id, patient_id, pulse, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND pulse != '0' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
+				// }else if($type == 'temperature'){
+				// 	$sql = "SELECT id, main_record_id, patient_id, temperature, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND temperature != '0' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
+				// }else if($type == 'bp'){
+				// 	$sql = "SELECT id, main_record_id, patient_id, blood_pressure_max, blood_pressure_min, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND (blood_pressure_min != '0' AND blood_pressure_max != '0') AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
+				// }
+			}else{
+				if($type == 'pulse'){
+					$sql = "SELECT id, main_record_id, patient_id, pulse, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND pulse != '0'";
+				}else if($type == 'temperature'){
+					$sql = "SELECT id, main_record_id, patient_id, temperature, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND temperature != '0'";
+				}else if($type == 'bp'){
+					$sql = "SELECT id, main_record_id, patient_id, blood_pressure_max, blood_pressure_min, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND (blood_pressure_min != '0' AND blood_pressure_max != '0')";
+				}
+				
+				$sql = $sql." LIMIT $page, 30;";
 			}
 			
-			$sql = $sql." LIMIT $page, 30;";
 
 			$ret = mysqli_query($con, $sql);
 			if($ret){
@@ -1395,6 +1501,141 @@
 				\"pulse\":\"$pulse\",
 				\"temperature\":\"$temperature\",
 				\"registered_date\":\"$registered_date\"
+				}";
+
+				if($i<$count-1){
+					echo ",";
+				}
+
+				$i++;
+
+			}
+
+			echo "]}";
+
+		}else if($service == "getMainRecordList"){
+
+			$patient_id = $_POST['patient_id'];
+
+			$page = $_POST['page'];
+			$page = $page*30;
+
+			$sql = "SELECT * FROM main_record WHERE patient_id='$patient_id'";
+			
+			$sql = $sql." LIMIT $page, 30;";
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+			$i=0;
+
+			while($row = mysqli_fetch_array($ret)){
+
+				$id = $row['id'];
+				$employee_id = $row['employee_id'];
+				$registered_date = $row['registered_date'];
+
+
+				echo "{\"id\":\"$id\",
+				\"employee_id\":\"$employee_id\",
+				\"registered_date\":\"$registered_date\"
+				}";
+
+				if($i<$count-1){
+					echo ",";
+				}
+
+				$i++;
+
+			}
+
+			echo "]}";
+
+		}else if($service == 'getSupporterPatientList'){
+
+			$supporter_id = $_POST['supporter_id'];
+
+			$page = $_POST['page'];
+			$page = $page*30;
+
+			$sql = "SELECT A.*, B.name as location_name, B.pic as location_pic, B.director as location_director, B.capacity as location_capacity, B.major as location_major, B.construction_year as location_construction_year, B.phone as location_phone, B.url as location_url 
+					FROM patient as A LEFT OUTER JOIN ( 
+					SELECT * 
+					FROM location 
+					GROUP BY id) as B 
+					ON (B.id = A.location_id) 
+					WHERE A.id in (SELECT patient_id FROM user_patient WHERE user_id='$supporter_id') 
+					GROUP BY A.id";
+
+			$sql = $sql." ORDER BY id DESC LIMIT $page, 30;";
+			
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+			$i=0;
+
+			while($row = mysqli_fetch_array($ret)){
+
+				$id = $row['id'];
+				$first_name = $row['first_name'];
+				$last_name = $row['last_name'];
+				$gender = $row['gender'];
+				$address = $row['address'];
+				$zip = $row['zip'];
+				$phone = $row['phone'];
+				$pic = $row['pic'];
+				$date_of_birth = $row['date_of_birth'];
+				$height = $row['height'];
+				$bla = $row['basic_living_allowance'];
+				$start_date = $row['start_date'];
+				$description = $row['description'];
+				$registered_date = $row['registered_date'];
+
+				$location_id = $row['location_id'];
+				$location_name = $row['location_name'];
+				$location_pic = $row['location_pic'];
+				$location_director = $row['location_director'];
+				$location_capacity = $row['location_capacity'];
+				$location_major = $row['location_major'];
+				$location_construction_year = $row['location_construction_year'];
+				$location_phone = $row['location_phone'];
+				$location_url = $row['location_url'];
+
+				echo "{\"id\":\"$id\",
+				\"first_name\":\"$first_name\",
+				\"last_name\":\"$last_name\",
+				\"gender\":\"$gender\",
+				\"address\":\"$address\",
+				\"zip\":\"$zip\",
+				\"phone\":\"$phone\",
+				\"pic\":\"$pic\",
+				\"date_of_birth\":\"$date_of_birth\",
+				\"height\":\"$height\",
+				\"basic_living_allowance\":\"$bla\",
+				\"start_date\":\"$start_date\",
+				\"description\":\"$description\",
+				\"registered_date\":\"$registered_date\",
+				\"location_id\":\"$location_id\",
+				\"location_name\":\"$location_name\",
+				\"location_pic\":\"$location_pic\",
+				\"location_director\":\"$location_director\",
+				\"location_capacity\":\"$location_capacity\",
+				\"location_major\":\"$location_major\",
+				\"location_construction_year\":\"$location_construction_year\",
+				\"location_phone\":\"$location_phone\",
+				\"location_url\":\"$location_url\"
 				}";
 
 				if($i<$count-1){

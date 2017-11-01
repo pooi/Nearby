@@ -39,6 +39,7 @@ public class InquiryDetailActivity extends BaseActivity implements OnAdapterSupp
     private Patient selectedPatient;
     private int type;
 
+
     private MyHandler handler = new MyHandler();
     private final int MSG_MESSAGE_MAKE_LIST = 500;
     private final int MSG_MESSAGE_MAKE_ENDLESS_LIST = 501;

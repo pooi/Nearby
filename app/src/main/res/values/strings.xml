@@ -127,6 +127,7 @@
     <string name="no_search_data">검색 결과가 없습니다.</string>
     <string name="there_are_no_data">표시할 데이터가 없습니다.</string>
     <string name="there_are_no_supporter">등록된 보호자가 없습니다.</string>
+    <string name="there_are_no_patient">등록된 환자가 없습니다.</string>
     <string name="successfully_recorded">성공적으로 기록하였습니다.</string>
 
     <string name="completed_take_medicine_srt">복용 완료</string>
@@ -143,6 +144,7 @@
     <string name="add_patient_remark">목록에서 추가</string>
 
     <string name="enter_more_information">추가 정보 입력</string>
+    <string name="i_am_employee">나는 직원입니다.</string>
 
     <!-- Message -->
     <string name="log_add_weight">%1$s님의 몸무게 기록에 %2$skg 추가</string>

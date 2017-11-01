@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,12 +33,15 @@ import cf.nearby.nearby.activity.RegisterSupporterActivity;
 import cf.nearby.nearby.admin.AdminMainActivity;
 import cf.nearby.nearby.nurse.NurseMainActivity;
 import cf.nearby.nearby.obj.Employee;
+import cf.nearby.nearby.obj.Supporter;
+import cf.nearby.nearby.supporter.SupporterMainActivity;
 import cf.nearby.nearby.util.ParsePHP;
 
 public class StartActivity extends BaseActivity {
 
     public static boolean isEmployeeLogin;
     public static Employee employee;
+    public static Supporter supporter;
 
     private MyHandler handler = new MyHandler();
     private final int MSG_MESSAGE_SUCCESS = 500;
@@ -48,6 +52,7 @@ public class StartActivity extends BaseActivity {
     private KenBurnsView kenBurnsView;
     private RelativeLayout rl_background;
 
+    private CheckBox chk_employee;
     private LinearLayout formLogin;
     private MaterialEditText formId;
     private MaterialEditText formPw;
@@ -121,6 +126,7 @@ public class StartActivity extends BaseActivity {
 
     private void initLoginForm(){
 
+        chk_employee = (CheckBox)findViewById(R.id.chk_employee);
         formLogin = (LinearLayout)findViewById(R.id.form_login);
         formId = (MaterialEditText)findViewById(R.id.form_id);
         formPw = (MaterialEditText)findViewById(R.id.form_pw);
@@ -128,7 +134,7 @@ public class StartActivity extends BaseActivity {
         formLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginEmployee();
+                login();
             }
         });
 
@@ -158,10 +164,12 @@ public class StartActivity extends BaseActivity {
 
         String loginId = setting.getString("login_id", null);
         String loginPw = setting.getString("login_pw", null);
+        boolean isEmployee = setting.getBoolean("isEmployee", false);
+
 
         if(loginId != null && loginPw != null){
 
-            loginEmployee(loginId, loginPw);
+            login(loginId, loginPw, isEmployee);
 
         }else{
 
@@ -217,7 +225,7 @@ public class StartActivity extends BaseActivity {
         }
     }
 
-    private void loginEmployee(){
+    private void login(){
 
         if(formId.getText().toString().length() <= 0 && formPw.getText().toString().length() <= 0){
             showSnackbar(R.string.please_enter_id_and_pw);
@@ -231,7 +239,10 @@ public class StartActivity extends BaseActivity {
         }
 
         HashMap<String, String> map = new HashMap<>();
-        map.put("service", "login_employee");
+        if(chk_employee.isChecked())
+            map.put("service", "login_employee");
+        else
+            map.put("service", "login_supporter");
         map.put("login_id", formId.getText().toString());
         map.put("login_pw", formPw.getText().toString());
 
@@ -241,34 +252,59 @@ public class StartActivity extends BaseActivity {
             @Override
             protected void afterThreadFinish(String data) {
 
-                Employee em = new Employee(data);
+                editor.putString("login_id", formId.getText().toString());
+                editor.putString("login_pw", formPw.getText().toString());
+                editor.putBoolean("isEmployee", chk_employee.isChecked());
+                editor.commit();
 
-                if(!em.isEmpty()){
-                    isEmployeeLogin = true;
-                    employee = em;
-                    editor.putString("login_id", formId.getText().toString());
-                    editor.putString("login_pw", formPw.getText().toString());
-                    editor.commit();
-                    handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
+                if(chk_employee.isChecked()){
 
-                    if("admin".equals(em.getRole()))
-                        redirectAdminMainActivity();
-                    else
-                        redirectNurseMainActivity();
+                    Employee em = new Employee(data);
+
+                    if(!em.isEmpty()){
+                        isEmployeeLogin = true;
+                        employee = em;
+                        handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
+
+                        if("admin".equals(em.getRole()))
+                            redirectAdminMainActivity();
+                        else
+                            redirectNurseMainActivity();
+
+                    }else{
+                        handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_FAIL));
+                    }
 
                 }else{
-                    handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_FAIL));
+
+                    Supporter su = new Supporter(data);
+
+                    if(!su.isEmpty()){
+                        isEmployeeLogin = false;
+                        supporter = su;
+                        handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
+
+                        redirectSupporterMainActivity();
+
+                    }else{
+                        handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_FAIL));
+                    }
+
                 }
+
 
             }
         }.start();
 
     }
 
-    private void loginEmployee(String id, String pw){
+    private void login(String id, String pw, final boolean isEmployee){
 
         HashMap<String, String> map = new HashMap<>();
-        map.put("service", "login_employee");
+        if(isEmployee)
+            map.put("service", "login_employee");
+        else
+            map.put("service", "login_supporter");
         map.put("login_id", id);
         map.put("login_pw", pw);
 
@@ -278,20 +314,39 @@ public class StartActivity extends BaseActivity {
             @Override
             protected void afterThreadFinish(String data) {
 
-                Employee em = new Employee(data);
+                if(isEmployee){
 
-                if(!em.isEmpty()){
-                    isEmployeeLogin = true;
-                    employee = em;
-                    handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
+                    Employee em = new Employee(data);
 
-                    if("admin".equals(em.getRole()))
-                        redirectAdminMainActivity();
-                    else
-                        redirectNurseMainActivity();
+                    if(!em.isEmpty()){
+                        isEmployeeLogin = true;
+                        employee = em;
+                        handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
+
+                        if("admin".equals(em.getRole()))
+                            redirectAdminMainActivity();
+                        else
+                            redirectNurseMainActivity();
+
+                    }else{
+                        handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_FAIL));
+                    }
 
                 }else{
-                    handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_FAIL));
+
+                    Supporter su = new Supporter(data);
+
+                    if(!su.isEmpty()){
+                        isEmployeeLogin = false;
+                        supporter = su;
+                        handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
+
+                        redirectSupporterMainActivity();
+
+                    }else{
+                        handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_FAIL));
+                    }
+
                 }
 
             }
@@ -305,6 +360,10 @@ public class StartActivity extends BaseActivity {
     }
     private void redirectAdminMainActivity(){
         Intent intent = new Intent(StartActivity.this, AdminMainActivity.class);
+        startActivity(intent);
+    }
+    private void redirectSupporterMainActivity(){
+        Intent intent = new Intent(StartActivity.this, SupporterMainActivity.class);
         startActivity(intent);
     }
 

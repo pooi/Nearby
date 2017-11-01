@@ -31,8 +31,9 @@ import cf.nearby.nearby.util.OnAdapterSupport;
 import cf.nearby.nearby.util.OnLoadMoreListener;
 import cf.nearby.nearby.util.OnSearchPatientSupport;
 import cf.nearby.nearby.util.ParsePHP;
+import cf.nearby.nearby.util.SearchPatientSupporter;
 
-public class SearchPatientActivity extends BaseActivity implements OnAdapterSupport {
+public class SearchPatientActivity extends BaseActivity implements OnAdapterSupport, SearchPatientSupporter {
 
     private MyHandler handler = new MyHandler();
     private final int MSG_MESSAGE_MAKE_LIST = 500;
@@ -55,6 +56,7 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
     private boolean isLoadFinish;
 
     private String nextActivity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,6 +205,7 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
 
     }
 
+    @Override
     public void redirectNextActivity(Patient patient){
         switch (nextActivity){
             case Information.NURSE_MANAGE_MENU: {

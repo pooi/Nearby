@@ -36,6 +36,7 @@ public class BaseActivity extends AppCompatActivity {
                         SharedPreferences.Editor editor = getSharedPreferences("setting", 0).edit();
                         editor.putString("login_id", null);
                         editor.putString("login_pw", null);
+                        editor.putBoolean("isEmployee", false);
                         editor.commit();
 
                         StartActivity.initLoginData();
