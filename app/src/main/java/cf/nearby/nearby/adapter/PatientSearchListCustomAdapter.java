@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -175,7 +176,7 @@ public class PatientSearchListCustomAdapter extends RecyclerView.Adapter<Patient
     public final static class ViewHolder extends RecyclerView.ViewHolder {
 
         CardView cv;
-        ImageView img;
+        RoundedImageView img;
         TextView tv_name;
         TextView tv_dob;
         Button btn_select;
@@ -183,7 +184,7 @@ public class PatientSearchListCustomAdapter extends RecyclerView.Adapter<Patient
         public ViewHolder(View v) {
             super(v);
             cv = (CardView)v.findViewById(R.id.cv);
-            img = (ImageView)v.findViewById(R.id.img);
+            img = (RoundedImageView) v.findViewById(R.id.img);
             tv_name = (TextView)v.findViewById(R.id.tv_name);
             tv_dob = (TextView)v.findViewById(R.id.tv_dob);
             btn_select = (Button)v.findViewById(R.id.btn_select);

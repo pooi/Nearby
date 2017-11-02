@@ -415,7 +415,6 @@ public class InquiryDateDetailActivity extends BaseActivity {
             }else{
                 tv_title.setText(hm.getType());
             }
-            tv_title.setText(hm.getType());
             tv_title.setLayoutParams(trps);
             tv_title.setTextColor(getColorId(R.color.dark_gray));
             tv_title.setGravity(Gravity.CENTER);

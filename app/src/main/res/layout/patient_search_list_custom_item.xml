@@ -28,14 +28,27 @@
             android:layout_height="wrap_content"
             >
 
-            <ImageView
+            <!--<ImageView-->
+                <!--android:id="@+id/img"-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--/>-->
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/img"
-                android:layout_width="70dp"
+                android:layout_width="75dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:background="@drawable/no_image_left_radius"
                 android:scaleType="centerCrop"
+                app:riv_corner_radius_bottom_left="@dimen/menu_btn_radius"
+                app:riv_corner_radius_top_left="@dimen/menu_btn_radius"
+                app:riv_mutate_background="false"
+                app:riv_oval="false"
                 />
 
             <LinearLayout

@@ -14,12 +14,13 @@ import com.gigamole.navigationtabbar.ntb.NavigationTabBar;
 
 import java.util.ArrayList;
 
+import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.fragment.RecordDateListFragment;
 import cf.nearby.nearby.fragment.RecordItemListFragment;
 import cf.nearby.nearby.obj.Patient;
 
-public class InquiryMainActivity extends AppCompatActivity {
+public class InquiryMainActivity extends BaseActivity {
 
 
     private ViewPager viewPager;
@@ -63,14 +64,14 @@ public class InquiryMainActivity extends AppCompatActivity {
         final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
         models.add(
                 new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_launcher),
-                        Color.parseColor(colors[0]))
+                        getResources().getDrawable(R.drawable.ic_format_list_bulleted_type_white_36dp),
+                        getColorId(R.color.colorAccent))
                         .build()
         );
         models.add(
                 new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.drawable.ic_launcher),
-                        Color.parseColor(colors[1]))
+                        getResources().getDrawable(R.drawable.ic_calendar_today_white_36dp),
+                        getColorId(R.color.colorAccent))
                         .build()
         );
 

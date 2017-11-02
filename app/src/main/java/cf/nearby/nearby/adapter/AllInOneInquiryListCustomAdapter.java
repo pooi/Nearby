@@ -134,7 +134,6 @@ public class AllInOneInquiryListCustomAdapter extends RecyclerView.Adapter<AllIn
                 }else{
                     tv_title.setText(hm.getType());
                 }
-                tv_title.setText(hm.getType());
                 tv_title.setLayoutParams(trps);
                 tv_title.setTextColor(recordSupporter.getColorId(R.color.dark_gray));
                 tv_title.setGravity(Gravity.CENTER);

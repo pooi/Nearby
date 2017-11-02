@@ -57,5 +57,6 @@ dependencies {
     compile 'com.karumi:dexter:4.1.0'
     compile 'com.flurgle:camerakit:0.9.17'
     compile 'com.github.devlight.navigationtabbar:navigationtabbar:1.2.3'
+    compile 'com.makeramen:roundedimageview:2.3.0'
     testCompile 'junit:junit:4.12'
 }

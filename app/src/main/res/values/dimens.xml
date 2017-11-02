@@ -24,11 +24,13 @@
     <dimen name="default_font_size">20sp</dimen>
     <dimen name="default_font_small_size">18sp</dimen>
     <dimen name="default_menu_font_size">30sp</dimen>
+    <dimen name="default_menu_font_big_size">40sp</dimen>
 
     <!-- Menu Button -->
-    <dimen name="menu_btn_elevation">10dp</dimen>
+    <dimen name="menu_btn_elevation">20dp</dimen>
     <dimen name="layout_elevation">10dp</dimen>
     <dimen name="menu_btn_radius">10dp</dimen>
+    <dimen name="menu_btn_height">120dp</dimen>
 
 
     <!-- Bluetooth -->
