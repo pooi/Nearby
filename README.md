@@ -20,7 +20,20 @@
 <br>
 <br>
 
-## Usage
+## Software Requirement Specification
+<a href="https://drive.google.com/open?id=0B67FssKXYIKQRlp0WlJGMkg1VE0">요구사항명세서.pdf</a>
+
+<br>
+<br>
+
+## High Level Design
+<a href="https://drive.google.com/open?id=0B67FssKXYIKQRlNHVmRUcTgwOTQ">상세설계서.pdf</a>
+
+<br>
+<br>
+
+## Test Cases
+<a href="https://github.com/pooi/Nearby">테스트케이스.pdf</a>
 
 <br>
 <br>
