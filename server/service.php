@@ -1648,6 +1648,46 @@
 
 			echo "]}";
 
+		}else if($service == "getMedicineDetail"){
+
+			$code = $_POST['code'];
+
+			$sql = "SELECT * FROM medicine_info WHERE code='$code';";
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+			$i=0;
+
+			while($row = mysqli_fetch_array($ret)){
+
+				$code = $row['code'];
+				$url = $row['url'];
+				$ingredient = $row['ingredient'];
+				$classification = $row['classification'];
+
+				echo "{\"code\":\"$code\",
+				\"url\":\"$url\",
+				\"ingredient\":\"$ingredient\",
+				\"classification\":\"$classification\"
+				}";
+
+				if($i<$count-1){
+					echo ",";
+				}
+
+				$i++;
+
+			}
+
+			echo "]}";
+
 		}
 
 	}

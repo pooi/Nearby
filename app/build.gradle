@@ -58,5 +58,7 @@ dependencies {
     compile 'com.flurgle:camerakit:0.9.17'
     compile 'com.github.devlight.navigationtabbar:navigationtabbar:1.2.3'
     compile 'com.makeramen:roundedimageview:2.3.0'
+    compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
+    compile 'com.github.ppamorim:dragger:1.2'
     testCompile 'junit:junit:4.12'
 }

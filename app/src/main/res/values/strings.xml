@@ -66,6 +66,12 @@
     <string name="save_result_srt">결과저장</string>
     <string name="success_srt">성공</string>
     <string name="add_supporter">보호자 추가</string>
+    <string name="ingredient">주요성분</string>
+    <string name="classification">약효분류</string>
+    <string name="reference_srt">출처</string>
+    <string name="medicine_code_srt">코드</string>
+    <string name="medicine_name_srt">약명</string>
+    <string name="medicine_detail_srt">상세정보</string>
 
 
     <!-- Menu -->

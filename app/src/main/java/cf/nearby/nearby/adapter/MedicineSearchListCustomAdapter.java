@@ -1,6 +1,7 @@
 package cf.nearby.nearby.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,14 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.github.ppamorim.dragger.DraggerPosition;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import cf.nearby.nearby.R;
+import cf.nearby.nearby.activity.MedicineDetailActivity;
 import cf.nearby.nearby.activity.SearchMedicineActivity;
 import cf.nearby.nearby.activity.SearchPatientActivity;
 import cf.nearby.nearby.obj.Medicine;
+import cf.nearby.nearby.obj.MedicineDetail;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.OnAdapterSupport;
@@ -76,12 +83,26 @@ public class MedicineSearchListCustomAdapter extends RecyclerView.Adapter<Medici
         final Medicine medicine = list.get(position);
         final int pos = position;
 
+        Picasso.with(context)
+                .load("http://nearby.cf/medicine/" + medicine.getCode() + ".jpg")
+                .into(holder.img);
+
         holder.tv_name.setText(medicine.getName());
         holder.tv_code.setText(medicine.getCode());
         holder.btn_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 activity.selectMedicine(medicine);
+            }
+        });
+
+        holder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, MedicineDetailActivity.class);
+                intent.putExtra("drag_position", DraggerPosition.TOP);
+                intent.putExtra("detail", new MedicineDetail(medicine.getCode(), medicine.getName(), "http://nearby.cf/medicine/" + medicine.getCode() + ".jpg"));
+                onAdapterSupport.redirectActivity(intent);
             }
         });
 
@@ -161,6 +182,7 @@ public class MedicineSearchListCustomAdapter extends RecyclerView.Adapter<Medici
     public final static class ViewHolder extends RecyclerView.ViewHolder {
 
         CardView cv;
+        ImageView img;
         TextView tv_name;
         TextView tv_code;
         Button btn_select;
@@ -168,6 +190,7 @@ public class MedicineSearchListCustomAdapter extends RecyclerView.Adapter<Medici
         public ViewHolder(View v) {
             super(v);
             cv = (CardView)v.findViewById(R.id.cv);
+            img = (ImageView)v.findViewById(R.id.img);
             tv_name = (TextView)v.findViewById(R.id.tv_name);
             tv_code = (TextView)v.findViewById(R.id.tv_code);
             btn_select = (Button)v.findViewById(R.id.btn_select);

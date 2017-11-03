@@ -1,6 +1,7 @@
 package cf.nearby.nearby.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cf.nearby.nearby.R;
+import cf.nearby.nearby.activity.ShowPatientMedicineDetailActivity;
 import cf.nearby.nearby.obj.HaveMeal;
 import cf.nearby.nearby.obj.MainRecord;
 import cf.nearby.nearby.obj.PatientRemark;

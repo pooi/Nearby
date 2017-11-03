@@ -1,14 +1,18 @@
 package cf.nearby.nearby.activity;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.ppamorim.dragger.DraggerPosition;
+import com.squareup.picasso.Picasso;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.HashMap;
@@ -16,6 +20,7 @@ import java.util.HashMap;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.obj.Medicine;
+import cf.nearby.nearby.obj.MedicineDetail;
 import cf.nearby.nearby.obj.PatientMedicine;
 import cf.nearby.nearby.obj.PatientMedicineDetail;
 import cf.nearby.nearby.util.AdditionalFunc;
@@ -109,14 +114,28 @@ public class ShowPatientMedicineDetailActivity extends AppCompatActivity {
             TextView tv_code = (TextView)v.findViewById(R.id.tv_code);
             TextView tv_info = (TextView)v.findViewById(R.id.tv_info);
             TextView tv_time = (TextView)v.findViewById(R.id.tv_time);
+            ImageView img = (ImageView)v.findViewById(R.id.img);
             LinearLayout li_btn = (LinearLayout)v.findViewById(R.id.li_btn);
             li_btn.setVisibility(View.GONE);
 
-            Medicine medicine = detail.getMedicine();
+            final Medicine medicine = detail.getMedicine();
             tv_name.setText(medicine.getNameSrt(15));
             tv_code.setText(medicine.getCode());
             tv_info.setText(detail.getSd() + "/" + detail.getNdd() + "/" + detail.getTdd() + "/" + detail.getDescription());
             tv_time.setText(detail.getTime());
+            Picasso.with(getApplicationContext())
+                    .load("http://nearby.cf/medicine/" + medicine.getCode() + ".jpg")
+                    .into(img);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ShowPatientMedicineDetailActivity.this, MedicineDetailActivity.class);
+                    intent.putExtra("drag_position", DraggerPosition.TOP);
+                    intent.putExtra("detail", new MedicineDetail(medicine.getCode(), medicine.getName(), "http://nearby.cf/medicine/" + medicine.getCode() + ".jpg"));
+                    startActivity(intent);
+                }
+            });
 
             li_medicineList.addView(v);
 

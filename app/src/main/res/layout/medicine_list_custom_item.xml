@@ -16,8 +16,8 @@
         app:cardCornerRadius="@dimen/menu_btn_radius"
         app:cardElevation="@dimen/menu_btn_elevation"
         app:cardBackgroundColor="@color/white"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:clipToPadding="false"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:orientation="vertical"
-                android:layout_toLeftOf="@+id/li_btn"
+                android:layout_toLeftOf="@+id/img"
                 android:padding="10dp"
                 >
 
@@ -59,6 +59,15 @@
                     />
 
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:layout_toLeftOf="@+id/li_btn"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                />
 
             <LinearLayout
                 android:id="@+id/li_btn"
