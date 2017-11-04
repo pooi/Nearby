@@ -36,6 +36,11 @@ import android.app.Application;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
+import android.text.TextUtils;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +51,13 @@ import java.util.List;
  */
 public class CustomApplication extends Application {
 
+    public static final String TAG = CustomApplication.class.getSimpleName();
+    private RequestQueue mRequestQueue;
+
+    private static CustomApplication mInstance;
+
+
+
     private ArrayList<HashMap<String, BluetoothGattService>> mGattServiceMasterData =
             new ArrayList<HashMap<String, BluetoothGattService>>();
 
@@ -53,6 +65,41 @@ public class CustomApplication extends Application {
     private List<BluetoothGattCharacteristic> mGattCharacteristics;
     private BluetoothGattCharacteristic mBluetoothgattcharacteristic;
     private BluetoothGattDescriptor mBluetoothGattDescriptor;
+
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mInstance = this;
+    }
+
+    public static synchronized CustomApplication getInstance() {
+        return mInstance;
+    }
+
+    public RequestQueue getRequestQueue() {
+        if (mRequestQueue == null) {
+            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
+
+        return mRequestQueue;
+    }
+
+    public <T> void addToRequestQueue(Request<T> req, String tag) {
+        req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
+        getRequestQueue().add(req);
+    }
+
+    public <T> void addToRequestQueue(Request<T> req) {
+        req.setTag(TAG);
+        getRequestQueue().add(req);
+    }
+
+    public void cancelPendingRequests(Object tag) {
+        if (mRequestQueue != null) {
+            mRequestQueue.cancelAll(tag);
+        }
+    }
 
 
 

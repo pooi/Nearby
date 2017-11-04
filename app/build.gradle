@@ -60,5 +60,7 @@ dependencies {
     compile 'com.makeramen:roundedimageview:2.3.0'
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     compile 'com.github.ppamorim:dragger:1.2'
+    compile 'dev.dworks.libs:volleyplus:+'
+    compile 'com.github.chrisbanes:PhotoView:2.0.0'
     testCompile 'junit:junit:4.12'
 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.activity.InquiryDetailActivity;
+import cf.nearby.nearby.activity.InquiryPhotoActivity;
 import cf.nearby.nearby.activity.InquiryVitalSignActivity;
 import cf.nearby.nearby.obj.Patient;
 
@@ -81,6 +82,14 @@ public class RecordItemListFragment extends BaseFragment {
                 Intent intent = new Intent(context, InquiryDetailActivity.class);
                 intent.putExtra("patient", selectedPatient);
                 intent.putExtra("type", InquiryDetailActivity.INQUIRY_TYPE_REMARK);
+                context.startActivity(intent);
+            }
+        });
+        view.findViewById(R.id.cv_inquiry_photo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, InquiryPhotoActivity.class);
+                intent.putExtra("patient", selectedPatient);
                 context.startActivity(intent);
             }
         });

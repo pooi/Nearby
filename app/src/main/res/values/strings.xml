@@ -72,6 +72,7 @@
     <string name="medicine_code_srt">코드</string>
     <string name="medicine_name_srt">약명</string>
     <string name="medicine_detail_srt">상세정보</string>
+    <string name="close_srt">닫기</string>
 
 
     <!-- Menu -->

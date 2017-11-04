@@ -8,11 +8,15 @@ import android.support.v7.widget.CardView;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.squareup.picasso.Picasso;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -24,10 +28,12 @@ import cf.nearby.nearby.R;
 import cf.nearby.nearby.obj.HaveMeal;
 import cf.nearby.nearby.obj.MainRecord;
 import cf.nearby.nearby.obj.Patient;
+import cf.nearby.nearby.obj.PatientPhoto;
 import cf.nearby.nearby.obj.PatientRemark;
 import cf.nearby.nearby.obj.TakeMedicine;
 import cf.nearby.nearby.obj.VitalSign;
 import cf.nearby.nearby.util.AdditionalFunc;
+import cf.nearby.nearby.util.AdvancedImageView;
 import cf.nearby.nearby.util.ParsePHP;
 
 public class InquiryDateDetailActivity extends BaseActivity {
@@ -37,10 +43,12 @@ public class InquiryDateDetailActivity extends BaseActivity {
     private final int MSG_MESSAGE_MAKE_MEDICINE_LIST = 501;
     private final int MSG_MESSAGE_MAKE_MEAL_LIST = 502;
     private final int MSG_MESSAGE_MAKE_REMARK_LIST = 503;
-    private final int MSG_MESSAGE_HIDE_VITAL = 504;
-    private final int MSG_MESSAGE_HIDE_MEDICINE = 505;
-    private final int MSG_MESSAGE_HIDE_MEAL = 506;
-    private final int MSG_MESSAGE_HIDE_REMARK = 507;
+    private final int MSG_MESSAGE_MAKE_PHOTO_LIST = 504;
+    private final int MSG_MESSAGE_HIDE_VITAL = 505;
+    private final int MSG_MESSAGE_HIDE_MEDICINE = 506;
+    private final int MSG_MESSAGE_HIDE_MEAL = 507;
+    private final int MSG_MESSAGE_HIDE_REMARK = 508;
+    private final int MSG_MESSAGE_HIDE_PHOTO = 509;
 
     private TextView toolbarTitle;
 
@@ -48,26 +56,31 @@ public class InquiryDateDetailActivity extends BaseActivity {
     private CardView cv_medicine;
     private CardView cv_meal;
     private CardView cv_remark;
+    private CardView cv_photo;
 
     private TableLayout tl_vital;
     private TableLayout tl_medicine;
     private TableLayout tl_meal;
     private TableLayout tl_remark;
+    private LinearLayout li_photo;
 
     private TextView tv_msg_vital;
     private TextView tv_msg_medicine;
     private TextView tv_msg_meal;
     private TextView tv_msg_remark;
+    private TextView tv_msg_photo;
 
     private AVLoadingIndicatorView loading_vital;
     private AVLoadingIndicatorView loading_medicine;
     private AVLoadingIndicatorView loading_meal;
     private AVLoadingIndicatorView loading_remark;
+    private AVLoadingIndicatorView loading_photo;
 
     private ArrayList<VitalSign> vitalSigns;
     private ArrayList<TakeMedicine> takeMedicines;
     private ArrayList<HaveMeal> haveMeals;
     private ArrayList<PatientRemark> remarks;
+    private ArrayList<PatientPhoto> photos;
 
     private Patient selectedPatient;
     long date;
@@ -83,6 +96,7 @@ public class InquiryDateDetailActivity extends BaseActivity {
         takeMedicines = new ArrayList<>();
         haveMeals = new ArrayList<>();
         remarks = new ArrayList<>();
+        photos = new ArrayList<>();
 
         init();
 
@@ -90,6 +104,7 @@ public class InquiryDateDetailActivity extends BaseActivity {
         getTakeMedicineList();
         getHaveMealList();
         getRemarkList();
+        getPhotoList();
 
     }
 
@@ -109,21 +124,25 @@ public class InquiryDateDetailActivity extends BaseActivity {
         cv_medicine = (CardView)findViewById(R.id.cv_medicine);
         cv_meal = (CardView)findViewById(R.id.cv_meal);
         cv_remark = (CardView)findViewById(R.id.cv_remark);
+        cv_photo = (CardView)findViewById(R.id.cv_photo);
 
         tl_vital = (TableLayout)findViewById(R.id.tl_vital);
         tl_medicine = (TableLayout)findViewById(R.id.tl_medicine);
         tl_meal = (TableLayout)findViewById(R.id.tl_meal);
         tl_remark = (TableLayout)findViewById(R.id.tl_remark);
+        li_photo = (LinearLayout) findViewById(R.id.li_photo);
 
         tv_msg_vital = (TextView)findViewById(R.id.tv_msg_vital);
         tv_msg_medicine = (TextView)findViewById(R.id.tv_msg_medicine);
         tv_msg_meal = (TextView)findViewById(R.id.tv_msg_meal);
         tv_msg_remark = (TextView)findViewById(R.id.tv_msg_remark);
+        tv_msg_photo = (TextView)findViewById(R.id.tv_msg_photo);
 
         loading_vital = (AVLoadingIndicatorView)findViewById(R.id.loading_vital);
         loading_medicine = (AVLoadingIndicatorView)findViewById(R.id.loading_medicine);
         loading_meal = (AVLoadingIndicatorView)findViewById(R.id.loading_meal);
         loading_remark = (AVLoadingIndicatorView)findViewById(R.id.loading_remark);
+        loading_photo = (AVLoadingIndicatorView)findViewById(R.id.loading_photo);
 
     }
 
@@ -213,6 +232,29 @@ public class InquiryDateDetailActivity extends BaseActivity {
                 remarks = PatientRemark.getPatientRemarkList(data);
 
                 handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_MAKE_REMARK_LIST));
+
+            }
+        }.start();
+
+    }
+
+    private void getPhotoList(){
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("service", "inquiryPatientPhoto");
+        map.put("isDate", "1");
+        map.put("start_date", Long.toString(date));
+        map.put("finish_date", Long.toString(date+86400000));
+        map.put("patient_id", selectedPatient.getId());
+
+        new ParsePHP(Information.MAIN_SERVER_ADDRESS, map) {
+
+            @Override
+            protected void afterThreadFinish(String data) {
+
+                photos = PatientPhoto.getPatientPhotoList(data);
+
+                handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_MAKE_PHOTO_LIST));
 
             }
         }.start();
@@ -475,6 +517,38 @@ public class InquiryDateDetailActivity extends BaseActivity {
         }
 
     }
+    private void makePhotoList(){
+
+        if(photos.size() > 0){
+            tv_msg_photo.setVisibility(View.GONE);
+        }else{
+            tv_msg_photo.setVisibility(View.VISIBLE);
+        }
+
+        for(int i=0; i<photos.size(); i++){
+            PatientPhoto pp = photos.get(i);
+
+            View v = getLayoutInflater().inflate(R.layout.inquiry_photo_list_custom_item, null, false);
+            final AdvancedImageView img = (AdvancedImageView)v.findViewById(R.id.img);
+            img.setImageList(exportImageList(), i);
+
+            Picasso.with(getApplicationContext())
+                    .load(pp.getUrl())
+                    .into(img);
+
+            li_photo.addView(v);
+
+        }
+
+    }
+
+    public ArrayList<String> exportImageList(){
+        ArrayList<String> imgList = new ArrayList<>();
+        for(PatientPhoto pp : photos){
+            imgList.add(pp.getUrl());
+        }
+        return imgList;
+    }
 
     private class MyHandler extends Handler {
 
@@ -497,6 +571,10 @@ public class InquiryDateDetailActivity extends BaseActivity {
                 case MSG_MESSAGE_MAKE_REMARK_LIST:
                     loading_remark.hide();
                     makeRemarkList();
+                    break;
+                case MSG_MESSAGE_MAKE_PHOTO_LIST:
+                    loading_photo.hide();
+                    makePhotoList();
                     break;
                 default:
                     break;

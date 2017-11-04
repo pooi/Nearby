@@ -1082,6 +1082,55 @@
 					}
 				}
 
+				$save_photo = $_POST['save_photo'];
+				if($save_photo == "1"){
+
+					$target_path = dirname(__FILE__).'/pic/';
+
+					$imageString = "image";
+
+					if (isset($_FILES[$imageString]['name'])) {
+
+						$path = $_FILES[$imageString]['name'];
+						$ext = pathInfo($path, PATHINFO_EXTENSION);
+
+						$path = "record_" . $patient_id . "" . $main_record_id . "" . $registered_date . "." . $ext;
+
+						$target_path2 = $target_path.$path;
+
+						try{
+							
+							if (move_uploaded_file($_FILES[$imageString]['tmp_name'], $target_path2)) {
+								// File successfully uploaded
+								$picture = "http://nearby.cf/pic/" . $path;
+								
+								$sql_photo = "INSERT INTO patient_photo(main_record_id, patient_id, url, registered_date) 
+											VALUES('$main_record_id', '$patient_id', '$picture', '$registered_date');";
+	
+								$ret_photo = mysqli_query($con, $sql_photo);
+								if($ret_photo != '1'){
+									$isFail = $isFail."/photo".$sql_photo;
+								}
+
+							}else{
+								// File upload failed
+								$isFail = $isFail."/photo file upload failed";
+								//echo json_encode(array('status'=>'fail', 'message'=>$target_path));
+							}
+
+						}catch(Exception $e){
+							$isFail = $isFail."/photo " .  $e->getMessage();
+							//echo json_encode(array('status'=>'fail', 'message'=>$e->getMessage()));
+						}
+
+					} else {
+						// File parameter is missing
+						$isFail = $isFail."/photo Not received any file";
+						//echo json_encode(array('status'=>'fail', 'message'=>'Not received any file'));
+					}
+
+				}
+
 				if($isFail == ""){
 					echo json_encode(array('status'=>'success', 'message'=>"record success"));
 				}else{
@@ -1500,6 +1549,60 @@
 				\"blood_pressure_min\":\"$blood_pressure_min\",
 				\"pulse\":\"$pulse\",
 				\"temperature\":\"$temperature\",
+				\"registered_date\":\"$registered_date\"
+				}";
+
+				if($i<$count-1){
+					echo ",";
+				}
+
+				$i++;
+
+			}
+
+			echo "]}";
+
+		}else if($service == "inquiryPatientPhoto"){
+			
+			$patient_id = $_POST['patient_id'];
+			$isDate = $_POST['isDate'];
+			$start_date = $_POST['start_date'];
+			$finish_date = $_POST['finish_date'];
+
+			$page = $_POST['page'];
+			$page = $page*30;
+
+			if($isDate == '1'){
+				$sql = "SELECT * FROM patient_photo WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
+			}else{
+				$sql = "SELECT * FROM patient_photo WHERE patient_id='$patient_id'";
+				
+				$sql = $sql." LIMIT $page, 30;";
+			}
+			
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+			$i=0;
+
+			while($row = mysqli_fetch_array($ret)){
+
+				$id = $row['id'];
+				$main_record_id = $row['main_record_id'];
+				$url = $row['url'];
+				$registered_date = $row['registered_date'];
+
+
+				echo "{\"id\":\"$id\",
+				\"main_record_id\":\"$main_record_id\",
+				\"url\":\"$url\",
 				\"registered_date\":\"$registered_date\"
 				}";
 
