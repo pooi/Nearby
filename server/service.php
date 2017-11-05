@@ -461,6 +461,50 @@
 
 			echo "]}";
 
+		}else if($service == "getPatientMedicineListWithID"){
+			
+			$patient_medicine_id = $_POST['patient_medicine_id'];
+
+			$sql = "select * from patient_medicine WHERE id = '$patient_medicine_id';";
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+			$i=0;
+
+			while($row = mysqli_fetch_array($ret)){
+
+				$id = $row['id'];
+				$title = $row['title'];
+				$start_date = $row['start_date'];
+				$finish_date = $row['finish_date'];
+				$patient_id = $row['patient_id'];
+				$registered_date = $row['registered_date'];
+
+				echo "{\"id\":\"$id\",
+				\"title\":\"$title\",
+				\"start_date\":\"$start_date\",
+				\"finish_date\":\"$finish_date\",
+				\"patient_id\":\"$patient_id\",
+				\"registered_date\":\"$registered_date\"
+				}";
+
+				if($i<$count-1){
+					echo ",";
+				}
+
+				$i++;
+
+			}
+
+			echo "]}";
+
 		}else if($service == "getPatientMedicineDetailList"){
 
 			$patient_medicine_id = $_POST['patient_medicine_id'];

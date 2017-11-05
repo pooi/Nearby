@@ -1,5 +1,6 @@
 package cf.nearby.nearby.activity;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -404,6 +405,7 @@ public class InquiryDateDetailActivity extends BaseActivity {
         }
 
         for(TakeMedicine tm : takeMedicines){
+
             TableLayout.LayoutParams tlps=new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT,TableLayout.LayoutParams.WRAP_CONTENT);
             TableRow.LayoutParams trps=new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT);
 
@@ -426,8 +428,26 @@ public class InquiryDateDetailActivity extends BaseActivity {
             tv_time.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                     getResources().getDimension(R.dimen.default_font_small_size));
 
+            final String patientMedicineId = tm.getPatientMedicineId();
+            TextView tv_detail = new TextView(this);
+            tv_detail.setText(R.string.detail_srt);
+            tv_detail.setLayoutParams(trps);
+            tv_detail.setTextColor(getColorId(R.color.colorPrimary));
+            tv_detail.setGravity(Gravity.CENTER);
+            tv_detail.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    getResources().getDimension(R.dimen.default_font_small_size));
+            tv_detail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(InquiryDateDetailActivity.this, ShowPatientMedicineDetailActivity.class);
+                    intent.putExtra("patient_medicine_id", patientMedicineId);
+                    startActivity(intent);
+                }
+            });
+
             tr.addView(tv_title);
             tr.addView(tv_time);
+            tr.addView(tv_detail);
 
             tl_medicine.addView(tr, tlps);
         }

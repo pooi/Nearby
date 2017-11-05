@@ -9,13 +9,25 @@
     android:background="@color/white"
     >
 
+    <TextView
+        android:id="@+id/tv_my_patient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/my_patient"
+        android:layout_below="@+id/toolbar"
+        android:textSize="@dimen/default_font_size"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="10dp"
+        />
+
     <android.support.v7.widget.RecyclerView
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/rv"
         android:clipToPadding="false"
-        android:paddingTop="@dimen/custom_actionbar_size"
         android:layout_above="@+id/li_btn"
+        android:layout_below="@+id/tv_my_patient"
         android:clipChildren="false"
         >
     </android.support.v7.widget.RecyclerView>

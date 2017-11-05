@@ -31,6 +31,7 @@ public class ShowPatientMedicineDetailActivity extends AppCompatActivity {
     private MyHandler handler = new MyHandler();
     private final int MSG_MESSAGE_MAKE_LIST = 500;
     private final int MSG_MESSAGE_PROGRESS_HIDE = 502;
+    private final int MSG_MESSAGE_FILL_BASIC_FORM = 503;
 
     private AVLoadingIndicatorView loading;
 
@@ -42,16 +43,26 @@ public class ShowPatientMedicineDetailActivity extends AppCompatActivity {
 
     private PatientMedicine patientMedicine;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_patient_medicine_detail);
 
+        boolean flag;
+
         patientMedicine = (PatientMedicine)getIntent().getSerializableExtra("patient_medicine");
+        flag = patientMedicine == null;
+        if(flag){
+            patientMedicine = new PatientMedicine();
+            patientMedicine.setId(getIntent().getStringExtra("patient_medicine_id"));
+            getPatientMedicineList();
+        }
 
         init();
 
-        getDetailList();
+        if(!flag)
+            getDetailList();
 
     }
 
@@ -72,10 +83,33 @@ public class ShowPatientMedicineDetailActivity extends AppCompatActivity {
 
         loading = (AVLoadingIndicatorView)findViewById(R.id.loading);
 
+        fillBasicInfo();
+
+    }
+
+    private void fillBasicInfo(){
+
         tv_title.setText(patientMedicine.getTitle());
         tv_startDate.setText(AdditionalFunc.getDateString(patientMedicine.getStartDate()));
         tv_finishDate.setText(AdditionalFunc.getDateString(patientMedicine.getFinishDate()));
 
+    }
+
+    private void getPatientMedicineList(){
+            HashMap<String, String> map = new HashMap<>();
+            map.put("service", "getPatientMedicineListWithID");
+            map.put("patient_medicine_id", patientMedicine.getId());
+
+            new ParsePHP(Information.MAIN_SERVER_ADDRESS, map) {
+
+                @Override
+                protected void afterThreadFinish(String data) {
+
+                    patientMedicine = PatientMedicine.getPatientMedicineList(data).get(0);
+                    handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_FILL_BASIC_FORM));
+
+                }
+            }.start();
     }
 
     private void getDetailList(){
@@ -154,6 +188,10 @@ public class ShowPatientMedicineDetailActivity extends AppCompatActivity {
                     break;
                 case MSG_MESSAGE_PROGRESS_HIDE:
                     loading.hide();
+                    break;
+                case MSG_MESSAGE_FILL_BASIC_FORM:
+                    fillBasicInfo();
+                    getDetailList();
                     break;
                 default:
                     break;

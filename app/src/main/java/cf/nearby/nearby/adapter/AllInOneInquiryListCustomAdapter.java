@@ -89,7 +89,8 @@ public class AllInOneInquiryListCustomAdapter extends RecyclerView.Adapter<AllIn
 
             if(mr2 instanceof TakeMedicine){
 
-                TakeMedicine tm = (TakeMedicine)mr2;
+                final TakeMedicine tm = (TakeMedicine)mr2;
+
 
                 TableLayout.LayoutParams tlps=new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT,TableLayout.LayoutParams.WRAP_CONTENT);
                 TableRow.LayoutParams trps=new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT);
@@ -113,8 +114,25 @@ public class AllInOneInquiryListCustomAdapter extends RecyclerView.Adapter<AllIn
                 tv_time.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                         context.getResources().getDimension(R.dimen.default_font_small_size));
 
+                TextView tv_detail = new TextView(context);
+                tv_detail.setText(R.string.detail_srt);
+                tv_detail.setLayoutParams(trps);
+                tv_detail.setTextColor(recordSupporter.getColorId(R.color.colorPrimary));
+                tv_detail.setGravity(Gravity.CENTER);
+                tv_detail.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                        context.getResources().getDimension(R.dimen.default_font_small_size));
+                tv_detail.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(context, ShowPatientMedicineDetailActivity.class);
+                        intent.putExtra("patient_medicine_id", tm.getPatientMedicineId());
+                        onAdapterSupport.redirectActivity(intent);
+                    }
+                });
+
                 tr.addView(tv_title);
                 tr.addView(tv_time);
+                tr.addView(tv_detail);
 
                 holder.tl.addView(tr, tlps);
 
