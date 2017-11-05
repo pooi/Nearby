@@ -17,6 +17,9 @@ import com.afollestad.materialdialogs.Theme;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -31,6 +34,7 @@ import cf.nearby.nearby.util.ParsePHP;
 
 public class RegisterSupporterActivity extends AppCompatActivity {
     private String nextActivity;
+    private int b;
 
     private MaterialEditText supporter_id;
     private MaterialEditText supporter_password;
@@ -44,7 +48,7 @@ public class RegisterSupporterActivity extends AppCompatActivity {
 
     private Button back_btn;
     private Button register_btn;
-
+    private Button validate_btn;
     private MaterialDialog progressDialog;
 
 
@@ -88,6 +92,7 @@ public class RegisterSupporterActivity extends AppCompatActivity {
         supporter_zip = (MaterialEditText)findViewById(R.id.supporter_zip);
         supporter_phone = (MaterialEditText)findViewById(R.id.supporter_phone);
         supporter_description = (MaterialEditText)findViewById(R.id.supporter_description);
+        validate_btn = (Button)findViewById(R.id.validatebtn);
 
         selgender = (RadioGroup)findViewById(R.id.selectgender);
         selrole = (RadioGroup)findViewById(R.id.selectrole);
@@ -136,14 +141,20 @@ public class RegisterSupporterActivity extends AppCompatActivity {
             }
         });
 
+        validate_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validate_info();
+            }
+        });
+
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int a = register_supporter();
-                if(a==1){
+                if (a == 1) {
                     finish();
-                }
-                else{
+                } else {
                     progressDialog.hide();
                 }
             }
@@ -177,6 +188,32 @@ public class RegisterSupporterActivity extends AppCompatActivity {
         }
         else
             return 0;
+    }
+
+    private void validate_info(){
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("service", "ValidateInfo");
+            map.put("supporter_id", supporter_id.getText().toString());
+            new ParsePHP(Information.MAIN_SERVER_ADDRESS, map) {
+                @Override
+                protected void afterThreadFinish(String data) {
+                    try {
+                        JSONObject jObj = new JSONObject(data);
+                        String status = jObj.getString("status");
+                        if ("success".equals(status)) {
+                            progressDialog.setContent("중복된 아이디입니다");
+                            progressDialog.show();
+                            b = 1;
+                        } else {
+                            progressDialog.setContent("사용가능한 아이디입니다");
+                            progressDialog.show();
+                            b = 0;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
     }
 
     private boolean checkradiobtn(){

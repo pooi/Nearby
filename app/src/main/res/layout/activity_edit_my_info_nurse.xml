@@ -4,106 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cf.nearby.nearby.activity.RegisterSupporterActivity">
+    tools:context="cf.nearby.nearby.nurse.EditMyInfoNurseActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/li_btn"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/background_color">
+        android:background="@color/background_color"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/background_color"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="아이디"
-                    android:layout_margin="10dp"
-                    android:gravity="top"/>
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/supporter_id"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/default_font_size"
-                    android:textColor="@color/profile_content"
-                    android:hint="아이디"
-                    app:met_primaryColor="@color/profile_content"
-                    app:met_floatingLabel="none"
-                    app:met_floatingLabelText=""
-                    app:met_singleLineEllipsis="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    />
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="중복확인"
-                    android:id="@+id/validatebtn"
-                    android:background="@color/dark_gray"/>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/background_color"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="비밀번호"
-                    android:layout_margin="10dp"
-                    android:gravity="top"/>
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/supporter_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/default_font_size"
-                    android:textColor="@color/profile_content"
-                    android:hint="비밀번호"
-                    app:met_primaryColor="@color/profile_content"
-                    app:met_floatingLabel="none"
-                    app:met_floatingLabelText="@string/ln"
-                    app:met_singleLineEllipsis="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/background_color"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="e-mail"
-                    android:layout_margin="10dp"
-                    android:gravity="top"/>
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/supporter_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/default_font_size"
-                    android:textColor="@color/profile_content"
-                    android:hint="이메일을 입력해주세요"
-                    app:met_primaryColor="@color/profile_content"
-                    app:met_floatingLabel="none"
-                    app:met_floatingLabelText="@string/ln"
-                    app:met_singleLineEllipsis="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    />
-            </LinearLayout>
-
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="120dp"
+                android:layout_height="160dp"
+                android:scaleType="centerCrop"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,7 +36,7 @@
                     android:layout_margin="10dp"
                     android:gravity="top"/>
                 <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/supporter_ln"
+                    android:id="@+id/nurse_ln"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/default_font_size"
@@ -141,7 +61,7 @@
                     android:text="@string/fn"
                     android:layout_margin="10dp"/>
                 <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/supporter_fn"
+                    android:id="@+id/nurse_fn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/default_font_size"
@@ -154,46 +74,6 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/background_color"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="관계"
-                    android:layout_margin="10dp"/>
-
-                <RadioGroup
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/selectrole">
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="배우자"
-                        android:buttonTint="@color/black"
-                        android:id="@+id/spouse"
-                        />
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="아들/딸"
-                        android:buttonTint="@color/black"
-                        android:id="@+id/child"
-                        />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="친인척"
-                        android:buttonTint="@color/black"
-                        android:id="@+id/familymem"
-                        />
-                </RadioGroup>
             </LinearLayout>
 
             <LinearLayout
@@ -237,10 +117,36 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="e-mail"
+                    android:layout_margin="10dp"/>
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/nurse_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/default_font_size"
+                    android:textColor="@color/profile_content"
+                    android:hint="e-mail"
+                    app:met_primaryColor="@color/profile_content"
+                    app:met_floatingLabel="none"
+                    app:met_floatingLabelText="@string/fn"
+                    app:met_singleLineEllipsis="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background_color"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/address"
                     android:layout_margin="10dp"/>
                 <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/supporter_address"
+                    android:id="@+id/nurse_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/default_font_size"
@@ -266,7 +172,7 @@
                     android:text="@string/zip"
                     android:layout_margin="10dp"/>
                 <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/supporter_zip"
+                    android:id="@+id/nurse_zip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/default_font_size"
@@ -293,7 +199,7 @@
                     android:layout_margin="10dp"/>
 
                 <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/supporter_phone"
+                    android:id="@+id/nurse_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -311,8 +217,84 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/background_color"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="자격증 번호"
+                    android:layout_margin="10dp"/>
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/nurse_license"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/default_font_size"
+                    android:textColor="@color/profile_content"
+                    android:hint="소지한 자격증 번호"
+                    app:met_primaryColor="@color/profile_content"
+                    app:met_floatingLabel="none"
+                    app:met_floatingLabelText="@string/id"
+                    app:met_singleLineEllipsis="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background_color"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="담당 파트"
+                    android:layout_margin="10dp"/>
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/nurse_major"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/default_font_size"
+                    android:textColor="@color/profile_content"
+                    android:hint="담당 파트"
+                    app:met_primaryColor="@color/profile_content"
+                    app:met_floatingLabel="none"
+                    app:met_floatingLabelText="@string/id"
+                    app:met_singleLineEllipsis="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background_color"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="배정날짜"
+                    android:layout_margin="10dp"/>
+                <TextView
+                    android:id="@+id/startdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="클릭"
+                    android:layout_margin="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background_color"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="병원등록일"
+                    android:layout_margin="10dp"/>
+
                 <TextView
                     android:id="@+id/registerdate"
                     android:layout_width="wrap_content"
@@ -329,10 +311,16 @@
                 android:orientation="horizontal"
                 android:gravity="center_horizontal">
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="생년월일"
+                    android:layout_margin="10dp"/>
+
+                <TextView
                     android:id="@+id/dob"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/dob"
+                    android:text="클릭"
                     android:layout_margin="10dp"/>
 
             </LinearLayout>
@@ -348,7 +336,7 @@
                     android:text="@string/description"
                     android:layout_margin="10dp"/>
                 <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/supporter_description"
+                    android:id="@+id/nurse_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/default_font_size"
