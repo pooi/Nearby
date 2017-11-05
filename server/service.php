@@ -1774,11 +1774,13 @@
 				$url = $row['url'];
 				$ingredient = $row['ingredient'];
 				$classification = $row['classification'];
+				$usage_capacity = $row['usage_capacity'];
 
 				echo "{\"code\":\"$code\",
 				\"url\":\"$url\",
 				\"ingredient\":\"$ingredient\",
-				\"classification\":\"$classification\"
+				\"classification\":\"$classification\",
+				\"usage_capacity\":\"$usage_capacity\"
 				}";
 
 				if($i<$count-1){

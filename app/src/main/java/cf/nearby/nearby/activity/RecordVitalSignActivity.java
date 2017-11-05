@@ -283,7 +283,7 @@ public class RecordVitalSignActivity extends BaseActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    createNewData(pulseList);
+                                    createNewData(pulseList, "pulse");
                                 }
                             });
                         }catch (Exception e){
@@ -334,7 +334,7 @@ public class RecordVitalSignActivity extends BaseActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    createNewData(tempuratureList);
+                                    createNewData(tempuratureList, "temperature");
                                 }
                             });
                         }catch (Exception e){
@@ -358,10 +358,16 @@ public class RecordVitalSignActivity extends BaseActivity {
         return avg;
     }
 
-    private void createNewData(ArrayList<Double> list){
+    private void createNewData(ArrayList<Double> list, String type){
 
         Random rand = new Random();
-        double temp = rand.nextDouble()*100;
+        Double temp = 0.0;
+        if("pulse".equals(type)){
+            temp = 80.0 + (int)Math.round(rand.nextDouble());
+        }else if("temperature".equals(type)){
+            temp = 36.0 + rand.nextDouble();
+        }
+//        int temp = 80 + (int)Math.round(rand.nextDouble());
         list.add(temp);
 
         TextView msg = new TextView(this);

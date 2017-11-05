@@ -20,7 +20,6 @@ import cf.nearby.nearby.activity.SearchPatientByLocationIdActivity;
 
 
 public class NurseRegisterActivity extends BaseActivity {
-    private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,19 +64,6 @@ public class NurseRegisterActivity extends BaseActivity {
 //            }
 //        });
 
-        progressDialog = new MaterialDialog.Builder(this)
-                .content(R.string.please_wait)
-                .progress(true, 0)
-                .progressIndeterminateStyle(true)
-                .theme(Theme.LIGHT)
-                .build();
     }
 
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        if(progressDialog != null){
-            progressDialog.dismiss();
-        }
-    }
 }

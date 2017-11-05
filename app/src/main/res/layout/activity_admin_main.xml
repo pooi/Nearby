@@ -9,127 +9,182 @@
     android:background="@color/white"
     >
 
-    <ScrollView
-        android:id="@+id/sc"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:clipChildren="false"
+        android:orientation="vertical"
+        android:gravity="center"
         android:clipToPadding="false"
-        android:paddingBottom="50dp"
+        android:clipChildren="false"
+        android:weightSum="3"
+        android:layout_above="@+id/btn_logout"
         >
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_manage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:clipChildren="false"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="@dimen/menu_btn_radius"
+            app:cardElevation="@dimen/menu_btn_elevation"
+            app:cardBackgroundColor="@color/white"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:clipToPadding="false"
+            android:clipChildren="false"
             >
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv_manage"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                app:cardCornerRadius="@dimen/menu_btn_radius"
-                app:cardElevation="@dimen/menu_btn_elevation"
-                app:cardBackgroundColor="@color/white"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:clipToPadding="false"
-                android:clipChildren="false"
-                >
+                android:layout_height="match_parent">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/manage_main"
+                    android:scaleType="centerCrop"
+                    app:riv_corner_radius="@dimen/menu_btn_radius"
+                    app:riv_mutate_background="false"
+                    app:riv_oval="false"
+                    />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/manage_srt"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="@dimen/default_menu_font_size"
-                        />
-
+                    android:layout_height="match_parent"
+                    android:background="@drawable/menu_trasparant_bg_radius"
+                    >
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/manage_srt"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/default_menu_font_big_size"
+                    />
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv_inquiry"
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_inquiry"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="@dimen/menu_btn_radius"
+            app:cardElevation="@dimen/menu_btn_elevation"
+            app:cardBackgroundColor="@color/white"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            >
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                app:cardCornerRadius="@dimen/menu_btn_radius"
-                app:cardElevation="@dimen/menu_btn_elevation"
-                app:cardBackgroundColor="@color/white"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:clipToPadding="false"
-                android:clipChildren="false"
-                >
+                android:layout_height="match_parent">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/inquiry_main"
+                    android:scaleType="centerCrop"
+                    app:riv_corner_radius="@dimen/menu_btn_radius"
+                    app:riv_mutate_background="false"
+                    app:riv_oval="false"
+                    />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/inquiry_srt"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="@dimen/default_menu_font_size"
-                        />
-
+                    android:layout_height="match_parent"
+                    android:background="@drawable/menu_trasparant_bg_radius"
+                    >
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/inquiry_srt"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/default_menu_font_big_size"
+                    />
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv_register"
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_register"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="@dimen/menu_btn_radius"
+            app:cardElevation="@dimen/menu_btn_elevation"
+            app:cardBackgroundColor="@color/white"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            >
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                app:cardCornerRadius="@dimen/menu_btn_radius"
-                app:cardElevation="@dimen/menu_btn_elevation"
-                app:cardBackgroundColor="@color/white"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:clipToPadding="false"
-                android:clipChildren="false"
-                >
+                android:layout_height="match_parent">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/register_main"
+                    android:scaleType="centerCrop"
+                    app:riv_corner_radius="@dimen/menu_btn_radius"
+                    app:riv_mutate_background="false"
+                    app:riv_oval="false"
+                    />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/register_srt"
-                        android:textColor="@color/dark_gray"
-                        android:textSize="@dimen/default_menu_font_size"
-                        />
-
+                    android:layout_height="match_parent"
+                    android:background="@drawable/menu_trasparant_bg_radius"
+                    >
 
                 </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/register_srt"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/default_menu_font_big_size"
+                    />
 
-        </LinearLayout>
 
-    </ScrollView>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/btn_logout"

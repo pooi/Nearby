@@ -13,6 +13,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
+import cf.nearby.nearby.nurse.NurseMainActivity;
+import cf.nearby.nearby.nurse.NurseRegisterActivity;
 
 public class AdminMainActivity extends BaseActivity {
 
@@ -43,6 +45,13 @@ public class AdminMainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AdminMainActivity.this, AdminManageActivity.class);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.cv_register).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminMainActivity.this,AdminRegisterActivity.class);
                 startActivity(intent);
             }
         });

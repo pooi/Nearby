@@ -241,6 +241,29 @@ public class MedicineDetailActivity extends BaseActivity implements ObservableSc
             li_detail.addView(v);
         }
 
+
+        if(medicineDetail.getUsageCapacity() != null && !"".equals(medicineDetail.getUsageCapacity())){
+            View v = getLayoutInflater().inflate(R.layout.medicine_detail_info_custom_item, null, false);
+            TextView tv_title = (TextView)v.findViewById(R.id.tv_title);
+            TextView tv_content = (TextView)v.findViewById(R.id.tv_content);
+
+            tv_title.setText(R.string.medicine_usage_capacity);
+            tv_content.setText(medicineDetail.getUsageCapacity());
+
+            li_detail.addView(v);
+        }
+
+        if(medicineDetail.getCompany() != null && !"".equals(medicineDetail.getCompany())){
+            View v = getLayoutInflater().inflate(R.layout.medicine_detail_info_custom_item, null, false);
+            TextView tv_title = (TextView)v.findViewById(R.id.tv_title);
+            TextView tv_content = (TextView)v.findViewById(R.id.tv_content);
+
+            tv_title.setText(R.string.medicine_company);
+            tv_content.setText(medicineDetail.getCompany());
+
+            li_detail.addView(v);
+        }
+
         if(medicineDetail.getIngredient() != null && !"".equals(medicineDetail.getIngredient())){
             View v = getLayoutInflater().inflate(R.layout.medicine_detail_info_custom_item, null, false);
             TextView tv_title = (TextView)v.findViewById(R.id.tv_title);
@@ -251,7 +274,6 @@ public class MedicineDetailActivity extends BaseActivity implements ObservableSc
 
             li_detail.addView(v);
         }
-
 
         if(medicineDetail.getClassification() != null && !"".equals(medicineDetail.getClassification())){
             View v = getLayoutInflater().inflate(R.layout.medicine_detail_info_custom_item, null, false);

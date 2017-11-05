@@ -101,7 +101,7 @@ public class MedicineSearchListCustomAdapter extends RecyclerView.Adapter<Medici
             public void onClick(View view) {
                 Intent intent = new Intent(context, MedicineDetailActivity.class);
                 intent.putExtra("drag_position", DraggerPosition.TOP);
-                intent.putExtra("detail", new MedicineDetail(medicine.getCode(), medicine.getName(), "http://nearby.cf/medicine/" + medicine.getCode() + ".jpg"));
+                intent.putExtra("detail", new MedicineDetail(medicine.getCode(), medicine.getName(), medicine.getCompany(), "http://nearby.cf/medicine/" + medicine.getCode() + ".jpg"));
                 onAdapterSupport.redirectActivity(intent);
             }
         });

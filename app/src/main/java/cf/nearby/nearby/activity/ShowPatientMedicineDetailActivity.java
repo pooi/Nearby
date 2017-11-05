@@ -132,7 +132,7 @@ public class ShowPatientMedicineDetailActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent(ShowPatientMedicineDetailActivity.this, MedicineDetailActivity.class);
                     intent.putExtra("drag_position", DraggerPosition.TOP);
-                    intent.putExtra("detail", new MedicineDetail(medicine.getCode(), medicine.getName(), "http://nearby.cf/medicine/" + medicine.getCode() + ".jpg"));
+                    intent.putExtra("detail", new MedicineDetail(medicine.getCode(), medicine.getName(), medicine.getCompany(), "http://nearby.cf/medicine/" + medicine.getCode() + ".jpg"));
                     startActivity(intent);
                 }
             });

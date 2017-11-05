@@ -15,12 +15,13 @@ import cf.nearby.nearby.util.AdditionalFunc;
 
 public class MedicineDetail implements Serializable {
 
-    String code, ingredient, classification, url;
+    String code, company, ingredient, classification, url, usageCapacity;
     String name, imgUrl;
 
-    public MedicineDetail(String code, String name, String imgUrl){
+    public MedicineDetail(String code, String name, String company, String imgUrl){
         this.code = code;
         this.name = name;
+        this.company = company;
         this.imgUrl = imgUrl;
     }
 
@@ -64,6 +65,9 @@ public class MedicineDetail implements Serializable {
             }
             if(keySet.contains("url")){
                 url = (String) temp.get("url");
+            }
+            if(keySet.contains("usage_capacity")){
+                usageCapacity = (String) temp.get("usage_capacity");
             }
 
         }catch (Exception e){
@@ -124,5 +128,21 @@ public class MedicineDetail implements Serializable {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public String getUsageCapacity() {
+        return usageCapacity;
+    }
+
+    public void setUsageCapacity(String usageCapacity) {
+        this.usageCapacity = usageCapacity;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 }
