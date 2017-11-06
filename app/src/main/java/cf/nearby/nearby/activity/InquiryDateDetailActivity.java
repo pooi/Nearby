@@ -17,6 +17,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.github.ppamorim.dragger.DraggerPosition;
 import com.squareup.picasso.Picasso;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -28,6 +29,8 @@ import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.obj.HaveMeal;
 import cf.nearby.nearby.obj.MainRecord;
+import cf.nearby.nearby.obj.Medicine;
+import cf.nearby.nearby.obj.MedicineDetail;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.obj.PatientPhoto;
 import cf.nearby.nearby.obj.PatientRemark;
@@ -404,7 +407,7 @@ public class InquiryDateDetailActivity extends BaseActivity {
             tv_msg_medicine.setVisibility(View.VISIBLE);
         }
 
-        for(TakeMedicine tm : takeMedicines){
+        for(final TakeMedicine tm : takeMedicines){
 
             TableLayout.LayoutParams tlps=new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT,TableLayout.LayoutParams.WRAP_CONTENT);
             TableRow.LayoutParams trps=new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT);
@@ -413,7 +416,7 @@ public class InquiryDateDetailActivity extends BaseActivity {
             tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             TextView tv_title = new TextView(this);
-            tv_title.setText(tm.getTitle());
+            tv_title.setText( "0".equals(tm.getPatientMedicineId()) ? tm.getMedicine().getCode() :  tm.getTitle() );
             tv_title.setLayoutParams(trps);
             tv_title.setTextColor(getColorId(R.color.dark_gray));
             tv_title.setGravity(Gravity.CENTER);
@@ -421,14 +424,14 @@ public class InquiryDateDetailActivity extends BaseActivity {
                     getResources().getDimension(R.dimen.default_font_small_size));
 
             TextView tv_time = new TextView(this);
-            tv_time.setText(AdditionalFunc.getTimeString(tm.getRegisteredDate()));
+            tv_time.setText( "0".equals(tm.getPatientMedicineId()) ? tm.getMedicine().getNameSrt(10) : AdditionalFunc.getTimeString(tm.getRegisteredDate()) );
             tv_time.setLayoutParams(trps);
             tv_time.setTextColor(getColorId(R.color.dark_gray));
             tv_time.setGravity(Gravity.CENTER);
             tv_time.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                     getResources().getDimension(R.dimen.default_font_small_size));
 
-            final String patientMedicineId = tm.getPatientMedicineId();
+//            final String patientMedicineId = tm.getPatientMedicineId();
             TextView tv_detail = new TextView(this);
             tv_detail.setText(R.string.detail_srt);
             tv_detail.setLayoutParams(trps);
@@ -439,9 +442,17 @@ public class InquiryDateDetailActivity extends BaseActivity {
             tv_detail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(InquiryDateDetailActivity.this, ShowPatientMedicineDetailActivity.class);
-                    intent.putExtra("patient_medicine_id", patientMedicineId);
-                    startActivity(intent);
+                    if("0".equals(tm.getPatientMedicineId())){
+                        Medicine medicine = tm.getMedicine();
+                        Intent intent = new Intent(InquiryDateDetailActivity.this, MedicineDetailActivity.class);
+                        intent.putExtra("drag_position", DraggerPosition.TOP);
+                        intent.putExtra("detail", new MedicineDetail(medicine.getCode(), medicine.getName(), medicine.getCompany(), "http://nearby.cf/medicine/" + medicine.getCode() + ".jpg"));
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(InquiryDateDetailActivity.this, ShowPatientMedicineDetailActivity.class);
+                        intent.putExtra("patient_medicine_id", tm.getPatientMedicineId());
+                        startActivity(intent);
+                    }
                 }
             });
 

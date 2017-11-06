@@ -12,6 +12,7 @@ import cf.nearby.nearby.R;
 import cf.nearby.nearby.activity.InquiryDetailActivity;
 import cf.nearby.nearby.activity.InquiryPhotoActivity;
 import cf.nearby.nearby.activity.InquiryVitalSignActivity;
+import cf.nearby.nearby.activity.SearchEmployeeActivity;
 import cf.nearby.nearby.obj.Patient;
 
 /**
@@ -89,6 +90,14 @@ public class RecordItemListFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, InquiryPhotoActivity.class);
+                intent.putExtra("patient", selectedPatient);
+                context.startActivity(intent);
+            }
+        });
+        view.findViewById(R.id.cv_inquiry_nurse).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SearchEmployeeActivity.class);
                 intent.putExtra("patient", selectedPatient);
                 context.startActivity(intent);
             }

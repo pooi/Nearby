@@ -161,6 +161,7 @@ public class AddPatientMedicineActivity extends BaseActivity {
 
     }
 
+
     private void selectStartPeriod(){
         Calendar now = Calendar.getInstance();
         DatePickerDialog dpd = DatePickerDialog.newInstance(

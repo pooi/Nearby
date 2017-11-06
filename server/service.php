@@ -1115,9 +1115,15 @@
 					$takeMedicinesSize = $_POST['take_medicines_size'];
 					for($k=0; $k<$takeMedicinesSize; $k++){
 						$take_medicines_patient_medicine_id = $_POST['take_medicines_patient_medicine_id'.$k];
+						$medicine_id = $_POST['medicine_id'.$k];
 
-						$sql_take_medicines = "INSERT INTO take_medicine(main_record_id, patient_id, patient_medicine_id, registered_date)
-						VALUES('$main_record_id', '$patient_id', '$take_medicines_patient_medicine_id', '$registered_date');";
+						if($take_medicines_patient_medicine_id != ""){
+							$sql_take_medicines = "INSERT INTO take_medicine(main_record_id, patient_id, patient_medicine_id, registered_date)
+							VALUES('$main_record_id', '$patient_id', '$take_medicines_patient_medicine_id', '$registered_date');";
+						}else{
+							$sql_take_medicines = "INSERT INTO take_medicine(main_record_id, patient_id, medicine_id, registered_date)
+							VALUES('$main_record_id', '$patient_id', '$medicine_id', '$registered_date');";
+						}
 
 						$ret_take_medicines = mysqli_query($con, $sql_take_medicines);
 						if($ret_take_medicines != '1'){
@@ -1356,25 +1362,37 @@
 
 			if($isDate == "1"){
 
-				$sql = "SELECT A.*, B.title as title
-				FROM take_medicine as A LEFT OUTER JOIN (
-				SELECT *
-				FROM patient_medicine
-				GROUP BY id) as B
-				ON (B.id = A.patient_medicine_id)
-				WHERE A.patient_id='$patient_id' AND ('$start_date' <= A.registered_date AND A.registered_date <= '$finish_date') 
-				GROUP BY A.id;";
+				$sql = "SELECT A.*, B.title as title, C.code as medicine_code, C.name as medicine_name, C.type as medicine_type, C.company as medicine_company, C.standard as medicine_standard, C.unit as medicine_unit 
+						FROM take_medicine as A 
+						LEFT OUTER JOIN (
+						SELECT *
+						FROM patient_medicine
+						GROUP BY id) as B
+						ON (B.id = A.patient_medicine_id)
+						LEFT OUTER JOIN (
+						SELECT *
+						FROM medicine
+						GROUP BY id) as C
+						ON (C.id = A.medicine_id)
+						WHERE A.patient_id='$patient_id' AND ('$start_date' <= A.registered_date AND A.registered_date <= '$finish_date') 
+						GROUP BY A.id";
 
 			}else{
 
-				$sql = "SELECT A.*, B.title as title
-				FROM take_medicine as A LEFT OUTER JOIN (
-				SELECT *
-				FROM patient_medicine
-				GROUP BY id) as B
-				ON (B.id = A.patient_medicine_id)
-				WHERE A.patient_id='$patient_id' 
-				GROUP BY A.id";
+				$sql = "SELECT A.*, B.title as title, C.code as medicine_code, C.name as medicine_name, C.type as medicine_type, C.company as medicine_company, C.standard as medicine_standard, C.unit as medicine_unit 
+						FROM take_medicine as A 
+						LEFT OUTER JOIN (
+						SELECT *
+						FROM patient_medicine
+						GROUP BY id) as B
+						ON (B.id = A.patient_medicine_id)
+						LEFT OUTER JOIN (
+						SELECT *
+						FROM medicine
+						GROUP BY id) as C
+						ON (C.id = A.medicine_id)
+						WHERE A.patient_id='$patient_id' 
+						GROUP BY A.id";
 
 				$sql = $sql." LIMIT $page, 30;";
 
@@ -1397,6 +1415,12 @@
 				$main_record_id = $row['main_record_id'];
 				$patient_medicine_id = $row['patient_medicine_id'];
 				$medicine_id = $row['medicine_id'];
+				$medicine_code = $row['medicine_code'];
+				$medicine_name = $row['medicine_name'];
+				$medicine_type = $row['medicine_type'];
+				$medicine_company = $row['medicine_company'];
+				$medicine_standard = $row['medicine_standard'];
+				$medicine_unit = $row['medicine_unit'];
 				$registered_date = $row['registered_date'];
 				$title = $row['title'];
 
@@ -1406,6 +1430,12 @@
 				\"main_record_id\":\"$main_record_id\",
 				\"patient_medicine_id\":\"$patient_medicine_id\",
 				\"medicine_id\":\"$medicine_id\",
+				\"medicine_code\":\"$medicine_code\",
+				\"medicine_name\":\"$medicine_name\",
+				\"medicine_type\":\"$medicine_type\",
+				\"medicine_company\":\"$medicine_company\",
+				\"medicine_standard\":\"$medicine_standard\",
+				\"medicine_unit\":\"$medicine_unit\",
 				\"title\":\"$title\",
 				\"registered_date\":\"$registered_date\"
 				}";
@@ -1648,6 +1678,98 @@
 				\"main_record_id\":\"$main_record_id\",
 				\"url\":\"$url\",
 				\"registered_date\":\"$registered_date\"
+				}";
+
+				if($i<$count-1){
+					echo ",";
+				}
+
+				$i++;
+
+			}
+
+			echo "]}";
+
+		}else if($service == "inquiryPatientRelatedNurse"){
+			
+			$patient_id = $_POST['patient_id'];
+			
+			$sql = "SELECT A.*, B.name as location_name, B.pic as location_pic, B.director as location_director, B.capacity as location_capacity, B.major as location_major, B.construction_year as location_construction_year, B.phone as location_phone, B.url as location_url
+					FROM employee as A LEFT OUTER JOIN (
+					SELECT *
+					FROM location
+					GROUP BY id) as B
+					ON (B.id = A.location_id)
+					WHERE A.role='nurse' AND A.id IN (SELECT DISTINCT employee_id FROM main_record WHERE patient_id='$patient_id') 
+					GROUP BY A.id";
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+			$i=0;
+
+			while($row = mysqli_fetch_array($ret)){
+
+				$id = $row['id'];
+				$login_id = $row['login_id'];
+				$email = $row['email'];
+				$first_name = $row['first_name'];
+				$last_name = $row['last_name'];
+				$role = $row['role'];
+				$license = $row['license'];
+				$gender = $row['gender'];
+				$address = $row['address'];
+				$zip = $row['zip'];
+				$phone = $row['phone'];
+				$pic = $row['pic'];
+				$date_of_birth = $row['date_of_birth'];
+				$major = $row['major'];
+				$start_date = $row['start_date'];
+				$description = $row['description'];
+				$registered_date = $row['registered_date'];
+
+				$location_id = $row['location_id'];
+				$location_name = $row['location_name'];
+				$location_pic = $row['location_pic'];
+				$location_director = $row['location_director'];
+				$location_capacity = $row['location_capacity'];
+				$location_major = $row['location_major'];
+				$location_construction_year = $row['location_construction_year'];
+				$location_phone = $row['location_phone'];
+				$location_url = $row['location_url'];
+
+				echo "{\"id\":\"$id\",
+				\"login_id\":\"$login_id\",
+				\"email\":\"$email\",
+				\"first_name\":\"$first_name\",
+				\"last_name\":\"$last_name\",
+				\"role\":\"$role\",
+				\"license\":\"$license\",
+				\"gender\":\"$gender\",
+				\"address\":\"$address\",
+				\"zip\":\"$zip\",
+				\"phone\":\"$phone\",
+				\"pic\":\"$pic\",
+				\"date_of_birth\":\"$date_of_birth\",
+				\"major\":\"$major\",
+				\"start_date\":\"$start_date\",
+				\"description\":\"$description\",
+				\"registered_date\":\"$registered_date\",
+				\"location_id\":\"$location_id\",
+				\"location_name\":\"$location_name\",
+				\"location_pic\":\"$location_pic\",
+				\"location_director\":\"$location_director\",
+				\"location_capacity\":\"$location_capacity\",
+				\"location_major\":\"$location_major\",
+				\"location_construction_year\":\"$location_construction_year\",
+				\"location_phone\":\"$location_phone\",
+				\"location_url\":\"$location_url\"
 				}";
 
 				if($i<$count-1){

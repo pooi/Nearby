@@ -63,6 +63,7 @@ public class SearchMedicineActivity extends BaseActivity implements OnAdapterSup
     private Toolbar toolbar;
     private CardView searchBtn;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

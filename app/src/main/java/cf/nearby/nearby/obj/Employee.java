@@ -126,6 +126,34 @@ public class Employee implements Serializable {
         }
     }
 
+    public static ArrayList<Employee> getEmployeeList(String data){
+
+        ArrayList<Employee> list = new ArrayList<>();
+
+        try {
+            JSONObject jObject = new JSONObject(data);
+            JSONArray results = jObject.getJSONArray("result");
+            String countTemp = (String)jObject.get("num_result");
+            int count = Integer.parseInt(countTemp);
+
+            for ( int i = 0; i < count; ++i ) {
+                JSONObject temp = results.getJSONObject(i);
+
+                Employee employee = new Employee();
+                employee.convert(temp);
+
+                list.add(employee);
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+
+    }
+
     public String getId() {
         return id;
     }

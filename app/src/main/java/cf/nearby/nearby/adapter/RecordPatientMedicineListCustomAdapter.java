@@ -67,6 +67,7 @@ public class RecordPatientMedicineListCustomAdapter extends RecyclerView.Adapter
         }
     }
 
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //recycler view에 반복될 아이템 레이아웃 연결

@@ -106,6 +106,7 @@
     <string name="view_by_date">일자별 조회</string>
     <string name="view_by_item">항목별 조회</string>
     <string name="my_patient">내 환자</string>
+    <string name="related_nurse">연관 간호사</string>
 
     <string name="please_enter_id">아이디를 입력해주세요.</string>
     <string name="please_enter_pw">비밀번호를 입력해주세요.</string>

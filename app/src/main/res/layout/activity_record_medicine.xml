@@ -7,16 +7,32 @@
     android:layout_height="match_parent"
     tools:context="cf.nearby.nearby.activity.RecordMedicineActivity"
     android:background="@color/white"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     >
+
+    <LinearLayout
+        android:id="@+id/li_etc_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        >
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/rv"
         android:clipToPadding="false"
-        android:paddingTop="@dimen/custom_actionbar_size"
         android:paddingBottom="75dp"
         android:layout_above="@+id/li_btn"
+        android:layout_below="@+id/li_etc_list"
         android:clipChildren="false"
         >
     </android.support.v7.widget.RecyclerView>

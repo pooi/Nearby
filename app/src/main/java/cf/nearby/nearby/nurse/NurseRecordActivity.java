@@ -48,6 +48,7 @@ import cf.nearby.nearby.activity.RecordMedicineActivity;
 import cf.nearby.nearby.activity.RecordRemarkActivity;
 import cf.nearby.nearby.activity.RecordVitalSignActivity;
 import cf.nearby.nearby.obj.HaveMeal;
+import cf.nearby.nearby.obj.Medicine;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.obj.PatientRemark;
 import cf.nearby.nearby.obj.TakeMedicine;
@@ -75,6 +76,7 @@ public class NurseRecordActivity extends BaseActivity {
     private Patient selectedPatient;
     private VitalSign vitalSign;
     private ArrayList<TakeMedicine> takeMedicines;
+//    private ArrayList<Medicine> etcMedicines;
     private ArrayList<PatientRemark> remarks;
     private HaveMeal haveMeal;
 //    private byte[] photo;
@@ -88,6 +90,7 @@ public class NurseRecordActivity extends BaseActivity {
         vitalSign = new VitalSign();
         haveMeal = new HaveMeal();
         takeMedicines = new ArrayList<>();
+//        etcMedicines = new ArrayList<>();
         remarks = new ArrayList<>();
         CameraActivity.photo = new byte[0];
 //        photo = new byte[0];
@@ -166,7 +169,10 @@ public class NurseRecordActivity extends BaseActivity {
             smr.addStringParam("take_medicines", "1");
             smr.addStringParam("take_medicines_size", Integer.toString(takeMedicines.size()));
             for(int i=0; i<takeMedicines.size(); i++){
-                smr.addStringParam("take_medicines_patient_medicine_id" + i, takeMedicines.get(i).getPatientMedicine().getId());
+                if(takeMedicines.get(i).getPatientMedicine() != null)
+                    smr.addStringParam("take_medicines_patient_medicine_id" + i, takeMedicines.get(i).getPatientMedicine().getId());
+                else
+                    smr.addStringParam("medicine_id" + i, takeMedicines.get(i).getMedicine().getId());
             }
         }
 
@@ -325,6 +331,7 @@ public class NurseRecordActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(NurseRecordActivity.this, RecordMedicineActivity.class);
                 intent.putExtra("take_medicines", takeMedicines);
+//                intent.putExtra("etc_medicines", etcMedicines);
                 intent.putExtra("patient", selectedPatient);
                 startActivityForResult(intent, UPDATE_MEDICINE);
             }
@@ -463,7 +470,7 @@ public class NurseRecordActivity extends BaseActivity {
         boolean isVital = !vitalSign.isEmpty();
         changeBtnColor((CardView)findViewById(R.id.cv_record_vital_sign), isVital);
         // 복용약 여부
-        boolean isTakeMedicine = takeMedicines != null && takeMedicines.size() > 0;
+        boolean isTakeMedicine = (takeMedicines != null && takeMedicines.size() > 0);// || (etcMedicines != null && etcMedicines.size() > 0);
         changeBtnColor((CardView)findViewById(R.id.cv_record_patient_medicine), isTakeMedicine);
         // 식사 여부
         boolean isHaveMeal = haveMeal.getType() != null && !haveMeal.getType().isEmpty();
@@ -506,6 +513,7 @@ public class NurseRecordActivity extends BaseActivity {
             case UPDATE_MEDICINE:
                 if(data != null){
                     takeMedicines = (ArrayList<TakeMedicine>)data.getSerializableExtra("take_medicines");
+//                    etcMedicines = (ArrayList<Medicine>)data.getSerializableExtra("etc_medicines");
                     checkChangeBtn();
                 }
                 break;

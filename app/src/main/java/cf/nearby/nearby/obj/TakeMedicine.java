@@ -24,7 +24,7 @@ public class TakeMedicine extends MainRecord implements Serializable {
 
 
     public TakeMedicine(){
-
+        medicine = new Medicine();
     }
 
     public TakeMedicine(String data){
@@ -81,6 +81,8 @@ public class TakeMedicine extends MainRecord implements Serializable {
             if(keySet.contains("title")){
                 title = (String) temp.get("title");
             }
+
+            medicine.convert(temp);
 
         }catch (Exception e){
             e.printStackTrace();

@@ -14,12 +14,17 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.github.ppamorim.dragger.DraggerPosition;
+
 import java.util.ArrayList;
 
 import cf.nearby.nearby.R;
+import cf.nearby.nearby.activity.MedicineDetailActivity;
 import cf.nearby.nearby.activity.ShowPatientMedicineDetailActivity;
 import cf.nearby.nearby.obj.HaveMeal;
 import cf.nearby.nearby.obj.MainRecord;
+import cf.nearby.nearby.obj.Medicine;
+import cf.nearby.nearby.obj.MedicineDetail;
 import cf.nearby.nearby.obj.PatientRemark;
 import cf.nearby.nearby.obj.TakeMedicine;
 import cf.nearby.nearby.util.AdditionalFunc;
@@ -99,7 +104,7 @@ public class AllInOneInquiryListCustomAdapter extends RecyclerView.Adapter<AllIn
                 tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
                 TextView tv_title = new TextView(context);
-                tv_title.setText(tm.getTitle());
+                tv_title.setText( "0".equals(tm.getPatientMedicineId()) ? tm.getMedicine().getCode() :  tm.getTitle() );
                 tv_title.setLayoutParams(trps);
                 tv_title.setTextColor(recordSupporter.getColorId(R.color.dark_gray));
                 tv_title.setGravity(Gravity.CENTER);
@@ -107,7 +112,7 @@ public class AllInOneInquiryListCustomAdapter extends RecyclerView.Adapter<AllIn
                         context.getResources().getDimension(R.dimen.default_font_small_size));
 
                 TextView tv_time = new TextView(context);
-                tv_time.setText(AdditionalFunc.getTimeString(tm.getRegisteredDate()));
+                tv_time.setText( "0".equals(tm.getPatientMedicineId()) ? tm.getMedicine().getNameSrt(10) : AdditionalFunc.getTimeString(tm.getRegisteredDate()) );
                 tv_time.setLayoutParams(trps);
                 tv_time.setTextColor(recordSupporter.getColorId(R.color.dark_gray));
                 tv_time.setGravity(Gravity.CENTER);
@@ -124,11 +129,25 @@ public class AllInOneInquiryListCustomAdapter extends RecyclerView.Adapter<AllIn
                 tv_detail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(context, ShowPatientMedicineDetailActivity.class);
-                        intent.putExtra("patient_medicine_id", tm.getPatientMedicineId());
-                        onAdapterSupport.redirectActivity(intent);
+                        if("0".equals(tm.getPatientMedicineId())){
+                            Medicine medicine = tm.getMedicine();
+                            Intent intent = new Intent(context, MedicineDetailActivity.class);
+                            intent.putExtra("drag_position", DraggerPosition.TOP);
+                            intent.putExtra("detail", new MedicineDetail(medicine.getCode(), medicine.getName(), medicine.getCompany(), "http://nearby.cf/medicine/" + medicine.getCode() + ".jpg"));
+                            onAdapterSupport.redirectActivity(intent);
+                        }else{
+                            Intent intent = new Intent(context, ShowPatientMedicineDetailActivity.class);
+                            intent.putExtra("patient_medicine_id", tm.getPatientMedicineId());
+                            onAdapterSupport.redirectActivity(intent);
+                        }
                     }
                 });
+
+                if(tm.getPatientMedicine() != null){
+
+                }else{
+
+                }
 
                 tr.addView(tv_title);
                 tr.addView(tv_time);

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -28,6 +29,7 @@ import cf.nearby.nearby.R;
 import cf.nearby.nearby.adapter.PatientMedicineListCustomAdapter;
 import cf.nearby.nearby.adapter.RecordPatientMedicineListCustomAdapter;
 import cf.nearby.nearby.nurse.NurseRecordActivity;
+import cf.nearby.nearby.obj.Medicine;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.obj.PatientMedicine;
 import cf.nearby.nearby.obj.TakeMedicine;
@@ -67,7 +69,10 @@ public class RecordMedicineActivity extends BaseActivity implements OnAdapterSup
     private CardView etcBtn;
     private Button saveBtn;
 
+    private LinearLayout li_etcList;
+
     private ArrayList<TakeMedicine> takeMedicines;
+//    private ArrayList<Medicine> etcMedicines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +81,7 @@ public class RecordMedicineActivity extends BaseActivity implements OnAdapterSup
 
         selectedPatient = (Patient)getIntent().getSerializableExtra("patient");
         takeMedicines = (ArrayList<TakeMedicine>)getIntent().getSerializableExtra("take_medicines");
+//        etcMedicines = (ArrayList<Medicine>)getIntent().getSerializableExtra("etc_medicines");
 
         list = new ArrayList<>();
         tempList = new ArrayList<>();
@@ -101,6 +107,7 @@ public class RecordMedicineActivity extends BaseActivity implements OnAdapterSup
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.putExtra("take_medicines", takeMedicines);
+//                intent.putExtra("etc_medicines", etcMedicines);
                 setResult(NurseRecordActivity.UPDATE_MEDICINE, intent);
                 finish();
             }
@@ -111,6 +118,8 @@ public class RecordMedicineActivity extends BaseActivity implements OnAdapterSup
 
         tv_msg = (TextView)findViewById(R.id.tv_msg);
         tv_msg.setVisibility(View.GONE);
+
+        li_etcList = (LinearLayout)findViewById(R.id.li_etc_list);
 
         mLinearLayoutManager = new LinearLayoutManager(getApplicationContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -132,11 +141,12 @@ public class RecordMedicineActivity extends BaseActivity implements OnAdapterSup
         etcBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(RecordMedicineActivity.this, AddPatientMedicineActivity.class);
-//                intent.putExtra("patient", selectedPatient);
-//                startActivityForResult(intent, UPDATE_LIST);
+                Intent intent = new Intent(RecordMedicineActivity.this, SearchMedicineActivity.class);
+                startActivityForResult(intent, SearchMedicineActivity.SELECTED_MEDICINE);
             }
         });
+
+        makeEtcMedicineList();
 
     }
 
@@ -221,18 +231,91 @@ public class RecordMedicineActivity extends BaseActivity implements OnAdapterSup
 
     }
 
+    private void makeEtcMedicineList(){
+
+        li_etcList.removeAllViews();
+
+        for(int i=0; i<takeMedicines.size(); i++){
+
+            if(takeMedicines.get(i).getPatientMedicine() == null) {
+
+                Medicine medicine = takeMedicines.get(i).getMedicine();
+
+                View v = getLayoutInflater().inflate(R.layout.medicine_list_custom_item, null, false);
+
+                TextView tv_name = (TextView) v.findViewById(R.id.tv_name);
+                tv_name.setGravity(View.TEXT_ALIGNMENT_CENTER);
+                TextView tv_code = (TextView) v.findViewById(R.id.tv_code);
+                tv_code.setGravity(View.TEXT_ALIGNMENT_CENTER);
+                Button btn_select = (Button) v.findViewById(R.id.btn_select);
+
+                tv_name.setText(medicine.getNameSrt(30));
+                tv_code.setText(medicine.getCode());
+
+                btn_select.setBackgroundResource(R.drawable.two_btn_active_right_radius_red);
+                btn_select.setText(R.string.delete_srt);
+                btn_select.setTag(i);
+                btn_select.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int index = (int) view.getTag();
+                        takeMedicines.remove(index);
+                        makeEtcMedicineList();
+                    }
+                });
+
+                li_etcList.addView(v);
+
+            }
+
+        }
+
+//        for(int i=0; i<etcMedicines.size(); i++){
+//
+//            Medicine medicine = etcMedicines.get(i);
+//
+//            View v = getLayoutInflater().inflate(R.layout.medicine_list_custom_item, null, false);
+//
+//            TextView tv_name = (TextView)v.findViewById(R.id.tv_name);
+//            tv_name.setGravity(View.TEXT_ALIGNMENT_CENTER);
+//            TextView tv_code = (TextView)v.findViewById(R.id.tv_code);
+//            tv_code.setGravity(View.TEXT_ALIGNMENT_CENTER);
+//            Button btn_select = (Button)v.findViewById(R.id.btn_select);
+//
+//            tv_name.setText(medicine.getNameSrt(30));
+//            tv_code.setText(medicine.getCode());
+//
+//            btn_select.setBackgroundResource(R.drawable.two_btn_active_right_radius_red);
+//            btn_select.setText(R.string.delete_srt);
+//            btn_select.setTag(i);
+//            btn_select.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    int index = (int)view.getTag();
+//                    etcMedicines.remove(index);
+//                    makeEtcMedicineList();
+//                }
+//            });
+//
+//            li_etcList.addView(v);
+//
+//        }
+
+
+    }
+
     @Override
     public void showView() {
-        etcBtn.setVisibility(View.VISIBLE);
-        setFadeInAnimation(etcBtn);
-        toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
+//        etcBtn.setVisibility(View.VISIBLE);
+//        setFadeInAnimation(etcBtn);
+//        toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
     }
 
     @Override
     public void hideView() {
-        etcBtn.setVisibility(View.GONE);
-        setFadeOutAnimation(etcBtn);
-        toolbar.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2));
+//        etcBtn.setVisibility(View.GONE);
+//        setFadeOutAnimation(etcBtn);
+//        toolbar.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2));
     }
 
     @Override
@@ -278,6 +361,15 @@ public class RecordMedicineActivity extends BaseActivity implements OnAdapterSup
             case UPDATE_LIST:
                 initLoadValue();
                 getPatientMedicineList();
+                break;
+            case SearchMedicineActivity.SELECTED_MEDICINE:
+                Medicine medicine = (Medicine)data.getSerializableExtra("medicine");
+                TakeMedicine takeMedicine = new TakeMedicine();
+                takeMedicine.setMedicine(medicine);
+                takeMedicines.add(takeMedicine);
+//                etcMedicines.add(medicine);
+                makeEtcMedicineList();
+//                addMedicine(medicine);
                 break;
             default:
                 break;
