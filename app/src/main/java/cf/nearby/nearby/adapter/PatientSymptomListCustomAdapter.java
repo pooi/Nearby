@@ -85,7 +85,10 @@ public class PatientSymptomListCustomAdapter extends RecyclerView.Adapter<Patien
             String text = "발병일 : " + AdditionalFunc.getDateString(ps.getStartDate());
             holder.tv_period.setText(text);
 
-            holder.li_btn.setVisibility(View.VISIBLE);
+            if(activity.isSupporter())
+                holder.li_btn.setVisibility(View.GONE);
+            else
+                holder.li_btn.setVisibility(View.VISIBLE);
             holder.btn_complete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

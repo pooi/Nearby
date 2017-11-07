@@ -55,6 +55,7 @@ public class ManageSymptomActivity extends BaseActivity implements OnAdapterSupp
     private TextView toolbarTitle;
 
     private Patient selectedPatient;
+    private boolean isSupporter;
 
     private MyHandler handler = new MyHandler();
     private final int MSG_MESSAGE_MAKE_LIST = 500;
@@ -95,6 +96,7 @@ public class ManageSymptomActivity extends BaseActivity implements OnAdapterSupp
         setContentView(R.layout.activity_manage_symptom);
 
         selectedPatient = (Patient)getIntent().getSerializableExtra("patient");
+        isSupporter = getIntent().getBooleanExtra("isSupporter", false);
 
         list = new ArrayList<>();
         tempList = new ArrayList<>();
@@ -147,6 +149,8 @@ public class ManageSymptomActivity extends BaseActivity implements OnAdapterSupp
 
             }
         });
+        if(isSupporter)
+            addPatientSymptomBtn.setVisibility(View.GONE);
 
     }
 
@@ -490,5 +494,9 @@ public class ManageSymptomActivity extends BaseActivity implements OnAdapterSupp
         if(progressDialog != null){
             progressDialog.dismiss();
         }
+    }
+
+    public boolean isSupporter() {
+        return isSupporter;
     }
 }

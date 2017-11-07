@@ -48,6 +48,7 @@ public class ManageMedicineActivity extends BaseActivity implements OnAdapterSup
     private TextView toolbarTitle;
 
     private Patient selectedPatient;
+    private boolean isSupporter;
 
     private MyHandler handler = new MyHandler();
     private final int MSG_MESSAGE_MAKE_LIST = 500;
@@ -79,6 +80,7 @@ public class ManageMedicineActivity extends BaseActivity implements OnAdapterSup
         setContentView(R.layout.activity_manage_medicine);
 
         selectedPatient = (Patient)getIntent().getSerializableExtra("patient");
+        isSupporter = getIntent().getBooleanExtra("isSupporter", false);
 
         list = new ArrayList<>();
         tempList = new ArrayList<>();
@@ -130,6 +132,10 @@ public class ManageMedicineActivity extends BaseActivity implements OnAdapterSup
 
             }
         });
+
+        if(isSupporter()){
+            addPatientMedicineBtn.setVisibility(View.GONE);
+        }
 
     }
 
@@ -340,5 +346,9 @@ public class ManageMedicineActivity extends BaseActivity implements OnAdapterSup
         if(progressDialog != null){
             progressDialog.dismiss();
         }
+    }
+
+    public boolean isSupporter() {
+        return isSupporter;
     }
 }

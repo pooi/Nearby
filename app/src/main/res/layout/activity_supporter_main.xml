@@ -26,7 +26,8 @@
         android:layout_width="match_parent"
         android:id="@+id/rv"
         android:clipToPadding="false"
-        android:layout_above="@+id/li_btn"
+        android:paddingBottom="75dp"
+        android:layout_above="@id/btn_logout"
         android:layout_below="@+id/tv_my_patient"
         android:clipChildren="false"
         >
@@ -56,6 +57,40 @@
             />
 
     </RelativeLayout>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_edit_my_info"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="@dimen/menu_btn_radius"
+        app:cardElevation="@dimen/menu_btn_elevation"
+        app:cardBackgroundColor="@color/pastel_green"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:layout_above="@id/btn_logout"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/edit_my_info"
+                android:textColor="@color/white"
+                android:textSize="@dimen/default_menu_font_size"
+                />
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
     <Button
         android:id="@+id/btn_logout"

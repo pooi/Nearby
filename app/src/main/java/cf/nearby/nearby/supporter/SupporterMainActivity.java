@@ -202,6 +202,7 @@ public class SupporterMainActivity extends BaseActivity implements OnAdapterSupp
     public void redirectNextActivity(Patient patient){
         Intent intent = new Intent(SupporterMainActivity.this, InquiryMainActivity.class);
         intent.putExtra("patient", patient);
+        intent.putExtra("isSupporter", true);
         startActivity(intent);
     }
 

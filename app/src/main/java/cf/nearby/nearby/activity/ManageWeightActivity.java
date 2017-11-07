@@ -60,6 +60,7 @@ public class ManageWeightActivity extends BaseActivity {
 
     private ArrayList<PatientWeight> list;
     private Patient selectedPatient;
+    private boolean isSupporter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class ManageWeightActivity extends BaseActivity {
         setContentView(R.layout.activity_manage_weight);
 
         selectedPatient = (Patient)getIntent().getSerializableExtra("patient");
+        isSupporter = getIntent().getBooleanExtra("isSupporter", false);
 
         list = new ArrayList<>();
 
@@ -124,6 +126,11 @@ public class ManageWeightActivity extends BaseActivity {
         });
 
         changeEditBtn(false);
+
+        if(isSupporter){
+            findViewById(R.id.rl_input).setVisibility(View.GONE);
+            editWeightBtn.setVisibility(View.GONE);
+        }
 
     }
 
@@ -285,4 +292,7 @@ public class ManageWeightActivity extends BaseActivity {
         }
     }
 
+    public boolean isSupporter() {
+        return isSupporter;
+    }
 }

@@ -112,6 +112,14 @@ public class PatientMedicineListCustomAdapter extends RecyclerView.Adapter<Patie
             holder.tv_title.setTextColor(activity.getColorId(R.color.dark_gray));
             holder.tv_period.setTextColor(activity.getColorId(R.color.gray));
 
+            if(activity.isSupporter()){
+                holder.btn_complete.setVisibility(View.GONE);
+                holder.btn_show_detail.setBackgroundResource(R.drawable.two_btn_inactive_right_radius);
+            }else{
+                holder.btn_complete.setVisibility(View.VISIBLE);
+                holder.btn_show_detail.setBackgroundResource(R.drawable.two_btn_inactive_right_bottom_radius);
+            }
+
         }
 
     }

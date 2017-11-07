@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.R;
+import cf.nearby.nearby.fragment.ManageDetailFragment;
 import cf.nearby.nearby.fragment.RecordDateListFragment;
 import cf.nearby.nearby.fragment.RecordItemListFragment;
 import cf.nearby.nearby.obj.Patient;
@@ -25,10 +26,11 @@ public class InquiryMainActivity extends BaseActivity {
 
     private ViewPager viewPager;
     private NavigationAdapter mPagerAdapter;
-    private String[] toolbarTitleList = new String[2];
+    private String[] toolbarTitleList = new String[3];
     private static final int startPage = 0;
 
     private Patient selectedPatient;
+    private boolean isSupporter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +38,18 @@ public class InquiryMainActivity extends BaseActivity {
         setContentView(R.layout.activity_inquiry_main);
 
         selectedPatient = (Patient)getIntent().getSerializableExtra("patient");
+        isSupporter = getIntent().getBooleanExtra("isSupporter", false);
 
-        toolbarTitleList[0] = getResources().getString(R.string.view_by_item);
-        toolbarTitleList[1] = getResources().getString(R.string.view_by_date);
+        if(isSupporter){
+            toolbarTitleList = new String[3];
+            toolbarTitleList[0] = getString(R.string.manage_srt);
+            toolbarTitleList[1] = getResources().getString(R.string.view_by_item);
+            toolbarTitleList[2] = getResources().getString(R.string.view_by_date);
+        }else{
+            toolbarTitleList = new String[2];
+            toolbarTitleList[0] = getResources().getString(R.string.view_by_item);
+            toolbarTitleList[1] = getResources().getString(R.string.view_by_date);
+        }
 
         init();
 
@@ -55,13 +66,21 @@ public class InquiryMainActivity extends BaseActivity {
 
         viewPager = (ViewPager) findViewById(R.id.vp_horizontal_ntb);
         viewPager.setOffscreenPageLimit(toolbarTitleList.length);
-        mPagerAdapter = new NavigationAdapter(getSupportFragmentManager(), selectedPatient);
+        mPagerAdapter = new NavigationAdapter(getSupportFragmentManager(), selectedPatient, isSupporter);
         viewPager.setAdapter(mPagerAdapter);
 
         final String[] colors = getResources().getStringArray(R.array.default_preview);
         final NavigationTabBar navigationTabBar = (NavigationTabBar) findViewById(R.id.ntb_horizontal);
         navigationTabBar.setTitleSize(30);
         final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
+        if(isSupporter) {
+            models.add(
+                    new NavigationTabBar.Model.Builder(
+                            getResources().getDrawable(R.drawable.ic_file_document_white_36dp),
+                            getColorId(R.color.colorAccent))
+                            .build()
+            );
+        }
         models.add(
                 new NavigationTabBar.Model.Builder(
                         getResources().getDrawable(R.drawable.ic_format_list_bulleted_type_white_36dp),
@@ -117,32 +136,62 @@ public class InquiryMainActivity extends BaseActivity {
     private static class NavigationAdapter extends FragmentStatePagerAdapter{
 
         Patient patient;
+        boolean isSupporter;
 
-        public NavigationAdapter(FragmentManager fm, Patient patient){
+        public NavigationAdapter(FragmentManager fm, Patient patient, boolean isSupporter){
             super(fm);
             this.patient = patient;
+            this.isSupporter = isSupporter;
         }
 
         @Override
         public Fragment getItem(int position) {
             Fragment f;
-            final int pattern = position%2;
+            final int pattern;
+            if(isSupporter)
+                pattern = position%3;
+            else
+                pattern = position%2;
             Bundle bdl = new Bundle(1);
             bdl.putSerializable("patient", patient);
-            switch (pattern){
-                case 0:{
-                    f = new RecordItemListFragment();
-                    f.setArguments(bdl);
-                    break;
+            if(isSupporter) {
+                switch (pattern) {
+                    case 0: {
+                        f = new ManageDetailFragment();
+                        f.setArguments(bdl);
+                        break;
+                    }
+                    case 1: {
+                        f = new RecordItemListFragment();
+                        f.setArguments(bdl);
+                        break;
+                    }
+                    case 2: {
+                        f = new RecordDateListFragment();
+                        f.setArguments(bdl);
+                        break;
+                    }
+                    default: {
+                        f = new Fragment();
+                        break;
+                    }
                 }
-                case 1:{
-                    f = new RecordDateListFragment();
-                    f.setArguments(bdl);
-                    break;
-                }
-                default:{
-                    f = new Fragment();
-                    break;
+            }else{
+                switch (pattern) {
+                    case 0: {
+                        f = new RecordItemListFragment();
+                        f.setArguments(bdl);
+                        break;
+                    }
+                    case 1: {
+                        f = new RecordDateListFragment();
+                        f.setArguments(bdl);
+                        break;
+                    }
+                    default: {
+                        f = new Fragment();
+                        break;
+                    }
                 }
             }
             return f;
@@ -150,7 +199,10 @@ public class InquiryMainActivity extends BaseActivity {
 
         @Override
         public int getCount(){
-            return 2;
+            if(isSupporter)
+                return 3;
+            else
+                return 2;
         }
 
     }
