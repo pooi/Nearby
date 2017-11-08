@@ -75,6 +75,7 @@
     <string name="medicine_usage_capacity">용법/용량</string>
     <string name="medicine_company">제조사</string>
     <string name="close_srt">닫기</string>
+    <string name="check_srt">확인</string>
 
 
     <!-- Menu -->
@@ -153,6 +154,7 @@
     <string name="edit_weight">몸무게 수정</string>
     <string name="add_custom_remark">기타 특이사항 추가</string>
     <string name="add_patient_remark">목록에서 추가</string>
+    <string name="required_permission">진행을 위하여 권한 승인이 필요합니다.</string>
 
     <string name="enter_more_information">추가 정보 입력</string>
     <string name="i_am_employee">나는 직원입니다.</string>

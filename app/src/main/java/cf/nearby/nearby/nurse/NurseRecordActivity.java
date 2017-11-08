@@ -1,11 +1,14 @@
 package cf.nearby.nearby.nurse;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +24,12 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.multi.SnackbarOnAnyDeniedMultiplePermissionsListener;
 import com.squareup.picasso.Picasso;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -36,6 +45,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.CustomApplication;
@@ -356,9 +366,8 @@ public class NurseRecordActivity extends BaseActivity {
         findViewById(R.id.cv_record_photo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NurseRecordActivity.this, CameraActivity.class);
-//                intent.putExtra("photo", photo);
-                startActivityForResult(intent, UPDATE_PHOTO);
+                checkCameraPermission();
+
             }
         });
 
@@ -375,6 +384,54 @@ public class NurseRecordActivity extends BaseActivity {
         tv_name.setText(selectedPatient.getName());
         tv_dob.setText(AdditionalFunc.getDateString(selectedPatient.getDob()));
         tv_registeredDate.setText(AdditionalFunc.getDateString(selectedPatient.getRegisteredDate()));
+
+
+    }
+
+    private void checkCameraPermission(){
+
+        Dexter.withActivity(this)
+                .withPermissions(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA
+                ).withListener(new MultiplePermissionsListener() {
+            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
+                if(report.areAllPermissionsGranted()){
+                    Intent intent = new Intent(NurseRecordActivity.this, CameraActivity.class);
+                    startActivityForResult(intent, UPDATE_PHOTO);
+                }else{
+                    showNeedPermissionDialog();
+                }
+            }
+            @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+
+                showNeedPermissionDialog();
+
+            }
+        }).check();
+
+    }
+
+    private void showNeedPermissionDialog(){
+
+        new MaterialDialog.Builder(this)
+                .title(R.string.check_srt)
+                .content(R.string.required_permission)
+                .positiveText(R.string.ok)
+                .negativeText(R.string.cancel)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Intent myAppSettings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                Uri.parse("package:" + getPackageName()));
+                        myAppSettings.addCategory(Intent.CATEGORY_DEFAULT);
+                        myAppSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(myAppSettings);
+
+                    }
+                })
+                .show();
 
 
     }

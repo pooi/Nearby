@@ -111,22 +111,22 @@ public class CameraActivity extends BaseActivity{
             }
         });
 
-        Dexter.withActivity(this)
-                .withPermissions(
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA
-                ).withListener(new MultiplePermissionsListener() {
-            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
-                if(report.areAllPermissionsGranted()){
-                    checkPhoto();
-                    cameraView.start();
-                }else{
-                    finish();
-                }
-            }
-            @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
-        }).check();
+//        Dexter.withActivity(this)
+//                .withPermissions(
+//                        Manifest.permission.READ_EXTERNAL_STORAGE,
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                        Manifest.permission.CAMERA
+//                ).withListener(new MultiplePermissionsListener() {
+//            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
+//                if(report.areAllPermissionsGranted()){
+//                    checkPhoto();
+//                    cameraView.start();
+//                }else{
+//                    finish();
+//                }
+//            }
+//            @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {/* ... */}
+//        }).check();
 
         // cameraview library has its own permission check method
         cameraView.setPermissions(CameraKit.Constants.PERMISSIONS_PICTURE);
@@ -148,6 +148,9 @@ public class CameraActivity extends BaseActivity{
 
             }
         });
+
+        checkPhoto();
+        cameraView.start();
 
 //        cameraView.start();
 
