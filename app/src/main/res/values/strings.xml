@@ -76,6 +76,7 @@
     <string name="medicine_company">제조사</string>
     <string name="close_srt">닫기</string>
     <string name="check_srt">확인</string>
+    <string name="connect_bluetooth">기기연결</string>
 
 
     <!-- Menu -->
@@ -143,6 +144,7 @@
     <string name="there_are_no_patient">등록된 환자가 없습니다.</string>
     <string name="successfully_recorded">성공적으로 기록하였습니다.</string>
 
+    <string name="bluetooth_connection_success">측정 기기 연결됨</string>
     <string name="completed_take_medicine_srt">복용 완료</string>
 
     <string name="are_you_sure_logout">로그아웃 하시겠습니까?</string>

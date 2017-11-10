@@ -120,6 +120,7 @@ public class InquiryVitalSignFragment extends BaseFragment implements OnAdapterS
 
         return view;
 
+
     }
 
     private void initUI(){

@@ -76,6 +76,7 @@
 
                     </com.db.chart.view.LineChartView>
 
+
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>

@@ -3,10 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:williamchart="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="cf.nearby.nearby.activity.RecordVitalSignActivity"
     android:background="@color/white"
+    android:clipToPadding="false"
+    android:clipChildren="false"
     >
 
     <RelativeLayout
@@ -14,11 +17,43 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_below="@+id/toolbar"
-        android:layout_margin="10dp"
-        android:background="@color/pastel_green"
+        android:background="@color/white"
+        android:clipToPadding="false"
+        android:clipChildren="false"
         >
 
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_bluetooth"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="@dimen/menu_btn_radius"
+            app:cardElevation="@dimen/menu_btn_elevation"
+            app:cardBackgroundColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            >
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_ble_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/connect_bluetooth"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/default_menu_font_size"
+                    />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
 
     </RelativeLayout>
 
@@ -181,6 +216,62 @@
             android:layout_above="@+id/tv_time"
             android:layout_margin="20dp"
             >
+
+            <LinearLayout
+                android:id="@+id/li_pulse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="2"
+                android:orientation="vertical"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/rl_graph_pulse"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    >
+
+                    <com.db.chart.view.LineChartView
+                        android:id="@+id/chart_pulse"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        williamchart:chart_axis="false"
+                        williamchart:chart_axisBorderSpacing="0dp"
+                        williamchart:chart_barSpacing="4dp"
+                        williamchart:chart_fontSize="12dp"
+                        williamchart:chart_labelColor="#FF8E8A84"
+                        >
+
+                    </com.db.chart.view.LineChartView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_bpm"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text=""
+                        android:textSize="@dimen/default_menu_font_big_size"
+                        android:textColor="@color/dark_gray"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        />
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
             <ScrollView
                 android:id="@+id/sc_result"
