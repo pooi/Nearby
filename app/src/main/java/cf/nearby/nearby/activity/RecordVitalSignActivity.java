@@ -35,6 +35,7 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,7 +57,7 @@ import cf.nearby.nearby.obj.VitalSign;
 
 public class RecordVitalSignActivity extends BaseActivity {
 
-    private final int MEASUREMENT_TIME = 60000;
+    private int MEASUREMENT_TIME = 60000;
 
     private final String BLOOD_PRESSURE = "blood_pressure";
     private final String PULSE = "pulse";
@@ -71,6 +72,7 @@ public class RecordVitalSignActivity extends BaseActivity {
     private RelativeLayout rl_bluetooth;
     private CardView cv_bluetooth;
     private TextView tv_bleMsg;
+    private AVLoadingIndicatorView loadingPulse;
 
     private RelativeLayout rl_menu;
     private CardView cv_temperature;
@@ -129,6 +131,8 @@ public class RecordVitalSignActivity extends BaseActivity {
 
         init();
 
+        connectNearbyBluetoothDevice();
+
     }
 
     private void setInitMeasurementValue(){
@@ -174,6 +178,13 @@ public class RecordVitalSignActivity extends BaseActivity {
             }
         });
         cv_bp = (CardView)findViewById(R.id.cv_bp);
+
+        cv_temperature.setEnabled(false);
+        cv_temperature.setCardBackgroundColor(getColorId(R.color.light_gray));
+        cv_pulse.setEnabled(false);
+        cv_pulse.setCardBackgroundColor(getColorId(R.color.light_gray));
+        cv_bp.setEnabled(false);
+        cv_bp.setCardBackgroundColor(getColorId(R.color.light_gray));
 
         rl_measurement = (RelativeLayout)findViewById(R.id.rl_measurement);
         tv_time = (TextView)findViewById(R.id.tv_time);
@@ -251,14 +262,17 @@ public class RecordVitalSignActivity extends BaseActivity {
                     if(flagPulse){
                         createNewDataFromBluetooth(pulseList, readMessage);
                     }
+                    if(flagTemp){
+                        createNewDataFromBluetooth(tempuratureList, readMessage);
+                    }
                 }
 
                 if(msg.what == CONNECTING_STATUS){
                     if(msg.arg1 == 1){
-                        cv_bluetooth.setCardBackgroundColor(getColorId(R.color.pastel_green));
-                        tv_bleMsg.setText(R.string.bluetooth_connection_success);
-                        tv_bleMsg.setTextColor(getColorId(R.color.white));
+                        setEnableRecord();
                     }else{
+                        tv_bleMsg.setVisibility(View.VISIBLE);
+                        tv_bleMsg.setText(R.string.bluetooth_connection_fail);
                         new MaterialDialog.Builder(RecordVitalSignActivity.this)
                                 .title(R.string.fail_srt)
                                 .positiveText(R.string.ok)
@@ -279,6 +293,8 @@ public class RecordVitalSignActivity extends BaseActivity {
 
         li_pulse = (LinearLayout)findViewById(R.id.li_pulse);
         rl_graphPulse = (RelativeLayout)findViewById(R.id.rl_graph_pulse);
+        loadingPulse = (AVLoadingIndicatorView)findViewById(R.id.loading_pulse);
+        loadingPulse.hide();
 //        li_resultPulse = (LinearLayout)findViewById(R.id.li_result_pulse);
         tv_bpm = (TextView)findViewById(R.id.tv_bpm);
         mChartPulse = (LineChartView)findViewById(R.id.chart_pulse);
@@ -334,6 +350,23 @@ public class RecordVitalSignActivity extends BaseActivity {
 
     }
 
+    private void setEnableRecord(){
+
+        cv_bluetooth.setCardBackgroundColor(getColorId(R.color.pastel_green));
+        loadingPulse.hide();
+        tv_bleMsg.setVisibility(View.VISIBLE);
+        tv_bleMsg.setText(R.string.bluetooth_connection_success);
+        tv_bleMsg.setTextColor(getColorId(R.color.white));
+
+        cv_temperature.setEnabled(true);
+        cv_temperature.setCardBackgroundColor(getColorId(R.color.white));
+        cv_pulse.setEnabled(true);
+        cv_pulse.setCardBackgroundColor(getColorId(R.color.white));
+        cv_bp.setEnabled(true);
+        cv_bp.setCardBackgroundColor(getColorId(R.color.white));
+
+    }
+
     private void initMeasurementData(){
 
         time = 0;
@@ -344,6 +377,36 @@ public class RecordVitalSignActivity extends BaseActivity {
     private void initFlag(){
         flagPulse = false;
         flagTemp = false;
+    }
+
+    private void connectNearbyBluetoothDevice(){
+
+        mPairedDevices = mBTAdapter.getBondedDevices();
+        if(mBTAdapter.isEnabled()) {
+            // put it's one to the adapter
+            btList = new String[mPairedDevices.size()];
+            int i=0;
+            for (BluetoothDevice device : mPairedDevices) {
+                btList[i] = device.getName() + "\n" + device.getAddress();
+                //mBTArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+                if(device.getName().startsWith("nearby")){
+
+                    connectBluetoothDevice(btList[i]);
+                    break;
+                }
+                i++;
+            }
+
+
+            //new MaterialDialog.Builder(this).title(R.string.connect_bluetooth).adapter(mBTArrayAdapter, null).show();
+//            showSnackbar("Show Paired Devices");
+//            showBluetoothDeviceList();
+            //Toast.makeText(getApplicationContext(), "Show Paired Devices", Toast.LENGTH_SHORT).show();
+        }
+        else{
+//            showSnackbar("Bluetooth not on");
+        }
+
     }
 
     private void listPairedDevices(View view){
@@ -390,6 +453,9 @@ public class RecordVitalSignActivity extends BaseActivity {
 //        String info = ((TextView) v).getText().toString();
         final String address = info.substring(info.length() - 17);
         final String name = info.substring(0,info.length() - 17);
+
+        tv_bleMsg.setVisibility(View.GONE);
+        loadingPulse.show();
 
         // Spawn a new thread to avoid blocking the GUI one
         new Thread()
@@ -543,6 +609,7 @@ public class RecordVitalSignActivity extends BaseActivity {
 
     private void measurementPulse(){
 
+        MEASUREMENT_TIME = 60000;
         currentMeasurement = PULSE;
         setScreen(true);
         initFlag();
@@ -559,7 +626,7 @@ public class RecordVitalSignActivity extends BaseActivity {
                             @Override
                             public void run() {
                                 flagPulse = false;
-                                double avg = getAverage(pulseList);
+                                double avg = Math.round(getAverage(pulseList));
                                 showMeasurementResult(avg+"");
                             }
                         });
@@ -598,8 +665,10 @@ public class RecordVitalSignActivity extends BaseActivity {
 
     private void measurementTemperature(){
 
+        MEASUREMENT_TIME = 5000;
         currentMeasurement = TEMPERATURE;
         setScreen(true);
+        initFlag();
 
         if(tempuratureList.isEmpty()){
             new Thread(){
@@ -612,7 +681,8 @@ public class RecordVitalSignActivity extends BaseActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                double avg = Math.round(getAverage(tempuratureList));
+                                flagTemp = false;
+                                double avg = getAverage(tempuratureList);
                                 showMeasurementResult(avg+"");
                             }
                         });
@@ -632,7 +702,9 @@ public class RecordVitalSignActivity extends BaseActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    createNewData(tempuratureList, "temperature");
+                                    flagTemp = true;
+//                                    createNewData(tempuratureList, "temperature");
+                                    tv_time.setText("경과시간 : " + time + "s");
                                 }
                             });
                         }catch (Exception e){
@@ -710,6 +782,29 @@ public class RecordVitalSignActivity extends BaseActivity {
                 }else if(s.startsWith("S")){
                     pulseSignalList.add(Double.parseDouble(s.substring(1)));
                     makePulseChart();
+                }
+            }
+            if(flagTemp){
+                if(s.startsWith("T")){
+
+                    try{
+                        Double temp = Double.parseDouble(s.substring(1));
+                        list.add(temp);
+
+                        TextView msg = new TextView(this);
+                        msg.setText(temp + "");
+                        msg.setTextColor(getColorId(R.color.dark_gray));
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        params.setMargins(0, 20, 0, 0);
+                        params.gravity = Gravity.CENTER;
+                        msg.setLayoutParams(params);
+                        msg.setGravity(Gravity.CENTER);
+                        li_result.addView(msg, 0);
+
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+
                 }
             }
         }
@@ -890,8 +985,10 @@ public class RecordVitalSignActivity extends BaseActivity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        mConnectedThread.cancel();
         try{
+            if(mConnectedThread != null)
+                mConnectedThread.cancel();
+
             if(mBTSocket != null)
                 mBTSocket.close();
         }catch (Exception e){
