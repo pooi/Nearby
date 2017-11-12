@@ -77,6 +77,8 @@
     <string name="close_srt">닫기</string>
     <string name="check_srt">확인</string>
     <string name="connect_bluetooth">기기연결</string>
+    <string name="warning_srt">경고</string>
+    <string name="nurse">간호사</string>
 
 
     <!-- Menu -->
@@ -135,6 +137,7 @@
     <string name="please_input_remark">특이사항을 입력해주세요.</string>
     <string name="please_input_supporter_name_or_id">보호자 이름 및 아이디를 입력하세요.</string>
     <string name="please_input_supporter_relationship">환자와의 관계를 입력해주세요.</string>
+    <string name="please_input_patient_name">환자의 이름을 입력해주세요.</string>
 
     <string name="print_hello_msg">안녕하세요. %1$s님</string>
 
@@ -143,9 +146,10 @@
     <string name="there_are_no_supporter">등록된 보호자가 없습니다.</string>
     <string name="there_are_no_patient">등록된 환자가 없습니다.</string>
     <string name="successfully_recorded">성공적으로 기록하였습니다.</string>
+    <string name="no_bluetooth_connection">측정 기기와 연결되지 않았습니다.</string>
 
     <string name="bluetooth_connection_success">측정 기기 연결됨</string>
-    <string name="bluetooth_connection_fail">측정 기기 연결에 실패</string>
+    <string name="bluetooth_connection_fail">측정 기기 연결 실패</string>
     <string name="completed_take_medicine_srt">복용 완료</string>
 
     <string name="are_you_sure_logout">로그아웃 하시겠습니까?</string>

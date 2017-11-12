@@ -3,13 +3,17 @@ package cf.nearby.nearby.activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -43,6 +47,8 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
     private TextView tv_msg;
     private AVLoadingIndicatorView loading;
     private MaterialDialog progressDialog;
+
+    private CardView cv_search;
 
     private int page = 0;
     private String searchName;
@@ -90,6 +96,14 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
         tv_msg = (TextView)findViewById(R.id.tv_msg);
         tv_msg.setVisibility(View.GONE);
 
+        cv_search = (CardView)findViewById(R.id.cv_search);
+        cv_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchPatient();
+            }
+        });
+
         mLinearLayoutManager = new LinearLayoutManager(getApplicationContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv = (RecyclerView) findViewById(R.id.rv);
@@ -105,6 +119,41 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
                 .theme(Theme.LIGHT)
                 .build();
 
+
+    }
+
+    private void searchPatient(){
+
+        new MaterialDialog.Builder(this)
+                .title(R.string.search_srt)
+                .inputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
+                        InputType.TYPE_TEXT_FLAG_CAP_WORDS)
+                .theme(Theme.LIGHT)
+                .positiveText(R.string.search_srt)
+                .negativeText(R.string.cancel)
+                .neutralText(R.string.reset)
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        searchName = "";
+                        initLoadValue();
+                        progressDialog.show();
+                        getPatientList();
+                    }
+                })
+                .input(getResources().getString(R.string.please_input_patient_name), searchName, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        String search = input.toString();
+                        searchName = search;
+                        initLoadValue();
+                        progressDialog.show();
+                        getPatientList();
+
+                    }
+                })
+                .show();
 
     }
 
@@ -157,6 +206,13 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
     }
 
     public void makeList(){
+
+        if(list.size() > 0){
+            tv_msg.setVisibility(View.GONE);
+        }else{
+            tv_msg.setVisibility(View.VISIBLE);
+            setFadeInAnimation(tv_msg);
+        }
 
         adapter = new PatientSearchListCustomAdapter(getApplicationContext(), list, rv, this, this);
 

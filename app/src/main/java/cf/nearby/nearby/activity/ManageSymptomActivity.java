@@ -402,15 +402,19 @@ public class ManageSymptomActivity extends BaseActivity implements OnAdapterSupp
 
     @Override
     public void showView() {
-        addPatientSymptomBtn.setVisibility(View.VISIBLE);
-        setFadeInAnimation(addPatientSymptomBtn);
+        if(!isSupporter) {
+            addPatientSymptomBtn.setVisibility(View.VISIBLE);
+            setFadeInAnimation(addPatientSymptomBtn);
+        }
         toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
     }
 
     @Override
     public void hideView() {
-        addPatientSymptomBtn.setVisibility(View.GONE);
-        setFadeOutAnimation(addPatientSymptomBtn);
+        if(!isSupporter) {
+            addPatientSymptomBtn.setVisibility(View.GONE);
+            setFadeOutAnimation(addPatientSymptomBtn);
+        }
         toolbar.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2));
     }
 

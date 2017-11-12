@@ -102,6 +102,8 @@ public class RecordVitalSignActivity extends BaseActivity {
     private ArrayAdapter<String> mBTArrayAdapter;
     private String[] btList;
 
+    private boolean isConnectBluetooth = false;
+
     private boolean flagPulse = false;
     private boolean flagTemp = false;
 
@@ -178,13 +180,6 @@ public class RecordVitalSignActivity extends BaseActivity {
             }
         });
         cv_bp = (CardView)findViewById(R.id.cv_bp);
-
-        cv_temperature.setEnabled(false);
-        cv_temperature.setCardBackgroundColor(getColorId(R.color.light_gray));
-        cv_pulse.setEnabled(false);
-        cv_pulse.setCardBackgroundColor(getColorId(R.color.light_gray));
-        cv_bp.setEnabled(false);
-        cv_bp.setCardBackgroundColor(getColorId(R.color.light_gray));
 
         rl_measurement = (RelativeLayout)findViewById(R.id.rl_measurement);
         tv_time = (TextView)findViewById(R.id.tv_time);
@@ -273,10 +268,12 @@ public class RecordVitalSignActivity extends BaseActivity {
                     }else{
                         tv_bleMsg.setVisibility(View.VISIBLE);
                         tv_bleMsg.setText(R.string.bluetooth_connection_fail);
-                        new MaterialDialog.Builder(RecordVitalSignActivity.this)
-                                .title(R.string.fail_srt)
-                                .positiveText(R.string.ok)
-                                .show();
+                        loadingPulse.hide();
+                        isConnectBluetooth = false;
+//                        new MaterialDialog.Builder(RecordVitalSignActivity.this)
+//                                .title(R.string.fail_srt)
+//                                .positiveText(R.string.ok)
+//                                .show();
                     }
 //                        mBluetoothStatus.setText("Connected to Device: " + (String)(msg.obj));
 //                    else
@@ -322,15 +319,32 @@ public class RecordVitalSignActivity extends BaseActivity {
         cv_reMeasurement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                currentMeasurement = (currentMeasurement == null)? "" : currentMeasurement;
                 switch (currentMeasurement){
                     case TEMPERATURE:
-                        tempuratureList.clear();
-                        measurementTemperature();
+                        if(isConnectBluetooth) {
+                            tempuratureList.clear();
+                            measurementTemperature();
+                        }else{
+                            new MaterialDialog.Builder(RecordVitalSignActivity.this)
+                                    .title(R.string.warning_srt)
+                                    .content(R.string.no_bluetooth_connection)
+                                    .positiveText(R.string.ok)
+                                    .show();
+                        }
                         break;
                     case PULSE:
-                        pulseList.clear();
-                        pulseSignalList.clear();
-                        measurementPulse();
+                        if(isConnectBluetooth) {
+                            pulseList.clear();
+                            pulseSignalList.clear();
+                            measurementPulse();
+                        }else{
+                            new MaterialDialog.Builder(RecordVitalSignActivity.this)
+                                    .title(R.string.warning_srt)
+                                    .content(R.string.no_bluetooth_connection)
+                                    .positiveText(R.string.ok)
+                                    .show();
+                        }
                         break;
                     case BLOOD_PRESSURE:
                         break;
@@ -357,13 +371,7 @@ public class RecordVitalSignActivity extends BaseActivity {
         tv_bleMsg.setVisibility(View.VISIBLE);
         tv_bleMsg.setText(R.string.bluetooth_connection_success);
         tv_bleMsg.setTextColor(getColorId(R.color.white));
-
-        cv_temperature.setEnabled(true);
-        cv_temperature.setCardBackgroundColor(getColorId(R.color.white));
-        cv_pulse.setEnabled(true);
-        cv_pulse.setCardBackgroundColor(getColorId(R.color.white));
-        cv_bp.setEnabled(true);
-        cv_bp.setCardBackgroundColor(getColorId(R.color.white));
+        isConnectBluetooth = true;
 
     }
 
@@ -609,112 +617,151 @@ public class RecordVitalSignActivity extends BaseActivity {
 
     private void measurementPulse(){
 
-        MEASUREMENT_TIME = 60000;
-        currentMeasurement = PULSE;
-        setScreen(true);
-        initFlag();
+        if(isConnectBluetooth) {
 
-        if(pulseList.isEmpty()){
-            new Thread(){
-                @Override
-                public void run(){
-                    try{
-                        Thread.sleep(MEASUREMENT_TIME);
-                        recordEnable = false;
-                        Thread.sleep(1100);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                flagPulse = false;
-                                double avg = Math.round(getAverage(pulseList));
-                                showMeasurementResult(avg+"");
-                            }
-                        });
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-            }.start();
+            MEASUREMENT_TIME = 60000;
+            currentMeasurement = PULSE;
+            setScreen(true);
+            initFlag();
 
-            new Thread(){
-                @Override
-                public void run(){
-                    while(recordEnable){
-                        try{
-                            Thread.sleep(1000);
-                            time += 1;
+            if (pulseList.isEmpty()) {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(MEASUREMENT_TIME);
+                            recordEnable = false;
+                            Thread.sleep(1100);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    flagPulse = true;
-                                    //createNewData(pulseList, "pulse");
-                                    tv_time.setText("경과시간 : " + time + "s");
+                                    flagPulse = false;
+                                    double avg = Math.round(getAverage(pulseList));
+                                    showMeasurementResult(avg + "");
                                 }
                             });
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                }
-            }.start();
+                }.start();
+
+                new Thread() {
+                    @Override
+                    public void run() {
+                        while (recordEnable) {
+                            try {
+                                Thread.sleep(1000);
+                                time += 1;
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        flagPulse = true;
+                                        //createNewData(pulseList, "pulse");
+                                        tv_time.setText("경과시간 : " + time + "s");
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }.start();
+            } else {
+                showMeasurementResult(getAverage(pulseList) + "");
+            }
+
         }else{
-            showMeasurementResult(getAverage(pulseList)+"");
+
+            if(!pulseList.isEmpty()){
+                currentMeasurement = PULSE;
+                setScreen(true);
+                showMeasurementResult(getAverage(pulseList) + "");
+            }else {
+
+                new MaterialDialog.Builder(this)
+                        .title(R.string.warning_srt)
+                        .content(R.string.no_bluetooth_connection)
+                        .positiveText(R.string.ok)
+                        .show();
+
+            }
+
         }
 
     }
 
     private void measurementTemperature(){
 
-        MEASUREMENT_TIME = 5000;
-        currentMeasurement = TEMPERATURE;
-        setScreen(true);
-        initFlag();
+        if(isConnectBluetooth) {
 
-        if(tempuratureList.isEmpty()){
-            new Thread(){
-                @Override
-                public void run(){
-                    try{
-                        Thread.sleep(MEASUREMENT_TIME);
-                        recordEnable = false;
-                        Thread.sleep(1100);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                flagTemp = false;
-                                double avg = getAverage(tempuratureList);
-                                showMeasurementResult(avg+"");
-                            }
-                        });
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-            }.start();
+            MEASUREMENT_TIME = 5000;
+            currentMeasurement = TEMPERATURE;
+            setScreen(true);
+            initFlag();
 
-            new Thread(){
-                @Override
-                public void run(){
-                    while(recordEnable){
-                        try{
-                            Thread.sleep(1000);
-                            time += 1;
+            if (tempuratureList.isEmpty()) {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(MEASUREMENT_TIME);
+                            recordEnable = false;
+                            Thread.sleep(1100);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    flagTemp = true;
-//                                    createNewData(tempuratureList, "temperature");
-                                    tv_time.setText("경과시간 : " + time + "s");
+                                    flagTemp = false;
+                                    double avg = getAverage(tempuratureList);
+                                    showMeasurementResult(avg + "");
                                 }
                             });
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                }
-            }.start();
+                }.start();
+
+                new Thread() {
+                    @Override
+                    public void run() {
+                        while (recordEnable) {
+                            try {
+                                Thread.sleep(1000);
+                                time += 1;
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        flagTemp = true;
+//                                    createNewData(tempuratureList, "temperature");
+                                        tv_time.setText("경과시간 : " + time + "s");
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }.start();
+            } else {
+                showMeasurementResult(getAverage(tempuratureList) + "");
+            }
+
         }else{
-            showMeasurementResult(getAverage(tempuratureList)+"");
+
+            if(!tempuratureList.isEmpty()){
+                currentMeasurement = TEMPERATURE;
+                setScreen(true);
+                showMeasurementResult(getAverage(tempuratureList) + "");
+            }else {
+
+                new MaterialDialog.Builder(this)
+                        .title(R.string.warning_srt)
+                        .content(R.string.no_bluetooth_connection)
+                        .positiveText(R.string.ok)
+                        .show();
+            }
+
         }
 
     }

@@ -266,15 +266,19 @@ public class ManageMedicineActivity extends BaseActivity implements OnAdapterSup
 
     @Override
     public void showView() {
-        addPatientMedicineBtn.setVisibility(View.VISIBLE);
-        setFadeInAnimation(addPatientMedicineBtn);
+        if(!isSupporter) {
+            addPatientMedicineBtn.setVisibility(View.VISIBLE);
+            setFadeInAnimation(addPatientMedicineBtn);
+        }
         toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
     }
 
     @Override
     public void hideView() {
-        addPatientMedicineBtn.setVisibility(View.GONE);
-        setFadeOutAnimation(addPatientMedicineBtn);
+        if(!isSupporter) {
+            addPatientMedicineBtn.setVisibility(View.GONE);
+            setFadeOutAnimation(addPatientMedicineBtn);
+        }
         toolbar.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2));
     }
 

@@ -57,7 +57,7 @@ public class SearchEmployeeActivity extends BaseActivity implements OnAdapterSup
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_patient);
+        setContentView(R.layout.activity_search_employee);
 
         Intent intent = getIntent();
         selectedPatient = (Patient)intent.getSerializableExtra("patient");

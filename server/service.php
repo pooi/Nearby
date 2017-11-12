@@ -329,7 +329,7 @@
 				FROM location
 				GROUP BY id) as B
 				ON (B.id = A.location_id)
-				WHERE A.location_id like '$location_id' and (A.first_name like '%$name%' or A.last_name like '%$name%')
+				WHERE A.location_id like '$location_id' and (A.first_name like '%$name%' or A.last_name like '%$name%' or CONCAT(A.first_name, A.last_name) like '%$name%' or CONCAT(A.last_name, A.first_name) like '%$name%')
 				GROUP BY A.id";
 			}
 
