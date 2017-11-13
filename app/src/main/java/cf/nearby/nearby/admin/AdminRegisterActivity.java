@@ -4,14 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.Theme;
-
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
-import cf.nearby.nearby.activity.SearchPatientActivity;
-import cf.nearby.nearby.nurse.RegisterPatientActivity;
+import cf.nearby.nearby.activity.RegisterPatientActivity;
 
 
 public class AdminRegisterActivity extends BaseActivity {

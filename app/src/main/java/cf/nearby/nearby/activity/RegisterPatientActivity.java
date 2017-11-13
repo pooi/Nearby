@@ -1,12 +1,10 @@
-package cf.nearby.nearby.nurse;
+package cf.nearby.nearby.activity;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,16 +17,13 @@ import com.afollestad.materialdialogs.Theme;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import org.w3c.dom.Text;
-
 import java.util.Calendar;
 import java.util.HashMap;
 
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
-import cf.nearby.nearby.activity.SearchPatientActivity;
-import cf.nearby.nearby.obj.Employee;
+import cf.nearby.nearby.nurse.NurseRegisterActivity;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.ParsePHP;
@@ -299,5 +294,13 @@ public class RegisterPatientActivity extends AppCompatActivity {
 
     public void redirectNextActivity(Patient patient){
         Intent intent = new Intent(RegisterPatientActivity.this, RegisterPatientActivity.class);
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
     }
 }

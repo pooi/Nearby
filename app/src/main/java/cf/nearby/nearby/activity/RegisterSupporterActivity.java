@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -26,9 +25,6 @@ import java.util.HashMap;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
-import cf.nearby.nearby.nurse.NurseRegisterActivity;
-import cf.nearby.nearby.nurse.RegisterPatientActivity;
-import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.ParsePHP;
 
@@ -329,6 +325,14 @@ public class RegisterSupporterActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
 //        super.onBackPressed();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
     }
 
 }
