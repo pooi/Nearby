@@ -304,6 +304,38 @@
 			}
 
 		}
+		else if($service == 'ModifyNurseInfo'){
+		  $nurse_id = $_POST['nurse_id'];
+		  $nurse_fn = $_POST['nurse_fn'];
+		  $nurse_ln = $_POST['nurse_ln'];
+		  $nurse_gender = $_POST['nurse_gender'];
+		  $dob = $_POST['dob'];
+		  $location_id = $_POST['location_id'];
+		  // echo $dob;
+		  $nurse_zip = $_POST['nurse_zip'];
+		  $start_date = $_POST['start_date'];
+		  $register_date = $_POST['register_date'];
+		  $nurse_address = $_POST['nurse_address'];
+		  $nurse_phone = $_POST['nurse_phone'];
+		  $nurse_license = $_POST['nurse_license'];
+		  $nurse_major = $_POST['nurse_major'];
+		  $nurse_email = $_POST['nurse_email'];
+		  // echo '<br>';
+		  $current_time = time() * 1000;
+		  // echo 'timestamp : ' . $timestamp;
+		  // echo '<br>';
+
+		  $sql = "UPDATE employee SET first_name='$nurse_fn', last_name='$nurse_ln', gender='$nurse_gender', email='$nurse_email', address='$nurse_address', zip='$nurse_zip', phone='$nurse_phone', date_of_birth='$dob', start_date='$start_date', major='$nurse_major', license='$nurse_license', registered_date='$register_date' WHERE employee.id='$nurse_id';";
+		  // echo $sql;
+		  // echo $sql;
+		  $ret = mysqli_query($con, $sql);
+		  if($ret == '1'){
+		    echo json_encode(array('status'=>'success', 'message'=>"save success"));
+		  }else{
+		    echo json_encode(array('status'=>'fail', 'message'=>"save fail"));
+		  }
+
+		}
 		else if($service == 'getPatientList'){
 
 			$name = $_POST['name'];
@@ -462,7 +494,7 @@
 			echo "]}";
 
 		}else if($service == "getPatientMedicineListWithID"){
-			
+
 			$patient_medicine_id = $_POST['patient_medicine_id'];
 
 			$sql = "select * from patient_medicine WHERE id = '$patient_medicine_id';";
@@ -1149,14 +1181,14 @@
 						$target_path2 = $target_path.$path;
 
 						try{
-							
+
 							if (move_uploaded_file($_FILES[$imageString]['tmp_name'], $target_path2)) {
 								// File successfully uploaded
 								$picture = "http://nearby.cf/pic/" . $path;
-								
-								$sql_photo = "INSERT INTO patient_photo(main_record_id, patient_id, url, registered_date) 
+
+								$sql_photo = "INSERT INTO patient_photo(main_record_id, patient_id, url, registered_date)
 											VALUES('$main_record_id', '$patient_id', '$picture', '$registered_date');";
-	
+
 								$ret_photo = mysqli_query($con, $sql_photo);
 								if($ret_photo != '1'){
 									$isFail = $isFail."/photo".$sql_photo;
@@ -1362,8 +1394,8 @@
 
 			if($isDate == "1"){
 
-				$sql = "SELECT A.*, B.title as title, C.code as medicine_code, C.name as medicine_name, C.type as medicine_type, C.company as medicine_company, C.standard as medicine_standard, C.unit as medicine_unit 
-						FROM take_medicine as A 
+				$sql = "SELECT A.*, B.title as title, C.code as medicine_code, C.name as medicine_name, C.type as medicine_type, C.company as medicine_company, C.standard as medicine_standard, C.unit as medicine_unit
+						FROM take_medicine as A
 						LEFT OUTER JOIN (
 						SELECT *
 						FROM patient_medicine
@@ -1374,13 +1406,13 @@
 						FROM medicine
 						GROUP BY id) as C
 						ON (C.id = A.medicine_id)
-						WHERE A.patient_id='$patient_id' AND ('$start_date' <= A.registered_date AND A.registered_date <= '$finish_date') 
+						WHERE A.patient_id='$patient_id' AND ('$start_date' <= A.registered_date AND A.registered_date <= '$finish_date')
 						GROUP BY A.id";
 
 			}else{
 
-				$sql = "SELECT A.*, B.title as title, C.code as medicine_code, C.name as medicine_name, C.type as medicine_type, C.company as medicine_company, C.standard as medicine_standard, C.unit as medicine_unit 
-						FROM take_medicine as A 
+				$sql = "SELECT A.*, B.title as title, C.code as medicine_code, C.name as medicine_name, C.type as medicine_type, C.company as medicine_company, C.standard as medicine_standard, C.unit as medicine_unit
+						FROM take_medicine as A
 						LEFT OUTER JOIN (
 						SELECT *
 						FROM patient_medicine
@@ -1391,7 +1423,7 @@
 						FROM medicine
 						GROUP BY id) as C
 						ON (C.id = A.medicine_id)
-						WHERE A.patient_id='$patient_id' 
+						WHERE A.patient_id='$patient_id'
 						GROUP BY A.id";
 
 				$sql = $sql." LIMIT $page, 30;";
@@ -1451,7 +1483,7 @@
             echo "]}";
 
 		}else if($service == "inquiryPatientMeal"){
-			
+
 			$patient_id = $_POST['patient_id'];
 			$isDate = $_POST['isDate'];
 			$start_date = $_POST['start_date'];
@@ -1464,10 +1496,10 @@
 				$sql = "SELECT * FROM have_meal WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
 			}else{
 				$sql = "SELECT * FROM have_meal WHERE patient_id='$patient_id'";
-				
+
 				$sql = $sql." LIMIT $page, 30;";
 			}
-			
+
 
 			$ret = mysqli_query($con, $sql);
 			if($ret){
@@ -1507,7 +1539,7 @@
 			echo "]}";
 
 		}else if($service == "inquiryPatientRemarks"){
-			
+
 			$patient_id = $_POST['patient_id'];
 			$isDate = $_POST['isDate'];
 			$start_date = $_POST['start_date'];
@@ -1520,10 +1552,10 @@
 				$sql = "SELECT * FROM remarks WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
 			}else{
 				$sql = "SELECT * FROM remarks WHERE patient_id='$patient_id'";
-				
+
 				$sql = $sql." LIMIT $page, 30;";
 			}
-			
+
 
 			$ret = mysqli_query($con, $sql);
 			if($ret){
@@ -1563,7 +1595,7 @@
 			echo "]}";
 
 		}else if($service == "inquiryPatientVitalSign"){
-			
+
 			$patient_id = $_POST['patient_id'];
 			$type = $_POST['type'];
 			$isDate = $_POST['isDate'];
@@ -1590,10 +1622,10 @@
 				}else if($type == 'bp'){
 					$sql = "SELECT id, main_record_id, patient_id, blood_pressure_max, blood_pressure_min, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND (blood_pressure_min != '0' AND blood_pressure_max != '0')";
 				}
-				
+
 				$sql = $sql." LIMIT $page, 30;";
 			}
-			
+
 
 			$ret = mysqli_query($con, $sql);
 			if($ret){
@@ -1637,7 +1669,7 @@
 			echo "]}";
 
 		}else if($service == "inquiryPatientPhoto"){
-			
+
 			$patient_id = $_POST['patient_id'];
 			$isDate = $_POST['isDate'];
 			$start_date = $_POST['start_date'];
@@ -1650,10 +1682,10 @@
 				$sql = "SELECT * FROM patient_photo WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
 			}else{
 				$sql = "SELECT * FROM patient_photo WHERE patient_id='$patient_id'";
-				
+
 				$sql = $sql." LIMIT $page, 30;";
 			}
-			
+
 
 			$ret = mysqli_query($con, $sql);
 			if($ret){
@@ -1691,16 +1723,16 @@
 			echo "]}";
 
 		}else if($service == "inquiryPatientRelatedNurse"){
-			
+
 			$patient_id = $_POST['patient_id'];
-			
+
 			$sql = "SELECT A.*, B.name as location_name, B.pic as location_pic, B.director as location_director, B.capacity as location_capacity, B.major as location_major, B.construction_year as location_construction_year, B.phone as location_phone, B.url as location_url
 					FROM employee as A LEFT OUTER JOIN (
 					SELECT *
 					FROM location
 					GROUP BY id) as B
 					ON (B.id = A.location_id)
-					WHERE A.role='nurse' AND A.id IN (SELECT DISTINCT employee_id FROM main_record WHERE patient_id='$patient_id') 
+					WHERE A.role='nurse' AND A.id IN (SELECT DISTINCT employee_id FROM main_record WHERE patient_id='$patient_id')
 					GROUP BY A.id";
 
 			$ret = mysqli_query($con, $sql);
@@ -1790,7 +1822,7 @@
 			$page = $page*30;
 
 			$sql = "SELECT * FROM main_record WHERE patient_id='$patient_id'";
-			
+
 			$sql = $sql." LIMIT $page, 30;";
 
 			$ret = mysqli_query($con, $sql);
@@ -1833,17 +1865,17 @@
 			$page = $_POST['page'];
 			$page = $page*30;
 
-			$sql = "SELECT A.*, B.name as location_name, B.pic as location_pic, B.director as location_director, B.capacity as location_capacity, B.major as location_major, B.construction_year as location_construction_year, B.phone as location_phone, B.url as location_url 
-					FROM patient as A LEFT OUTER JOIN ( 
-					SELECT * 
-					FROM location 
-					GROUP BY id) as B 
-					ON (B.id = A.location_id) 
-					WHERE A.id in (SELECT patient_id FROM user_patient WHERE user_id='$supporter_id') 
+			$sql = "SELECT A.*, B.name as location_name, B.pic as location_pic, B.director as location_director, B.capacity as location_capacity, B.major as location_major, B.construction_year as location_construction_year, B.phone as location_phone, B.url as location_url
+					FROM patient as A LEFT OUTER JOIN (
+					SELECT *
+					FROM location
+					GROUP BY id) as B
+					ON (B.id = A.location_id)
+					WHERE A.id in (SELECT patient_id FROM user_patient WHERE user_id='$supporter_id')
 					GROUP BY A.id";
 
 			$sql = $sql." ORDER BY id DESC LIMIT $page, 30;";
-			
+
 			$ret = mysqli_query($con, $sql);
 			if($ret){
 				$count = mysqli_num_rows($ret);

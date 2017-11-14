@@ -1,34 +1,31 @@
 package cf.nearby.nearby.nurse;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.os.Handler;
-import android.os.Message;
 
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,17 +34,15 @@ import java.util.HashMap;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
-import cf.nearby.nearby.nurse.NurseManageActivity;
-import cf.nearby.nearby.nurse.NurseRegisterActivity;
-import cf.nearby.nearby.nurse.RegisterPatientActivity;
 import cf.nearby.nearby.obj.Employee;
-import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.ParsePHP;
 
-import cf.nearby.nearby.R;
-
 public class EditMyInfoNurseActivity extends AppCompatActivity {
+
+    private MyHandler handler = new MyHandler();
+    private final int MSG_MESSAGE_SUCCESS = 500;
+    private final int MSG_MESSAGE_FAIL = 501;
 
     private MaterialEditText nurse_ln;
     private MaterialEditText nurse_fn;
@@ -127,7 +122,7 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
         nurse_phone.setText(em.getPhone());
         nurse_major.setText(em.getMajor());
 
-        if(em.getGender()=="female")
+        if("female".equals(em.getGender()))
             selgender.check(R.id.female);
         else
             selgender.check(R.id.male);
@@ -168,7 +163,7 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.show();
+//                progressDialog.show();
                 finish();
             }
         });
@@ -179,9 +174,9 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
                 boolean a=CheckInfo();
                 if(a==true){
                     modify_nurse();
-                    Intent intent = new Intent(EditMyInfoNurseActivity.this, NurseManageActivity.class);
-                    startActivity(intent);
-                    finish();
+//                    Intent intent = new Intent(EditMyInfoNurseActivity.this, NurseManageActivity.class);
+//                    startActivity(intent);
+//                    finish();
                 }
                 else{
                     progressDialog.hide();
@@ -191,13 +186,17 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
     }
 
     private void modify_start_em(){
-        StartActivity.employee.setAddress(nurse_address.getText().toString());
-        StartActivity.employee.setZip(nurse_zip.getText().toString());
         StartActivity.employee.setFn(nurse_fn.getText().toString());
         StartActivity.employee.setLn(nurse_ln.getText().toString());
+        StartActivity.employee.setAddress(nurse_address.getText().toString());
+        StartActivity.employee.setZip(nurse_zip.getText().toString());
+        StartActivity.employee.setGender(textradio());
+        StartActivity.employee.setStartDate(register_Date);
+        StartActivity.employee.setDob(date_of_Birth);
         StartActivity.employee.setPhone(nurse_phone.getText().toString());
         StartActivity.employee.setMajor(nurse_major.getText().toString());
         StartActivity.employee.setEmail(nurse_email.getText().toString());
+        StartActivity.employee.setLicense(nurse_license.getText().toString());
     }
 
     private int modify_nurse() {
@@ -227,8 +226,10 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
                         String status = jObj.getString("status");
                         if("success".equals(status)){
                             modify_start_em();
+                            handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
+//                            finish();
                         }else{
-
+                            handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_FAIL));
                         }
 
                     } catch (JSONException e) {
@@ -367,6 +368,47 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
             return "female";
         }
         return "error";
+    }
+
+    private class MyHandler extends Handler {
+
+        public void handleMessage(Message msg)
+        {
+            switch (msg.what)
+            {
+                case MSG_MESSAGE_SUCCESS:
+                    progressDialog.hide();
+                    new MaterialDialog.Builder(EditMyInfoNurseActivity.this)
+                            .title(R.string.success_srt)
+                            .content(R.string.successfully_edit)
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    EditMyInfoNurseActivity.this.finish();
+                                }
+                            })
+                            .positiveText(R.string.ok)
+                            .show();
+                    break;
+                case MSG_MESSAGE_FAIL:
+                    progressDialog.hide();
+                    new MaterialDialog.Builder(EditMyInfoNurseActivity.this)
+                            .title(R.string.fail_srt)
+                            .positiveText(R.string.ok)
+                            .show();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
     }
 
 }

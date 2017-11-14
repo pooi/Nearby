@@ -146,6 +146,7 @@
     <string name="there_are_no_supporter">등록된 보호자가 없습니다.</string>
     <string name="there_are_no_patient">등록된 환자가 없습니다.</string>
     <string name="successfully_recorded">성공적으로 기록하였습니다.</string>
+    <string name="successfully_edit">성공적으로 수정하였습니다.</string>
     <string name="no_bluetooth_connection">측정 기기와 연결되지 않았습니다.</string>
 
     <string name="bluetooth_connection_success">측정 기기 연결됨</string>
