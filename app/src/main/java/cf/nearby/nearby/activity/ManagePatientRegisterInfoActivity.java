@@ -2,6 +2,9 @@ package cf.nearby.nearby.activity;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +16,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,12 +35,17 @@ import java.util.HashMap;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
+import cf.nearby.nearby.nurse.EditMyInfoNurseActivity;
 import cf.nearby.nearby.nurse.NurseManageActivity;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.ParsePHP;
 
 public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
+
+    private MyHandler handler = new MyHandler();
+    private final int MSG_MESSAGE_SUCCESS = 500;
+    private final int MSG_MESSAGE_FAIL = 501;
 
     private MaterialEditText patient_ln;
     private MaterialEditText patient_fn;
@@ -51,7 +63,6 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
     private CheckBox bla;
 
     private TextView startdate;
-    private TextView registerdate;
     private TextView dob;
 
     private RadioGroup selgender;
@@ -60,11 +71,9 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
     private RadioButton female;
 
     private long start_Date;
-    private long register_Date;
     private long date_of_Birth;
 
     private boolean isSelectStartDate;
-    private boolean isSelectRegisterDate;
     private boolean isSelectDob;
 
     private Patient selectedPatient;
@@ -101,7 +110,6 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
         bla = (CheckBox)findViewById(R.id.patient_bla);
 
         startdate = (TextView)findViewById(R.id.startdate);
-        registerdate = (TextView)findViewById(R.id.registerdate);
         dob = (TextView)findViewById(R.id.dob);
 
         patient_ln.setText(selectedPatient.getFn());
@@ -111,7 +119,7 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
         patient_phone.setText(selectedPatient.getPhone());
         patient_height.setText(String.valueOf(selectedPatient.getHeight()));
         patient_description.setText(selectedPatient.getDescription());
-        if(selectedPatient.getGender()=="female")
+        if("female".equals(selectedPatient.getGender()))
             selgender.check(R.id.female);
         else
             selgender.check(R.id.male);
@@ -119,12 +127,16 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
         if(selectedPatient.getBasicLivingAllowance()==1)
             bla.setChecked(true);
 
-        String Dob = setCalender(Long.toString(selectedPatient.getDob()));
-        String Rd = setCalender(Long.toString(selectedPatient.getRegisteredDate()));
-        String Sd = setCalender(Long.toString(selectedPatient.getStartDate()));
-        dob.setText(Dob);
-        registerdate.setText(Rd);
-        startdate.setText(Sd);
+        date_of_Birth = selectedPatient.getDob();
+        start_Date = selectedPatient.getStartDate();
+//        String Dob = setCalender(Long.toString(selectedPatient.getDob()));
+//        String Sd = setCalender(Long.toString(selectedPatient.getStartDate()));
+
+//        dob.setText(Dob);
+//        startdate.setText(Sd);
+        setDateText(dob, AdditionalFunc.getDateString(date_of_Birth));
+        setDateText(startdate, AdditionalFunc.getDateString(start_Date));
+
         //patient_fn.setText(patient.getFn());
         progressDialog = new MaterialDialog.Builder(this)
                 .content(R.string.back)
@@ -139,12 +151,6 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
                 startDatePick();
             }
         });
-        registerdate.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                registerDatePick();
-            }
-        });
         dob.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -155,7 +161,7 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.show();
+//                progressDialog.show();
                 finish();
             }
         });
@@ -164,11 +170,11 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 boolean a=CheckInfo();
-                if(a==true){
+                if(a){
                     modify_patient();
-                    Intent intent = new Intent(ManagePatientRegisterInfoActivity.this, NurseManageActivity.class);
-                    startActivity(intent);
-                    finish();
+//                    Intent intent = new Intent(ManagePatientRegisterInfoActivity.this, NurseManageActivity.class);
+//                    startActivity(intent);
+//                    finish();
                 }
                 else{
                     progressDialog.hide();
@@ -199,7 +205,6 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
             map.put("patient_gender", textradio());
             map.put("patient_pic","");
             map.put("start_date", Long.toString(start_Date));
-            map.put("register_date", Long.toString(register_Date));
             map.put("dob", Long.toString(date_of_Birth));
             map.put("location_id", StartActivity.employee.getLocation().getId());
             map.put("patient_phone", patient_phone.getText().toString());
@@ -210,7 +215,22 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
             new ParsePHP(Information.MAIN_SERVER_ADDRESS, map) {
                 @Override
                 protected void afterThreadFinish(String data) {
-                    System.out.print(data);
+                    try {
+                        JSONObject jObj = new JSONObject(data);
+                        String status = jObj.getString("status");
+                        if("success".equals(status)){
+                            handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
+//                            finish();
+                        }else{
+                            handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_FAIL));
+                        }
+
+                    } catch (JSONException e) {
+                        // JSON error
+                        e.printStackTrace();
+//                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+
+                    }
                 }
             }.start();
             return 1;
@@ -230,9 +250,9 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
     private String textradio(){
         RadioButton selradio = (RadioButton)findViewById(selgender.getCheckedRadioButtonId());
         String value = selradio.getText().toString();
-        if(value=="남자")
+        if("남".equals(value))
             value = "male";
-        else if(value=="여자")
+        else if("여".equals(value))
             value = "female";
         return value;
     }
@@ -247,6 +267,7 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
 
     private void startDatePick(){
         Calendar now = Calendar.getInstance();
+        now.setTimeInMillis(start_Date);
         DatePickerDialog dpd = DatePickerDialog.newInstance(
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -265,28 +286,9 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
         dpd.show(getFragmentManager(), "Datepickerdialog");
     }
 
-    private void registerDatePick(){
-        Calendar now = Calendar.getInstance();
-        DatePickerDialog dpd = DatePickerDialog.newInstance(
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-                        register_Date = AdditionalFunc.getMilliseconds(year, monthOfYear+1, dayOfMonth);
-                        isSelectRegisterDate = true;
-                        setDateText(registerdate, AdditionalFunc.getDateString(register_Date));
-                    }
-                },
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DAY_OF_MONTH)
-        );
-        dpd.setTitle(getString(R.string.registerdate));
-        dpd.setVersion(DatePickerDialog.Version.VERSION_2);
-        dpd.show(getFragmentManager(), "Datepickerdialog");
-    }
-
     private void dobDatePick(){
         Calendar now = Calendar.getInstance();
+        now.setTimeInMillis(date_of_Birth);
         DatePickerDialog dpd = DatePickerDialog.newInstance(
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -313,6 +315,39 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
 
     }
 
+    private class MyHandler extends Handler {
+
+        public void handleMessage(Message msg)
+        {
+            switch (msg.what)
+            {
+                case MSG_MESSAGE_SUCCESS:
+                    progressDialog.hide();
+                    new MaterialDialog.Builder(ManagePatientRegisterInfoActivity.this)
+                            .title(R.string.success_srt)
+                            .content(R.string.successfully_edit)
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    ManagePatientRegisterInfoActivity.this.finish();
+                                }
+                            })
+                            .positiveText(R.string.ok)
+                            .show();
+                    break;
+                case MSG_MESSAGE_FAIL:
+                    progressDialog.hide();
+                    new MaterialDialog.Builder(ManagePatientRegisterInfoActivity.this)
+                            .title(R.string.fail_srt)
+                            .positiveText(R.string.ok)
+                            .show();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     public int getColorId(int id){
         return ContextCompat.getColor(getApplicationContext(), id);
     }
@@ -337,6 +372,14 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
             progressDialog.show();
 
             return false;
+        }
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if(progressDialog != null){
+            progressDialog.dismiss();
         }
     }
 

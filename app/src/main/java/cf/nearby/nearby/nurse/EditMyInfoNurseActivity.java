@@ -62,7 +62,6 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
     private CheckBox bla;
 
     private TextView startdate;
-    private TextView registerdate;
     private TextView dob;
 
     private RadioGroup selgender;
@@ -71,13 +70,11 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
     private RadioButton female;
 
     private long start_Date;
-    private long register_Date;
     private long date_of_Birth;
 
     private Employee em;
 
     private boolean isSelectStartDate;
-    private boolean isSelectRegisterDate;
     private boolean isSelectDob;
 
     private String a;
@@ -110,7 +107,6 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
 
 
         startdate = (TextView)findViewById(R.id.startdate);
-        registerdate = (TextView)findViewById(R.id.registerdate);
         dob = (TextView)findViewById(R.id.dob);
 
         nurse_fn.setText(em.getFn());
@@ -127,12 +123,15 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
         else
             selgender.check(R.id.male);
 
+        start_Date = em.getStartDate();
+        date_of_Birth = em.getDob();
         String Dob = setCalender(Long.toString(em.getDob()));
-        String Rd = setCalender(Long.toString(em.getRegisteredDate()));
         String Sd = setCalender(Long.toString(em.getStartDate()));
-        dob.setText(Dob);
-        registerdate.setText(Rd);
-        startdate.setText(Sd);
+        setDateText(dob, AdditionalFunc.getDateString(date_of_Birth));
+        setDateText(startdate, AdditionalFunc.getDateString(start_Date));
+//        dob.setText(Dob);
+//        registerdate.setText(Rd);
+//        startdate.setText(Sd);
 
         progressDialog = new MaterialDialog.Builder(this)
                 .content(R.string.back)
@@ -141,16 +140,11 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
                 .theme(Theme.LIGHT)
                 .build();
 
+
         startdate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 startDatePick();
-            }
-        });
-        registerdate.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                registerDatePick();
             }
         });
         dob.setOnClickListener(new View.OnClickListener(){
@@ -191,7 +185,7 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
         StartActivity.employee.setAddress(nurse_address.getText().toString());
         StartActivity.employee.setZip(nurse_zip.getText().toString());
         StartActivity.employee.setGender(textradio());
-        StartActivity.employee.setStartDate(register_Date);
+        StartActivity.employee.setStartDate(start_Date);
         StartActivity.employee.setDob(date_of_Birth);
         StartActivity.employee.setPhone(nurse_phone.getText().toString());
         StartActivity.employee.setMajor(nurse_major.getText().toString());
@@ -211,7 +205,6 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
             map.put("nurse_gender", textradio());
             map.put("nurse_pic","");
             map.put("start_date", Long.toString(start_Date));
-            map.put("register_date", Long.toString(register_Date));
             map.put("dob", Long.toString(date_of_Birth));
             map.put("location_id", em.getLocation().getId());
             map.put("nurse_phone", nurse_phone.getText().toString());
@@ -256,6 +249,7 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
 
     private void startDatePick(){
         Calendar now = Calendar.getInstance();
+        now.setTimeInMillis(start_Date);
         DatePickerDialog dpd = DatePickerDialog.newInstance(
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -274,28 +268,9 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
         dpd.show(getFragmentManager(), "Datepickerdialog");
     }
 
-    private void registerDatePick(){
-        Calendar now = Calendar.getInstance();
-        DatePickerDialog dpd = DatePickerDialog.newInstance(
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-                        register_Date = AdditionalFunc.getMilliseconds(year, monthOfYear+1, dayOfMonth);
-                        isSelectRegisterDate = true;
-                        setDateText(registerdate, AdditionalFunc.getDateString(register_Date));
-                    }
-                },
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DAY_OF_MONTH)
-        );
-        dpd.setTitle(getString(R.string.registerdate));
-        dpd.setVersion(DatePickerDialog.Version.VERSION_2);
-        dpd.show(getFragmentManager(), "Datepickerdialog");
-    }
-
     private void dobDatePick(){
         Calendar now = Calendar.getInstance();
+        now.setTimeInMillis(date_of_Birth);
         DatePickerDialog dpd = DatePickerDialog.newInstance(
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -331,9 +306,8 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
         boolean nurseinfo8 = !nurse_major.getText().toString().isEmpty();
         boolean nurseinfo9 = !nurse_license.getText().toString().isEmpty();
         boolean nurseinfo10 = !dob.getText().toString().isEmpty();
-        boolean nurseinfo11 = !registerdate.getText().toString().isEmpty();
         boolean nurseinfo12 = !startdate.getText().toString().isEmpty();
-        boolean status = nurseinfo7 && nurseinfo1 && nurseinfo2 && nurseinfo3 && nurseinfo4 && nurseinfo5 && nurseinfo6 && nurseinfo8 && nurseinfo9 && nurseinfo10 && nurseinfo11 && nurseinfo12;
+        boolean status = nurseinfo7 && nurseinfo1 && nurseinfo2 && nurseinfo3 && nurseinfo4 && nurseinfo5 && nurseinfo6 && nurseinfo8 && nurseinfo9 && nurseinfo10 && nurseinfo12;
 
         if(status){
             return true;

@@ -294,27 +294,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="병원등록일"
-                    android:layout_margin="10dp"/>
-
-                <TextView
-                    android:id="@+id/registerdate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/registerdate"
-                    android:layout_margin="10dp"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/background_color"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="생년월일"
                     android:layout_margin="10dp"/>
 

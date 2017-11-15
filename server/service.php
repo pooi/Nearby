@@ -281,20 +281,19 @@
 			// echo $dob;
 			$patient_zip = $_POST['patient_zip'];
 			$start_date = $_POST['start_date'];
-			$register_date = $_POST['register_date'];
 			$patient_address = $_POST['patient_address'];
 			$patient_phone = $_POST['patient_phone'];
 			$patient_license = $_POST['patient_license'];
 			$patient_major = $_POST['patient_major'];
-			$start_date = 1;
+			$start_date = $_POST['start_date'];
 			$patient_description = $_POST['patient_description'];
 			// echo '<br>';
 			$current_time = time() * 1000;
 			// echo 'timestamp : ' . $timestamp;
 			// echo '<br>';
 
-			$sql = "UPDATE patient SET first_name='$patient_fn', last_name='$patient_ln', gender='$patient_gender', address='$patient_address', zip='$patient_zip', phone='$patient_phone', date_of_birth='$dob', height='$patient_hegiht', basic_living_allowance='$patient_bla', start_date='$start_date', description='$patient_description', registered_date='$register_date' WHERE patient.id='$patient_id';";
-			echo $sql;
+			$sql = "UPDATE patient SET first_name='$patient_fn', last_name='$patient_ln', gender='$patient_gender', address='$patient_address', zip='$patient_zip', phone='$patient_phone', date_of_birth='$dob', height='$patient_hegiht', basic_living_allowance='$patient_bla', start_date='$start_date', description='$patient_description' WHERE patient.id='$patient_id';";
+			// echo $sql;
 			// echo $sql;
 			$ret = mysqli_query($con, $sql);
 			if($ret == '1'){
@@ -314,7 +313,6 @@
 		  // echo $dob;
 		  $nurse_zip = $_POST['nurse_zip'];
 		  $start_date = $_POST['start_date'];
-		  $register_date = $_POST['register_date'];
 		  $nurse_address = $_POST['nurse_address'];
 		  $nurse_phone = $_POST['nurse_phone'];
 		  $nurse_license = $_POST['nurse_license'];
@@ -325,7 +323,7 @@
 		  // echo 'timestamp : ' . $timestamp;
 		  // echo '<br>';
 
-		  $sql = "UPDATE employee SET first_name='$nurse_fn', last_name='$nurse_ln', gender='$nurse_gender', email='$nurse_email', address='$nurse_address', zip='$nurse_zip', phone='$nurse_phone', date_of_birth='$dob', start_date='$start_date', major='$nurse_major', license='$nurse_license', registered_date='$register_date' WHERE employee.id='$nurse_id';";
+		  $sql = "UPDATE employee SET first_name='$nurse_fn', last_name='$nurse_ln', gender='$nurse_gender', email='$nurse_email', address='$nurse_address', zip='$nurse_zip', phone='$nurse_phone', date_of_birth='$dob', start_date='$start_date', major='$nurse_major', license='$nurse_license' WHERE employee.id='$nurse_id';";
 		  // echo $sql;
 		  // echo $sql;
 		  $ret = mysqli_query($con, $sql);
