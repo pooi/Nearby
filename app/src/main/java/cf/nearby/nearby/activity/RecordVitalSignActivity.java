@@ -809,7 +809,11 @@ public class RecordVitalSignActivity extends BaseActivity {
                     //System.out.println(s);
 
                     try {
-                        list.add(Double.parseDouble(s.substring(1))/2);
+                        String value = s.substring(1);
+                        if("".equals(value) || value.isEmpty()){
+                            continue;
+                        }
+                        list.add(Double.parseDouble(value));
 
                         tv_bpm.setText(Math.round(getAverage(list)) + "");
 
@@ -827,15 +831,27 @@ public class RecordVitalSignActivity extends BaseActivity {
                         System.out.println(e.getMessage());
                     }
                 }else if(s.startsWith("S")){
-                    pulseSignalList.add(Double.parseDouble(s.substring(1)));
-                    makePulseChart();
+                    try {
+                        String value = s.substring(1);
+                        if ("".equals(value) || value.isEmpty()) {
+                            continue;
+                        }
+                        pulseSignalList.add(Double.parseDouble(value));
+                        makePulseChart();
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
             if(flagTemp){
                 if(s.startsWith("T")){
 
                     try{
-                        Double temp = Double.parseDouble(s.substring(1));
+                        String value = s.substring(1);
+                        if("".equals(value) || value.isEmpty()){
+                            continue;
+                        }
+                        Double temp = Double.parseDouble(value);
                         list.add(temp);
 
                         TextView msg = new TextView(this);
