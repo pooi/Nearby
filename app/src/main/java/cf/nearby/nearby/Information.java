@@ -17,5 +17,6 @@ public class Information {
     public static final String NURSE_REGISTER_MENU = "nurse_register_menu";
     public static final String MANAGE_SUPPORTER_MENU = "manage_supporter_menu";
     public static final String INQUIRY_MAIN_MENU = "inquiry_main_menu";
+    public static final String INQUIRY_PATIENT_DETAIL = "inquiry_patient_detail";
 
 }

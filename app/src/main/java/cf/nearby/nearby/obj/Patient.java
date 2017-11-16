@@ -14,9 +14,9 @@ import cf.nearby.nearby.util.AdditionalFunc;
  */
 
 public class Patient implements Serializable {
-    String id, loginId, email, fn, ln, role, license, gender, address, zip, phone, pic, major, description;
+    String id, loginId, email, fn, ln, gender, address, zip, phone, pic, description;
     long startDate, dob, registeredDate;
-    double height, basicLivingAllowance;
+    Double height, basicLivingAllowance;
     Location location;
 
     public Patient(){
@@ -79,12 +79,6 @@ public class Patient implements Serializable {
             if (keySet.contains("last_name")) {
                 ln = (String) temp.get("last_name");
             }
-            if (keySet.contains("role")) {
-                role = (String) temp.get("role");
-            }
-            if (keySet.contains("license")) {
-                license = (String) temp.get("license");
-            }
             if (keySet.contains("gender")) {
                 gender = (String) temp.get("gender");
             }
@@ -99,9 +93,6 @@ public class Patient implements Serializable {
             }
             if (keySet.contains("pic")) {
                 pic = (String) temp.get("pic");
-            }
-            if (keySet.contains("major")) {
-                major = (String) temp.get("major");
             }
             if (keySet.contains("description")) {
                 description = (String) temp.get("description");
@@ -202,22 +193,6 @@ public class Patient implements Serializable {
         return ln + fn;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getLicense() {
-        return license;
-    }
-
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
     public String getGender() {
         return gender;
     }
@@ -258,14 +233,6 @@ public class Patient implements Serializable {
         this.pic = pic;
     }
 
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -298,7 +265,7 @@ public class Patient implements Serializable {
         this.registeredDate = registeredDate;
     }
 
-    public double getHeight() {
+    public Double getHeight() {
         return height;
     }
 
@@ -306,7 +273,7 @@ public class Patient implements Serializable {
         this.height = height;
     }
 
-    public double getBasicLivingAllowance() {
+    public Double getBasicLivingAllowance() {
         return basicLivingAllowance;
     }
 

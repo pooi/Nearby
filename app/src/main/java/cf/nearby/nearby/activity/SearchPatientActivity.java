@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
+import com.github.ppamorim.dragger.DraggerPosition;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -285,6 +286,13 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
             case Information.INQUIRY_MAIN_MENU:{
                 Intent intent = new Intent(SearchPatientActivity.this, InquiryMainActivity.class);
                 intent.putExtra("patient", patient);
+                startActivity(intent);
+                break;
+            }
+            case Information.INQUIRY_PATIENT_DETAIL:{
+                Intent intent = new Intent(SearchPatientActivity.this, PatientDetailActivity.class);
+                intent.putExtra("patient", patient);
+                intent.putExtra("drag_position", DraggerPosition.TOP);
                 startActivity(intent);
                 break;
             }

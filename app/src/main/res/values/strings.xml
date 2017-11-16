@@ -16,6 +16,7 @@
     <string name="gender">성별</string>
     <string name="address">주소</string>
     <string name="zip">우편번호</string>
+    <string name="email">이메일</string>
     <string name="phone">H.P</string>
     <string name="height">키</string>
     <string name="bla">기초생활수급자</string>
@@ -79,6 +80,8 @@
     <string name="connect_bluetooth">기기연결</string>
     <string name="warning_srt">경고</string>
     <string name="nurse">간호사</string>
+    <string name="yes">예</string>
+    <string name="no">아니오</string>
 
 
     <!-- Menu -->
