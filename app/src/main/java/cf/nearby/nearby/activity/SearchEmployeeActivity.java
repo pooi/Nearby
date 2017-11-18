@@ -159,7 +159,7 @@ public class SearchEmployeeActivity extends BaseActivity implements OnAdapterSup
 
     @Override
     public void redirectActivity(Intent intent) {
-
+        startActivity(intent);
     }
 
     @Override

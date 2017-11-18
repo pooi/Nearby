@@ -19,7 +19,7 @@ import cf.nearby.nearby.util.AdditionalFunc;
 public class Employee implements Serializable {
 
     String id, loginId, email, fn, ln, role, license, gender, address, zip, phone, pic, major, description;
-    long startDate, dob, registeredDate;
+    Long startDate, dob, registeredDate;
     Location location;
 
     public Employee(){
@@ -270,27 +270,27 @@ public class Employee implements Serializable {
         this.description = description;
     }
 
-    public long getStartDate() {
+    public Long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(long startDate) {
+    public void setStartDate(Long startDate) {
         this.startDate = startDate;
     }
 
-    public long getDob() {
+    public Long getDob() {
         return dob;
     }
 
-    public void setDob(long dob) {
+    public void setDob(Long dob) {
         this.dob = dob;
     }
 
-    public long getRegisteredDate() {
+    public Long getRegisteredDate() {
         return registeredDate;
     }
 
-    public void setRegisteredDate(long registeredDate) {
+    public void setRegisteredDate(Long registeredDate) {
         this.registeredDate = registeredDate;
     }
 

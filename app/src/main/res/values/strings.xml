@@ -17,14 +17,17 @@
     <string name="address">주소</string>
     <string name="zip">우편번호</string>
     <string name="email">이메일</string>
+    <string name="major">전공</string>
     <string name="phone">H.P</string>
     <string name="height">키</string>
     <string name="bla">기초생활수급자</string>
     <string name="registerdate">등록날짜</string>
     <string name="startdate">입원날짜</string>
+    <string name="license_start_date">경력 시작일</string>
     <string name="name">이름</string>
     <string name="dob">생년월일</string>
     <string name="location_registered_date">요양원 등록일</string>
+    <string name="location_start_date">요양원 배정일</string>
     <string name="description">기타사항</string>
     <string name="please_wait">잠시만 기다려주세요.</string>
     <string name="back_srt">뒤로</string>

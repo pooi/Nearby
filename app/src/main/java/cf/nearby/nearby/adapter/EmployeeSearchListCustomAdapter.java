@@ -1,6 +1,7 @@
 package cf.nearby.nearby.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.github.ppamorim.dragger.DraggerPosition;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import cf.nearby.nearby.R;
+import cf.nearby.nearby.activity.EmployeeDetailActivity;
 import cf.nearby.nearby.obj.Employee;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.AdditionalFunc;
@@ -90,7 +93,12 @@ public class EmployeeSearchListCustomAdapter extends RecyclerView.Adapter<Employ
         holder.btn_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                supporter.redirectNextActivity(patient);
+
+                Intent intent = new Intent(context, EmployeeDetailActivity.class);
+                intent.putExtra("employee", employee);
+                intent.putExtra("drag_position", DraggerPosition.TOP);
+                onAdapterSupport.redirectActivity(intent);
+
             }
         });
         holder.btn_select.setText(R.string.detail_srt);
