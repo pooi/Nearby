@@ -263,7 +263,7 @@ public class EditMyInfoNurseActivity extends AppCompatActivity {
                 now.get(Calendar.MONTH),
                 now.get(Calendar.DAY_OF_MONTH)
         );
-        dpd.setTitle(getString(R.string.startdate));
+        dpd.setTitle(getString(R.string.location_start_date));
         dpd.setVersion(DatePickerDialog.Version.VERSION_2);
         dpd.show(getFragmentManager(), "Datepickerdialog");
     }

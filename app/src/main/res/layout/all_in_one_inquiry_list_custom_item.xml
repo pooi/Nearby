@@ -58,30 +58,6 @@
                     android:stretchColumns="*"
                     >
 
-                    <!--<TableRow>-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/tv_title"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Title"-->
-                            <!--android:textSize="@dimen/default_font_size"-->
-                            <!--android:textColor="@color/dark_gray"-->
-                            <!--android:gravity="center"-->
-                            <!--/>-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/tv_date"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Title"-->
-                            <!--android:textSize="@dimen/default_font_size"-->
-                            <!--android:textColor="@color/dark_gray"-->
-                            <!--android:gravity="center"-->
-                            <!--/>-->
-
-                    <!--</TableRow>-->
-
                 </TableLayout>
 
             </LinearLayout>

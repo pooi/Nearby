@@ -10,6 +10,7 @@ import java.io.Serializable;
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
+import cf.nearby.nearby.activity.InquiryLogActivity;
 import cf.nearby.nearby.activity.SearchPatientActivity;
 
 public class AdminInquiryActivity extends BaseActivity implements Serializable {
@@ -50,6 +51,13 @@ public class AdminInquiryActivity extends BaseActivity implements Serializable {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SearchPatientActivity.class);
                 intent.putExtra("nextActivity", Information.INQUIRY_MAIN_MENU);
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.cv_inquiry_log).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), InquiryLogActivity.class);
                 startActivity(intent);
             }
         });

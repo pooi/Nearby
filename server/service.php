@@ -2083,6 +2083,62 @@
 
 			echo "]}";
 
+		}else if($service == "inquiryLog"){
+
+			$type = $_POST['type'];
+			$location_id = $_POST['location_id'];
+
+			$isDate = $_POST['isDate'];
+			$start_date = $_POST['start_date'];
+			$finish_date = $_POST['finish_date'];
+
+			$page = $_POST['page'];
+			$page = $page*30;
+
+			$sql = "SELECT * FROM log WHERE type='$type' AND location_id='$location_id' AND (('$start_date' <= registered_date AND registered_date <= '$finish_date') OR '1' <> '$isDate') ";
+
+			$sql = $sql." ORDER BY id DESC LIMIT $page, 30;";
+
+			$ret = mysqli_query($con, $sql);
+			if($ret){
+				$count = mysqli_num_rows($ret);
+			}else{
+				exit();
+			}
+
+			echo "{\"status\":\"OK\",\"num_result\":\"$count\",\"db_version\":\"1\",\"result\":[";
+
+			$i=0;
+
+			while($row = mysqli_fetch_array($ret)){
+
+				$id = $row['id'];
+				$location_id = $row['location_id'];
+				$employee_id = $row['employee_id'];
+				$patient_id = $row['patient_id'];
+				$type = $row['type'];
+				$msg = $row['msg'];
+				$registered_date = $row['registered_date'];
+
+				echo "{\"id\":\"$id\",
+				\"location_id\":\"$location_id\",
+				\"employee_id\":\"$employee_id\",
+				\"patient_id\":\"$patient_id\",
+				\"type\":\"$type\",
+				\"msg\":\"$msg\",
+				\"registered_date\":\"$registered_date\"
+				}";
+
+				if($i<$count-1){
+					echo ",";
+				}
+
+				$i++;
+
+			}
+
+			echo "]}";
+
 		}
 
 	}
