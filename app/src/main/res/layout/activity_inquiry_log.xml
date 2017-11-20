@@ -78,6 +78,16 @@
 
                         </TableLayout>
 
+                        <Button
+                            android:id="@+id/btn_detail_symptom"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="@drawable/layout_bottom_radius"
+                            android:text="@string/detail_srt"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/default_font_small_size"
+                            />
+
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -135,6 +145,16 @@
                             >
 
                         </TableLayout>
+
+                        <Button
+                            android:id="@+id/btn_detail_medicine"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="@drawable/layout_bottom_radius"
+                            android:text="@string/detail_srt"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/default_font_small_size"
+                            />
 
                     </LinearLayout>
 
@@ -194,6 +214,16 @@
 
                         </TableLayout>
 
+                        <Button
+                            android:id="@+id/btn_detail_record"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="@drawable/layout_bottom_radius"
+                            android:text="@string/detail_srt"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/default_font_small_size"
+                            />
+
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -251,6 +281,16 @@
                             >
 
                         </TableLayout>
+
+                        <Button
+                            android:id="@+id/btn_detail_weight"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="@drawable/layout_bottom_radius"
+                            android:text="@string/detail_srt"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/default_font_small_size"
+                            />
 
                     </LinearLayout>
 

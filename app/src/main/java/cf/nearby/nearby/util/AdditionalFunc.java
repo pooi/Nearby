@@ -134,6 +134,14 @@ public class AdditionalFunc {
 
     }
 
+    public static String getDateTimeSrtString(long time){
+
+        Date currentDate = new Date(time);
+        DateFormat df = new SimpleDateFormat("MM/dd HH:mm");
+        return df.format(currentDate);
+
+    }
+
     public static long getNoTimeDateMs(long time){
 
         Date currentDate = new Date(time);

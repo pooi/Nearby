@@ -15,7 +15,7 @@ import cf.nearby.nearby.util.AdditionalFunc;
 public class NearbyLog {
 
     String id, locationId, employeeId, patientId, type, msg;
-    Double registeredDate;
+    Long registeredDate;
 
     public NearbyLog(){
 
@@ -73,7 +73,7 @@ public class NearbyLog {
                 patientId = (String) temp.get("patient_id");
             }
             if(keySet.contains("registered_date")){
-                registeredDate = Double.parseDouble((String) temp.get("registered_date"));
+                registeredDate = Long.parseLong((String) temp.get("registered_date"));
             }
 
         }catch (Exception e){
@@ -160,11 +160,11 @@ public class NearbyLog {
         this.msg = msg;
     }
 
-    public Double getRegisteredDate() {
+    public Long getRegisteredDate() {
         return registeredDate;
     }
 
-    public void setRegisteredDate(Double registeredDate) {
+    public void setRegisteredDate(Long registeredDate) {
         this.registeredDate = registeredDate;
     }
 }

@@ -4,22 +4,29 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
 import cf.nearby.nearby.obj.NearbyLog;
+import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.ParsePHP;
 
-public class InquiryLogActivity extends AppCompatActivity {
+public class InquiryLogActivity extends BaseActivity {
 
     private MyHandler handler = new MyHandler();
     private final int MSG_MESSAGE_MAKE_SYMPTOM_LIST = 500;
@@ -32,6 +39,11 @@ public class InquiryLogActivity extends AppCompatActivity {
     TableLayout tl_medicine;
     TableLayout tl_record;
     TableLayout tl_weight;
+
+    Button btn_detailSymptom;
+    Button btn_detailMedicine;
+    Button btn_detailRecord;
+    Button btn_detailWeight;
 
     String[] inquiryList = {
             "symptom",
@@ -80,6 +92,12 @@ public class InquiryLogActivity extends AppCompatActivity {
         tl_record.setTag(inquiryList[2]);
         tl_weight = (TableLayout)findViewById(R.id.tl_weight);
         tl_weight.setTag(inquiryList[3]);
+
+        btn_detailSymptom = (Button)findViewById(R.id.btn_detail_symptom);
+        btn_detailMedicine = (Button)findViewById(R.id.btn_detail_medicine);
+        btn_detailRecord = (Button)findViewById(R.id.btn_detail_record);
+        btn_detailWeight = (Button)findViewById(R.id.btn_detail_weight);
+
 
     }
 
@@ -131,29 +149,65 @@ public class InquiryLogActivity extends AppCompatActivity {
     private void makeList(String type){
 
         ArrayList<NearbyLog> list = new ArrayList<>();
+        TableLayout tl = null;
 
         switch (type){
             case "symptom": {
                 list = symptomList;
+                tl = tl_symptom;
                 break;
             }
             case "medicine": {
                 list = medicineList;
+                tl = tl_medicine;
                 break;
             }
             case "record": {
                 list = recordList;
+                tl = tl_record;
                 break;
             }
             case "weight": {
                 list = weightList;
+                tl = tl_weight;
                 break;
             }
         }
 
-        for(NearbyLog log : list){
+        if(tl != null){
 
-            System.out.println(log.getMsg());
+
+            for(int i= Math.max(0, list.size()-5); i<list.size(); i++){
+                NearbyLog log = list.get(i);
+
+                TableLayout.LayoutParams tlps=new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT,TableLayout.LayoutParams.WRAP_CONTENT);
+                TableRow.LayoutParams trps=new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,TableRow.LayoutParams.WRAP_CONTENT);
+
+                TableRow tr = new TableRow(this);
+                tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+
+                TextView tv_log_msg = new TextView(this);
+                tv_log_msg.setText(log.getMsg());
+                tv_log_msg.setLayoutParams(trps);
+                tv_log_msg.setTextColor(getColorId(R.color.dark_gray));
+                tv_log_msg.setGravity(Gravity.CENTER);
+                tv_log_msg.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                        getResources().getDimension(R.dimen.default_font_small_size));
+
+                TextView tv_time = new TextView(this);
+                tv_time.setText(AdditionalFunc.getDateTimeSrtString(log.getRegisteredDate()));
+                tv_time.setLayoutParams(trps);
+                tv_time.setTextColor(getColorId(R.color.dark_gray));
+                tv_time.setGravity(Gravity.CENTER);
+                tv_time.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                        getResources().getDimension(R.dimen.default_font_small_size));
+
+                tr.addView(tv_log_msg);
+                tr.addView(tv_time);
+
+                tl.addView(tr, tlps);
+
+            }
 
         }
 
