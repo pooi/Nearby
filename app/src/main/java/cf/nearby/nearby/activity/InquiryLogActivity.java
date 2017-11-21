@@ -1,5 +1,6 @@
 package cf.nearby.nearby.activity;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -94,9 +95,41 @@ public class InquiryLogActivity extends BaseActivity {
         tl_weight.setTag(inquiryList[3]);
 
         btn_detailSymptom = (Button)findViewById(R.id.btn_detail_symptom);
+        btn_detailSymptom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InquiryLogActivity.this, LogDetailActivity.class);
+                intent.putExtra("type", "symptom");
+                startActivity(intent);
+            }
+        });
         btn_detailMedicine = (Button)findViewById(R.id.btn_detail_medicine);
+        btn_detailMedicine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InquiryLogActivity.this, LogDetailActivity.class);
+                intent.putExtra("type", "medicine");
+                startActivity(intent);
+            }
+        });
         btn_detailRecord = (Button)findViewById(R.id.btn_detail_record);
+        btn_detailRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InquiryLogActivity.this, LogDetailActivity.class);
+                intent.putExtra("type", "record");
+                startActivity(intent);
+            }
+        });
         btn_detailWeight = (Button)findViewById(R.id.btn_detail_weight);
+        btn_detailWeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InquiryLogActivity.this, LogDetailActivity.class);
+                intent.putExtra("type", "weight");
+                startActivity(intent);
+            }
+        });
 
 
     }
