@@ -69,7 +69,7 @@ public class LogListCustomAdapter extends RecyclerView.Adapter<LogListCustomAdap
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //recycler view에 반복될 아이템 레이아웃 연결
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.patient_search_list_custom_item,null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.log_detail_list_custom_item,null);
         return new ViewHolder(v);
     }
 
@@ -78,6 +78,8 @@ public class LogListCustomAdapter extends RecyclerView.Adapter<LogListCustomAdap
         final NearbyLog log = list.get(position);
         final int pos = position;
 
+        holder.tv_title.setText(log.getMsg());
+        holder.tv_date.setText(AdditionalFunc.getDateTimeSrtString(log.getRegisteredDate()));
 
     }
 
@@ -154,9 +156,13 @@ public class LogListCustomAdapter extends RecyclerView.Adapter<LogListCustomAdap
 
     public final static class ViewHolder extends RecyclerView.ViewHolder {
 
+        TextView tv_title;
+        TextView tv_date;
 
         public ViewHolder(View v) {
             super(v);
+            tv_title = (TextView)v.findViewById(R.id.tv_title);
+            tv_date = (TextView)v.findViewById(R.id.tv_date);
         }
     }
 
