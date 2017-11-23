@@ -179,6 +179,7 @@
     <string name="log_add_symptom">%1$s님의 증상 관리에 %2$s 증상 추가</string>
     <string name="log_add_medicine">%1$s님의 복용약 관리에 %2$s 추가</string>
     <string name="log_add_record">%1$s님의 %2$s 기록 추가</string>
+    <string name="log_edit_patient_info">%1$s님의 신상 정보 수정 추가</string>
 
 
     <!-- Bluetooth String -->

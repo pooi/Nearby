@@ -37,8 +37,10 @@ import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
 import cf.nearby.nearby.nurse.EditMyInfoNurseActivity;
 import cf.nearby.nearby.nurse.NurseManageActivity;
+import cf.nearby.nearby.nurse.NurseRecordActivity;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.AdditionalFunc;
+import cf.nearby.nearby.util.LogManager;
 import cf.nearby.nearby.util.ParsePHP;
 
 public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
@@ -219,6 +221,7 @@ public class ManagePatientRegisterInfoActivity extends AppCompatActivity {
                         JSONObject jObj = new JSONObject(data);
                         String status = jObj.getString("status");
                         if("success".equals(status)){
+                            new LogManager(ManagePatientRegisterInfoActivity.this).buildEditPatientInfo(selectedPatient).record();
                             handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_SUCCESS));
 //                            finish();
                         }else{
