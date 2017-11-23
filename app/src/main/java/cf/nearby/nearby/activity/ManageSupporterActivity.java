@@ -35,6 +35,7 @@ import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.obj.PatientRemark;
 import cf.nearby.nearby.obj.Supporter;
 import cf.nearby.nearby.util.AdditionalFunc;
+import cf.nearby.nearby.util.LogManager;
 import cf.nearby.nearby.util.ParsePHP;
 
 public class ManageSupporterActivity extends BaseActivity {
@@ -235,6 +236,7 @@ public class ManageSupporterActivity extends BaseActivity {
                                     String status = jObj.getString("status");
 
                                     if("success".equals(status)){
+                                        new LogManager(ManageSupporterActivity.this).buildManageSupporterMsg(selectedPatient, supporters.get(index), false).record();
                                         handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_ADD_SUCCESS));
                                     }else{
                                         handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_ADD_FAIL));
@@ -256,7 +258,7 @@ public class ManageSupporterActivity extends BaseActivity {
 
     }
 
-    private void addNewSupporter(Supporter supporter, String relationship){
+    private void addNewSupporter(final Supporter supporter, String relationship){
 
         loading.show();
 
@@ -276,6 +278,7 @@ public class ManageSupporterActivity extends BaseActivity {
                     String status = jObj.getString("status");
 
                     if("success".equals(status)){
+                        new LogManager(ManageSupporterActivity.this).buildManageSupporterMsg(selectedPatient, supporter, true).record();
                         handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_ADD_SUCCESS));
                     }else{
                         handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_ADD_FAIL));

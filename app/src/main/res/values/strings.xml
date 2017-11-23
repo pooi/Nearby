@@ -180,6 +180,8 @@
     <string name="log_add_medicine">%1$s님의 복용약 관리에 %2$s 추가</string>
     <string name="log_add_record">%1$s님의 %2$s 기록 추가</string>
     <string name="log_edit_patient_info">%1$s님의 신상 정보 수정 추가</string>
+    <string name="log_add_supporter">%1$s님에게 보호자 %2$s님 추가</string>
+    <string name="log_remove_supporter">%1$s님의 보호자 %2$s님 삭제</string>
 
 
     <!-- Bluetooth String -->
