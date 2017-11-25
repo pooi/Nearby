@@ -432,12 +432,22 @@
 
 			$name = $_POST['name'];
 			$location_id = $_POST['location_id'];
+			$patient_id = $_POST['patient_id'];
 
 			$page = $_POST['page'];
 			$page = $page*30;
 
 			//$sql = "SELECT * FROM Patient WHERE location_id='$location_id'";
-			if($name == null || $name == ''){
+			if($patient_id != null && $patient_id != ''){
+				$sql = "SELECT A.*, B.name as location_name, B.pic as location_pic, B.director as location_director, B.capacity as location_capacity, B.major as location_major, B.construction_year as location_construction_year, B.phone as location_phone, B.url as location_url
+				FROM patient as A LEFT OUTER JOIN (
+				SELECT *
+				FROM location
+				GROUP BY id) as B
+				ON (B.id = A.location_id)
+				WHERE A.id like '$patient_id'
+				GROUP BY A.id";
+			}else if($name == null || $name == ''){
 				$sql = "SELECT A.*, B.name as location_name, B.pic as location_pic, B.director as location_director, B.capacity as location_capacity, B.major as location_major, B.construction_year as location_construction_year, B.phone as location_phone, B.url as location_url
 				FROM patient as A LEFT OUTER JOIN (
 				SELECT *

@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cf.nearby.nearby.util.AdditionalFunc;
@@ -12,7 +13,7 @@ import cf.nearby.nearby.util.AdditionalFunc;
  * Created by tw on 2017. 11. 19..
  */
 
-public class NearbyLog {
+public class NearbyLog implements Serializable{
 
     String id, locationId, employeeId, patientId, type, msg;
     Long registeredDate;

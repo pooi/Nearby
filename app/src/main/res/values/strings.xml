@@ -85,6 +85,9 @@
     <string name="nurse">간호사</string>
     <string name="yes">예</string>
     <string name="no">아니오</string>
+    <string name="patient">환자</string>
+    <string name="target_patient">대상 환자</string>
+    <string name="log_msg">로그 메시지</string>
 
 
     <!-- Menu -->

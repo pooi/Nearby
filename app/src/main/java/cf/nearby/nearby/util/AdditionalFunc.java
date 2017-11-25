@@ -134,6 +134,12 @@ public class AdditionalFunc {
 
     }
 
+    public static String getDateTimeString(long time){
+        Date currentDate = new Date(time);
+        DateFormat df = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초");
+        return df.format(currentDate);
+    }
+
     public static String getDateTimeSrtString(long time){
 
         Date currentDate = new Date(time);
