@@ -34,29 +34,34 @@ public class InquiryLogActivity extends BaseActivity {
     private final int MSG_MESSAGE_MAKE_MEDICINE_LIST = 501;
     private final int MSG_MESSAGE_MAKE_RECORD_LIST = 502;
     private final int MSG_MESSAGE_MAKE_WEIGHT_LIST = 503;
+    private final int MSG_MESSAGE_MAKE_SUPPORTER_LIST = 504;
 
     LinearLayout li_list;
     TableLayout tl_symptom;
     TableLayout tl_medicine;
     TableLayout tl_record;
     TableLayout tl_weight;
+    TableLayout tl_supporter;
 
     Button btn_detailSymptom;
     Button btn_detailMedicine;
     Button btn_detailRecord;
     Button btn_detailWeight;
+    Button btn_detailSupporter;
 
     String[] inquiryList = {
             "symptom",
             "medicine",
             "record",
-            "weight"
+            "weight",
+            "supporter"
     };
 
     private ArrayList<NearbyLog> symptomList;
     private ArrayList<NearbyLog> medicineList;
     private ArrayList<NearbyLog> recordList;
     private ArrayList<NearbyLog> weightList;
+    private ArrayList<NearbyLog> supporterList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,7 @@ public class InquiryLogActivity extends BaseActivity {
         medicineList = new ArrayList<>();
         recordList = new ArrayList<>();
         weightList = new ArrayList<>();
+        supporterList = new ArrayList<>();
 
         init();
 
@@ -93,6 +99,8 @@ public class InquiryLogActivity extends BaseActivity {
         tl_record.setTag(inquiryList[2]);
         tl_weight = (TableLayout)findViewById(R.id.tl_weight);
         tl_weight.setTag(inquiryList[3]);
+        tl_supporter = (TableLayout)findViewById(R.id.tl_supporter);
+        tl_supporter.setTag(inquiryList[4]);
 
         btn_detailSymptom = (Button)findViewById(R.id.btn_detail_symptom);
         btn_detailSymptom.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +135,15 @@ public class InquiryLogActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(InquiryLogActivity.this, LogDetailActivity.class);
                 intent.putExtra("type", "weight");
+                startActivity(intent);
+            }
+        });
+        btn_detailSupporter = (Button)findViewById(R.id.btn_detail_supporter);
+        btn_detailSupporter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InquiryLogActivity.this, LogDetailActivity.class);
+                intent.putExtra("type", "supporter");
                 startActivity(intent);
             }
         });
@@ -170,6 +187,10 @@ public class InquiryLogActivity extends BaseActivity {
                             weightList = NearbyLog.getLogList(data);
                             handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_MAKE_WEIGHT_LIST));
                             break;
+                        case "supporter":
+                            supporterList = NearbyLog.getLogList(data);
+                            handler.sendMessage(handler.obtainMessage(MSG_MESSAGE_MAKE_SUPPORTER_LIST));
+                            break;
                     }
 
                 }
@@ -203,6 +224,11 @@ public class InquiryLogActivity extends BaseActivity {
             case "weight": {
                 list = weightList;
                 tl = tl_weight;
+                break;
+            }
+            case "supporter": {
+                list = supporterList;
+                tl = tl_supporter;
                 break;
             }
         }
@@ -263,6 +289,9 @@ public class InquiryLogActivity extends BaseActivity {
                     break;
                 case MSG_MESSAGE_MAKE_WEIGHT_LIST:
                     makeList("weight");
+                    break;
+                case MSG_MESSAGE_MAKE_SUPPORTER_LIST:
+                    makeList("supporter");
                     break;
 //                case MSG_MESSAGE_MARK_FAIL:
 //                    new MaterialDialog.Builder(InquiryLogActivity.this)
