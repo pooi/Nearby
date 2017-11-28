@@ -3,14 +3,17 @@ package cf.nearby.nearby.activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.github.ppamorim.dragger.DraggerPosition;
@@ -48,7 +51,7 @@ public class LogDetailActivity extends BaseActivity implements OnAdapterSupport 
     private CardView cv_search;
 
     private int page = 0;
-    private String searchName;
+    private String searchMsg;
     private ArrayList<NearbyLog> tempList;
     private ArrayList<NearbyLog> list;
 
@@ -95,6 +98,14 @@ public class LogDetailActivity extends BaseActivity implements OnAdapterSupport 
         rv.setLayoutManager(mLinearLayoutManager);
 //        rv.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL_LIST));
 
+        cv_search = (CardView)findViewById(R.id.cv_search);
+        cv_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchLogMsg();
+            }
+        });
+
         loading = (AVLoadingIndicatorView)findViewById(R.id.loading);
         progressDialog = new MaterialDialog.Builder(this)
                 .content(R.string.please_wait)
@@ -102,6 +113,41 @@ public class LogDetailActivity extends BaseActivity implements OnAdapterSupport 
                 .progressIndeterminateStyle(true)
                 .theme(Theme.LIGHT)
                 .build();
+
+    }
+
+    private void searchLogMsg(){
+
+        new MaterialDialog.Builder(this)
+                .title(R.string.search_srt)
+                .inputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
+                        InputType.TYPE_TEXT_FLAG_CAP_WORDS)
+                .theme(Theme.LIGHT)
+                .positiveText(R.string.search_srt)
+                .negativeText(R.string.cancel)
+                .neutralText(R.string.reset)
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        searchMsg = "";
+                        initLoadValue();
+                        progressDialog.show();
+                        getLogList();
+                    }
+                })
+                .input(getResources().getString(R.string.please_input_patient_name), searchMsg, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        String search = input.toString();
+                        searchMsg = search;
+                        initLoadValue();
+                        progressDialog.show();
+                        getLogList();
+
+                    }
+                })
+                .show();
 
     }
 
@@ -121,6 +167,9 @@ public class LogDetailActivity extends BaseActivity implements OnAdapterSupport 
             map.put("type", type);
             map.put("location_id", StartActivity.employee.getLocation().getId());
             map.put("page", page + "");
+            if (searchMsg != null && (!"".equals(searchMsg))) {
+                map.put("msg", searchMsg);
+            }
 
             new ParsePHP(Information.MAIN_SERVER_ADDRESS, map) {
 

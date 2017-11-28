@@ -2102,10 +2102,16 @@
 			$start_date = $_POST['start_date'];
 			$finish_date = $_POST['finish_date'];
 
+			$msg = $_POST['msg'];
+
 			$page = $_POST['page'];
 			$page = $page*30;
 
 			$sql = "SELECT * FROM log WHERE type='$type' AND location_id='$location_id' AND (('$start_date' <= registered_date AND registered_date <= '$finish_date') OR '1' <> '$isDate') ";
+
+			if($msg != ''){
+				$sql = $sql." AND msg like '%$msg%'";
+			}
 
 			$sql = $sql." ORDER BY id DESC LIMIT $page, 30;";
 
