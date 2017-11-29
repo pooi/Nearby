@@ -88,6 +88,8 @@
     <string name="patient">환자</string>
     <string name="target_patient">대상 환자</string>
     <string name="log_msg">로그 메시지</string>
+    <string name="search_start_date">시작일</string>
+    <string name="search_finish_date">종료일</string>
 
 
     <!-- Menu -->
@@ -121,6 +123,7 @@
     <string name="my_patient">내 환자</string>
     <string name="related_nurse">연관 간호사</string>
     <string name="search_patient">환자 검색</string>
+    <string name="search_by_msg">메시지 검색</string>
 
     <string name="please_enter_id">아이디를 입력해주세요.</string>
     <string name="please_enter_pw">비밀번호를 입력해주세요.</string>
@@ -147,6 +150,7 @@
     <string name="please_input_supporter_name_or_id">보호자 이름 및 아이디를 입력하세요.</string>
     <string name="please_input_supporter_relationship">환자와의 관계를 입력해주세요.</string>
     <string name="please_input_patient_name">환자의 이름을 입력해주세요.</string>
+    <string name="Please_enter_your_search_term">검색어를 입력해주세요.</string>
 
     <string name="print_hello_msg">안녕하세요. %1$s님</string>
 

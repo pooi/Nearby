@@ -1,6 +1,7 @@
 package cf.nearby.nearby.activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -9,17 +10,24 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.github.ppamorim.dragger.DraggerPosition;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wang.avi.AVLoadingIndicatorView;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import cf.nearby.nearby.BaseActivity;
@@ -32,6 +40,7 @@ import cf.nearby.nearby.nurse.NurseManageDetailActivity;
 import cf.nearby.nearby.nurse.NurseRecordActivity;
 import cf.nearby.nearby.obj.NearbyLog;
 import cf.nearby.nearby.obj.Patient;
+import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.DividerItemDecoration;
 import cf.nearby.nearby.util.OnAdapterSupport;
 import cf.nearby.nearby.util.OnLoadMoreListener;
@@ -52,6 +61,11 @@ public class LogDetailActivity extends BaseActivity implements OnAdapterSupport 
 
     private int page = 0;
     private String searchMsg;
+    private Long searchStartDate;
+    private Long searchFinishDate;
+    private MaterialEditText form_msg;
+    private TextView btn_searchStartDate;
+    private TextView btn_searchFinishDate;
     private ArrayList<NearbyLog> tempList;
     private ArrayList<NearbyLog> list;
 
@@ -102,7 +116,7 @@ public class LogDetailActivity extends BaseActivity implements OnAdapterSupport 
         cv_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                searchLogMsg();
+                showSearchMenu();
             }
         });
 
@@ -154,6 +168,109 @@ public class LogDetailActivity extends BaseActivity implements OnAdapterSupport 
     private void initLoadValue(){
         page = 0;
         isLoadFinish = false;
+    }
+
+    private void showSearchMenu(){
+
+        MaterialDialog dialog =
+                new MaterialDialog.Builder(this)
+                        .title(R.string.search_srt)
+                        .customView(R.layout.search_log_custom_layout, true)
+                        .positiveText(R.string.search_srt)
+                        .negativeText(android.R.string.cancel)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                searchMsg = form_msg.getText().toString();
+                                initLoadValue();
+                                progressDialog.show();
+                                getLogList();
+                            }
+                        })
+                        .neutralText(R.string.reset)
+                        .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                searchMsg = "";
+                                searchStartDate = null;
+                                searchFinishDate = null;
+                                initLoadValue();
+                                progressDialog.show();
+                                getLogList();
+                            }
+                        })
+                        .cancelable(false)
+                        .build();
+
+//        positiveAction = dialog.getActionButton(DialogAction.POSITIVE);
+
+        form_msg = (MaterialEditText)dialog.getCustomView().findViewById(R.id.form_msg);
+        btn_searchStartDate = (TextView)dialog.getCustomView().findViewById(R.id.btn_start_date_select);
+        btn_searchFinishDate = (TextView)dialog.getCustomView().findViewById(R.id.btn_finish_date_select);
+
+        form_msg.setText(searchMsg);
+        if(searchStartDate != null){
+            setDateText(btn_searchStartDate, AdditionalFunc.getDateString(searchStartDate));
+        }
+        if(searchFinishDate != null){
+            setDateText(btn_searchFinishDate, AdditionalFunc.getDateString(searchFinishDate));
+        }
+        btn_searchStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                                searchStartDate = AdditionalFunc.getMilliseconds(year, monthOfYear+1, dayOfMonth);
+                                setDateText(btn_searchStartDate, AdditionalFunc.getDateString(searchStartDate));
+                            }
+                        },
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.setTitle(getString(R.string.search_start_date));
+                dpd.setVersion(DatePickerDialog.Version.VERSION_2);
+                dpd.show(getFragmentManager(), "Datepickerdialog");
+            }
+        });
+        btn_searchFinishDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                                searchFinishDate = AdditionalFunc.getMilliseconds(year, monthOfYear+1, dayOfMonth);
+                                setDateText(btn_searchFinishDate, AdditionalFunc.getDateString(searchFinishDate));
+                            }
+                        },
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.setTitle(getString(R.string.search_finish_date));
+                dpd.setVersion(DatePickerDialog.Version.VERSION_2);
+                dpd.show(getFragmentManager(), "Datepickerdialog");
+            }
+        });
+
+        dialog.show();
+//        positiveAction.setEnabled(false);
+
+
+    }
+
+
+    private void setDateText(TextView tv, String text){
+
+        tv.setText(text);
+        tv.setTextColor(getColorId(R.color.dark_gray));
+        tv.setTypeface(tv.getTypeface(), Typeface.NORMAL);
+
     }
 
     private void getLogList(){

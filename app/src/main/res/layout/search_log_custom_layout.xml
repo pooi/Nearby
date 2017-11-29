@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_by_msg"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/default_font_small_size" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/form_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/default_font_size"
+        android:textColor="@color/profile_content"
+        android:hint="@string/Please_enter_your_search_term"
+        app:met_primaryColor="@color/profile_content"
+        app:met_singleLineEllipsis="true"
+        />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_start_date"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/default_font_small_size" />
+
+
+    <TextView
+        android:id="@+id/btn_start_date_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/date_select"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/default_font_small_size"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_finish_date"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/default_font_small_size" />
+
+
+    <TextView
+        android:id="@+id/btn_finish_date_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/date_select"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/default_font_small_size"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        />
+
+
+</LinearLayout>
