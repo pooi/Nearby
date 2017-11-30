@@ -278,9 +278,18 @@ public class LogDetailActivity extends BaseActivity implements OnAdapterSupport 
             loading.show();
             HashMap<String, String> map = new HashMap<>();
             map.put("service", "inquiryLog");
-//            map.put("isDate", "1");
-//            map.put("start_date", Long.toString(date));
-//            map.put("finish_date", Long.toString(date+86400000));
+            if(searchStartDate != null){
+                map.put("isDate", "1");
+                map.put("start_date", searchStartDate.toString());
+                if(searchFinishDate != null)
+                    map.put("finish_date", (searchFinishDate + 86400000) + "");
+                else
+                    map.put("finish_date", (AdditionalFunc.getTodayMilliseconds() + 86400000) + "");
+            }else if(searchFinishDate != null){
+                map.put("isDate", "1");
+                map.put("start_date", AdditionalFunc.getMilliseconds(1950, 1, 1) + "");
+                map.put("finish_date", (searchFinishDate + 86400000) + "");
+            }
             map.put("type", type);
             map.put("location_id", StartActivity.employee.getLocation().getId());
             map.put("page", page + "");
