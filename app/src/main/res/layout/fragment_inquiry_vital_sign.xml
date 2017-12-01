@@ -81,21 +81,25 @@
 
             </android.support.v7.widget.CardView>
 
+            <android.support.v7.widget.RecyclerView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/tv_title"
+                android:id="@+id/rv"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="275dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                >
+            </android.support.v7.widget.RecyclerView>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/cv_graph"
                 >
-
-                <android.support.v7.widget.RecyclerView
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:id="@+id/rv"
-                    android:padding="5dp"
-                    android:clipToPadding="false"
-                    android:clipChildren="false"
-                    >
-                </android.support.v7.widget.RecyclerView>
 
                 <com.wang.avi.AVLoadingIndicatorView
                     android:id="@+id/loading"

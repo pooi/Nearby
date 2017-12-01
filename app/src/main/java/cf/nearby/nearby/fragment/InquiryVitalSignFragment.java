@@ -373,10 +373,14 @@ public class InquiryVitalSignFragment extends BaseFragment implements OnAdapterS
     @Override
     public void showView() {
 //        toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
+        cv_graph.setVisibility(View.VISIBLE);
+        setFadeInAnimation(cv_graph);
     }
 
     @Override
     public void hideView() {
+        cv_graph.setVisibility(View.GONE);
+        setFadeOutAnimation(cv_graph);
 //        toolbar.animate().translationY(-toolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2));
     }
 
