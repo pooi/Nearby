@@ -29,6 +29,7 @@ import java.util.HashMap;
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
+import cf.nearby.nearby.StartActivity;
 import cf.nearby.nearby.obj.MedicineDetail;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.AdditionalFunc;
@@ -132,6 +133,57 @@ public class PatientDetailActivity extends BaseActivity implements ObservableScr
 
         li_detail = (LinearLayout)findViewById(R.id.li_detail);
 //        makeDetailInfo();
+
+        findViewById(R.id.cv_manage_symptom).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ManageSymptomActivity.class);
+                intent.putExtra("patient", selectedPatient);
+                if(StartActivity.isEmployeeLogin && StartActivity.employee != null && !"nurse".equals(StartActivity.employee.getRole())){
+                    intent.putExtra("isSupporter", true);
+                }
+                startActivity(intent);
+            }
+        });
+        findViewById(R.id.cv_manage_medicine).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), ManageMedicineActivity.class);
+                intent.putExtra("patient", selectedPatient);
+                if(StartActivity.isEmployeeLogin && StartActivity.employee != null && !"nurse".equals(StartActivity.employee.getRole())){
+                    intent.putExtra("isSupporter", true);
+                }
+                startActivity(intent);
+
+            }
+        });
+        findViewById(R.id.cv_manage_weight).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), ManageWeightActivity.class);
+                intent.putExtra("patient", selectedPatient);
+                if(StartActivity.isEmployeeLogin && StartActivity.employee != null && !"nurse".equals(StartActivity.employee.getRole())){
+                    intent.putExtra("isSupporter", true);
+                }
+                startActivity(intent);
+
+            }
+        });
+        findViewById(R.id.cv_inquiry).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), InquiryMainActivity.class);
+                intent.putExtra("patient", selectedPatient);
+                if(StartActivity.isEmployeeLogin && StartActivity.employee != null && !"nurse".equals(StartActivity.employee.getRole())){
+                    intent.putExtra("isSupporter", true);
+                }
+                startActivity(intent);
+
+            }
+        });
 
     }
 

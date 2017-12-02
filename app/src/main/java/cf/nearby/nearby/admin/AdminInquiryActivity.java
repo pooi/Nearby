@@ -40,7 +40,7 @@ public class AdminInquiryActivity extends BaseActivity implements Serializable {
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), SearchPatientActivity.class);
-//                intent.putExtra("nextActivity", Information.NURSE_MANAGE_MENU);
+                intent.putExtra("nextActivity", Information.INQUIRY_PATIENT_DETAIL);
                 startActivity(intent);
 
             }

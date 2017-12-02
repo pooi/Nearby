@@ -286,6 +286,9 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
             case Information.INQUIRY_MAIN_MENU:{
                 Intent intent = new Intent(SearchPatientActivity.this, InquiryMainActivity.class);
                 intent.putExtra("patient", patient);
+                if(StartActivity.isEmployeeLogin && StartActivity.employee != null && !"nurse".equals(StartActivity.employee.getRole())){
+                    intent.putExtra("isSupporter", true);
+                }
                 startActivity(intent);
                 break;
             }
