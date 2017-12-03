@@ -2,6 +2,10 @@
 <p align=center>요양원 전자정보 기록 및 조회 시스템</p>
 <br>
 
+## Overview
+Nursing home electronic information recording and retrieval system. The system aims to provide the nursing home with more information and improved services for caregivers.
+<br><br>
+
 ## Feature
 ><a href="https://drive.google.com/open?id=0B67FssKXYIKQNHVpYVNfRUFVelE">제안서</a>
 
@@ -10,11 +14,21 @@
 
 핵심목표
 <ul>
-  <li>Anywhere - 제약 없는 확인</li>
+  <li>Anywhere - 제약 없는 확인</li>
   <li>Electronic - 전자식 기록</li>
   <li>Compatible - 태블릿을 활용한 맞춤형 시스템</li>
   <li>Convenient - 버튼식 UI</li>
   <li>Transparency & Automatic - 블루투스 기기를 이용한 Vital Sign 측정과 자동 업로드</li>
+</ul>
+
+<hr>
+We are based on five visions.
+<ul>
+  <li>Anywhere - Allows the caregivers to check the patient's records anytime and anywhere via the Internet.</li>
+  <li>Electronic - Change recording system from handwriting to electronic.</li>
+  <li>Compatible - Adopt a tablet that guarantees a user experience similar to charting through the handwriting.</li>
+  <li>Convenient - Provide a convenient environment for recording using a button-type UI.</li>
+  <li>Transparency - Record through Bluetooth device to prevent missing and distorted recording.</li>
 </ul>
 
 <br>
@@ -39,12 +53,6 @@
 <br>
 
 ## Screenshot
-
-<br>
-<br>
-
-
-## Used OSS
 
 <br>
 <br>
