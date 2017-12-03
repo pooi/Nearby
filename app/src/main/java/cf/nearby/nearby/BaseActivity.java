@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -61,6 +63,14 @@ public class BaseActivity extends AppCompatActivity {
         Animation animation = new AlphaAnimation(1, 0);
         animation.setDuration(500);
         view.setAnimation(animation);
+    }
+
+    public void setDateText(TextView tv, String text){
+
+        tv.setText(text);
+        tv.setTextColor(getColorId(R.color.dark_gray));
+        tv.setTypeface(tv.getTypeface(), Typeface.NORMAL);
+
     }
 
     public void redirectStartPage(){

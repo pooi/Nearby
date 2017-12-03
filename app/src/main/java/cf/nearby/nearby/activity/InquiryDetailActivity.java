@@ -4,15 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wang.avi.AVLoadingIndicatorView;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import cf.nearby.nearby.BaseActivity;
@@ -24,6 +29,7 @@ import cf.nearby.nearby.obj.MainRecord;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.obj.PatientRemark;
 import cf.nearby.nearby.obj.TakeMedicine;
+import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.DividerItemDecoration;
 import cf.nearby.nearby.util.OnAdapterSupport;
 import cf.nearby.nearby.util.OnLoadMoreListener;
@@ -51,8 +57,14 @@ public class InquiryDetailActivity extends BaseActivity implements OnAdapterSupp
     private AVLoadingIndicatorView loading;
 
     private int page = 0;
+    private Long searchStartDate;
+    private Long searchFinishDate;
     private ArrayList<MainRecord> tempList;
     private ArrayList<MainRecord> list;
+
+    // Search
+    private TextView btn_searchStartDate;
+    private TextView btn_searchFinishDate;
 
     // Recycle View
     private RecyclerView rv;
@@ -97,12 +109,117 @@ public class InquiryDetailActivity extends BaseActivity implements OnAdapterSupp
 
         loading = (AVLoadingIndicatorView)findViewById(R.id.loading);
 
+        findViewById(R.id.cv_search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSearchMenu();
+            }
+        });
+
     }
 
     private void initLoadValue(){
         page = 0;
         isLoadFinish = false;
     }
+
+    private void showSearchMenu(){
+
+        MaterialDialog dialog =
+                new MaterialDialog.Builder(this)
+                        .title(R.string.search_srt)
+                        .customView(R.layout.search_log_custom_layout, true)
+                        .positiveText(R.string.search_srt)
+                        .negativeText(android.R.string.cancel)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                                search = form_msg.getText().toString();
+                                initLoadValue();
+//                                progressDialog.show();
+                                getPatientMedicineList();
+                            }
+                        })
+                        .neutralText(R.string.reset)
+                        .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                                search = "";
+                                searchStartDate = null;
+                                searchFinishDate = null;
+                                initLoadValue();
+//                                progressDialog.show();
+                                getPatientMedicineList();
+                            }
+                        })
+                        .cancelable(false)
+                        .build();
+
+//        positiveAction = dialog.getActionButton(DialogAction.POSITIVE);
+
+        dialog.getCustomView().findViewById(R.id.tv_msg).setVisibility(View.GONE);
+        dialog.getCustomView().findViewById(R.id.form_msg).setVisibility(View.GONE);
+//        form_msg = (MaterialEditText)dialog.getCustomView().findViewById(R.id.form_msg);
+        btn_searchStartDate = (TextView)dialog.getCustomView().findViewById(R.id.btn_start_date_select);
+        btn_searchFinishDate = (TextView)dialog.getCustomView().findViewById(R.id.btn_finish_date_select);
+
+//        form_msg.setText(searchMsg);
+        if(searchStartDate != null){
+            setDateText(btn_searchStartDate, AdditionalFunc.getDateString(searchStartDate));
+        }
+        if(searchFinishDate != null){
+            setDateText(btn_searchFinishDate, AdditionalFunc.getDateString(searchFinishDate));
+        }
+        btn_searchStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                                searchStartDate = AdditionalFunc.getMilliseconds(year, monthOfYear+1, dayOfMonth);
+                                setDateText(btn_searchStartDate, AdditionalFunc.getDateString(searchStartDate));
+                            }
+                        },
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.setTitle(getString(R.string.search_start_date));
+                dpd.setVersion(DatePickerDialog.Version.VERSION_2);
+                dpd.show(getFragmentManager(), "Datepickerdialog");
+            }
+        });
+        btn_searchFinishDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                                searchFinishDate = AdditionalFunc.getMilliseconds(year, monthOfYear+1, dayOfMonth);
+                                setDateText(btn_searchFinishDate, AdditionalFunc.getDateString(searchFinishDate));
+                            }
+                        },
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.setTitle(getString(R.string.search_finish_date));
+                dpd.setVersion(DatePickerDialog.Version.VERSION_2);
+                dpd.show(getFragmentManager(), "Datepickerdialog");
+            }
+        });
+
+        dialog.show();
+//        positiveAction.setEnabled(false);
+
+
+    }
+
+
 
     private void getPatientMedicineList(){
 
@@ -121,6 +238,18 @@ public class InquiryDetailActivity extends BaseActivity implements OnAdapterSupp
                     break;
             }
             map.put("patient_id", selectedPatient.getId());
+            if(searchStartDate != null){
+                map.put("isDate", "1");
+                map.put("start_date", searchStartDate.toString());
+                if(searchFinishDate != null)
+                    map.put("finish_date", (searchFinishDate + 86400000) + "");
+                else
+                    map.put("finish_date", (AdditionalFunc.getTodayMilliseconds() + 86400000) + "");
+            }else if(searchFinishDate != null){
+                map.put("isDate", "1");
+                map.put("start_date", AdditionalFunc.getMilliseconds(1950, 1, 1) + "");
+                map.put("finish_date", (searchFinishDate + 86400000) + "");
+            }
             map.put("page", Integer.toString(page));
 
             new ParsePHP(Information.MAIN_SERVER_ADDRESS, map) {

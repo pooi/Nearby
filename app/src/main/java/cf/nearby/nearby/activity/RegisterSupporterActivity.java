@@ -22,13 +22,14 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
 import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.ParsePHP;
 
-public class RegisterSupporterActivity extends AppCompatActivity {
+public class RegisterSupporterActivity extends BaseActivity {
     private String nextActivity;
     private int b;
 
@@ -279,14 +280,6 @@ public class RegisterSupporterActivity extends AppCompatActivity {
         dpd.setTitle(getString(R.string.dob));
         dpd.setVersion(DatePickerDialog.Version.VERSION_2);
         dpd.show(getFragmentManager(), "Datepickerdialog");
-    }
-
-    private void setDateText(TextView tv, String text){
-
-        tv.setText(text);
-        tv.setTextColor(getColorId(R.color.dark_gray));
-        tv.setTypeface(tv.getTypeface(), Typeface.NORMAL);
-
     }
 
     public int getColorId(int id){

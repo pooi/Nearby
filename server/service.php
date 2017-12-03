@@ -1528,9 +1528,10 @@
 						WHERE A.patient_id='$patient_id'
 						GROUP BY A.id";
 
-				$sql = $sql." LIMIT $page, 30;";
 
 			}
+
+			$sql = $sql." LIMIT $page, 30;";
 
 			$ret = mysqli_query($con, $sql);
             if($ret){
@@ -1595,12 +1596,12 @@
 			$page = $page*30;
 
 			if($isDate == '1'){
-				$sql = "SELECT * FROM have_meal WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
+				$sql = "SELECT * FROM have_meal WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date')";
 			}else{
 				$sql = "SELECT * FROM have_meal WHERE patient_id='$patient_id'";
-
-				$sql = $sql." LIMIT $page, 30;";
 			}
+			
+			$sql = $sql." LIMIT $page, 30;";
 
 
 			$ret = mysqli_query($con, $sql);
@@ -1651,12 +1652,12 @@
 			$page = $page*30;
 
 			if($isDate == '1'){
-				$sql = "SELECT * FROM remarks WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
+				$sql = "SELECT * FROM remarks WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date')";
 			}else{
 				$sql = "SELECT * FROM remarks WHERE patient_id='$patient_id'";
 
-				$sql = $sql." LIMIT $page, 30;";
 			}
+			$sql = $sql." LIMIT $page, 30;";
 
 
 			$ret = mysqli_query($con, $sql);
@@ -1708,7 +1709,7 @@
 			$page = $page*30;
 
 			if($isDate == '1'){
-				$sql = "SELECT id, main_record_id, patient_id, pulse, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
+				$sql = "SELECT id, main_record_id, patient_id, pulse, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date')";
 				// if($type == 'pulse'){
 				// 	$sql = "SELECT id, main_record_id, patient_id, pulse, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND pulse != '0' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
 				// }else if($type == 'temperature'){
@@ -1725,8 +1726,8 @@
 					$sql = "SELECT id, main_record_id, patient_id, blood_pressure_max, blood_pressure_min, registered_date FROM vital_sign WHERE patient_id='$patient_id' AND (blood_pressure_min != '0' AND blood_pressure_max != '0')";
 				}
 
-				$sql = $sql." LIMIT $page, 30;";
 			}
+			$sql = $sql." LIMIT $page, 30;";
 
 
 			$ret = mysqli_query($con, $sql);
@@ -1781,12 +1782,12 @@
 			$page = $page*30;
 
 			if($isDate == '1'){
-				$sql = "SELECT * FROM patient_photo WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date');";
+				$sql = "SELECT * FROM patient_photo WHERE patient_id='$patient_id' AND ('$start_date' <= registered_date AND registered_date <= '$finish_date')";
 			}else{
 				$sql = "SELECT * FROM patient_photo WHERE patient_id='$patient_id'";
 
-				$sql = $sql." LIMIT $page, 30;";
 			}
+			$sql = $sql." LIMIT $page, 30;";
 
 
 			$ret = mysqli_query($con, $sql);

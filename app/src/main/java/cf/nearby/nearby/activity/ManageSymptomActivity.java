@@ -312,14 +312,6 @@ public class ManageSymptomActivity extends BaseActivity implements OnAdapterSupp
 
     }
 
-    private void setDateText(TextView tv, String text){
-
-        tv.setText(text);
-        tv.setTextColor(getColorId(R.color.dark_gray));
-        tv.setTypeface(tv.getTypeface(), Typeface.NORMAL);
-
-    }
-
     private void initLoadValue(){
         page = 0;
         isLoadFinish = false;

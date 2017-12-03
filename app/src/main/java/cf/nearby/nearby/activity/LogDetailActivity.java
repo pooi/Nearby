@@ -264,15 +264,6 @@ public class LogDetailActivity extends BaseActivity implements OnAdapterSupport 
 
     }
 
-
-    private void setDateText(TextView tv, String text){
-
-        tv.setText(text);
-        tv.setTextColor(getColorId(R.color.dark_gray));
-        tv.setTypeface(tv.getTypeface(), Typeface.NORMAL);
-
-    }
-
     private void getLogList(){
         if(!isLoadFinish) {
             loading.show();
