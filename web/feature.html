@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>nearby</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">-->
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/creative.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top"><img id="navbar_logo" src="./img/logo_white.png" height="20"> </a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#record">기록</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#manage">관리</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#inquiry">조회</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#register">등록</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="masthead">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading"><img src="./img/logo_white.png" width="50%"> </h1>
+                <hr>
+                <p>요양원 전자정보 기록 및 조회 시스템<br>기능 소개</p>
+                <a class="btn btn-primary btn-xl js-scroll-trigger" href="#user">Show Detail</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">사용자</h2>
+                    <hr class="primary">
+                    <!--<p>nearby의 사용자는 크게 3명입니다.</p>-->
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-2 col-md-4 text-center">
+                    <div class="service-box">
+                        <!--<i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>-->
+                        <img src="./img/nurse.png" class="sr-icons" width="100">
+                        <h3 style="margin-top: 20px;">간호사</h3>
+                        <!--<p class="text-muted">수기 작성 환경과 유사한<br>태블릿에 최적화된 UI·UX 개발</p>-->
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 text-center">
+                    <div class="service-box">
+                        <!--<i class="fa fa-4x fa-heart text-primary sr-icons"></i>-->
+                        <img src="./img/supporter.png" class="sr-icons" width="100">
+                        <h3 style="margin-top: 20px;">보호자</h3>
+                        <!--<p class="text-muted">고령의 간호사도 사용할 수 있는<br>직관적이고 단순한 버튼식 UI개발</p>-->
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 text-center">
+                    <div class="service-box">
+                        <!--<i class="fa fa-4x fa-heart text-primary sr-icons"></i>-->
+                        <img src="./img/administrator.png" class="sr-icons" width="100">
+                        <h3 style="margin-top: 20px;">관리자</h3>
+                        <!--<p class="text-muted">BLE기기를 통해 의료기록을<br>곧바로 업로드해 투명성 확보</p>-->
+                    </div>
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="main_menu" style="padding: 50px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/main_menu.png" class="sr-icons" width="100%">
+                </div>
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-text-left section-heading"><b>제목</b></h2>
+                    <p class=" section-text-left text-faded" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="record">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">기록</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="record_main" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/record_main.png" class="sr-icons" width="100%">
+                </div>
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-left"><b>제목</b></h2>
+                    <p class="text-faded section-text-left" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="record_pulse" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-right"><b>제목</b></h2>
+                    <p class="text-faded section-text-right" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/record_pulse.png" class="sr-icons" width="100%">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="record_medicine" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/record_medicine.png" class="sr-icons" width="100%">
+                </div>
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-left"><b>제목</b></h2>
+                    <p class="text-faded section-text-left" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="record_meal" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-right"><b>제목</b></h2>
+                    <p class="text-faded section-text-right" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/record_meal.png" class="sr-icons" width="100%">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="record_remark" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/record_remark.png" class="sr-icons" width="100%">
+                </div>
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-left"><b>제목</b></h2>
+                    <p class="text-faded section-text-left" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="record_photo" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-right"><b>제목</b></h2>
+                    <p class="text-faded section-text-right" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/record_photo.png" class="sr-icons" width="100%">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 관리 -->
+
+    <section id="manage">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">관리</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="manage_main" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/manage_main.png" class="sr-icons" width="100%">
+                </div>
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-left"><b>제목</b></h2>
+                    <p class="text-faded section-text-left" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="manage_symptom" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-right"><b>제목</b></h2>
+                    <p class="text-faded section-text-right" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/manage_symptom.png" class="sr-icons" width="100%">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="manage_medicine" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/manage_medicine.png" class="sr-icons" width="100%">
+                </div>
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-left"><b>제목</b></h2>
+                    <p class="text-faded section-text-left" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="manage_weight" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-right"><b>제목</b></h2>
+                    <p class="text-faded section-text-right" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/manage_weight.png" class="sr-icons" width="100%">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 조회 -->
+
+    <section id="inquiry">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">조회</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="inquiry_main" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/inquiry_main.png" class="sr-icons" width="100%">
+                </div>
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-left"><b>제목</b></h2>
+                    <p class="text-faded section-text-left" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row no-gutter popup-gallery">
+                <div class="col-lg-2 col-sm-6">
+                    <a class="portfolio-box" href="img/screenshot/inquiry_pulse_no_frame.png">
+                        <img class="img-fluid sr-icons" src="img/screenshot/inquiry_pulse.png" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    Vital Sign
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <a class="portfolio-box" href="img/screenshot/inquiry_medicine_no_frame.png">
+                        <img class="img-fluid sr-icons" src="img/screenshot/inquiry_medicine.png" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    약 복용 여부
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <a class="portfolio-box" href="img/screenshot/inquiry_meal_no_frame.png">
+                        <img class="img-fluid sr-icons" src="img/screenshot/inquiry_meal.png" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    식사 여부
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <a class="portfolio-box" href="img/screenshot/inquiry_remark_no_frame.png">
+                        <img class="img-fluid sr-icons" src="img/screenshot/inquiry_remark.png" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    특이사항
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <a class="portfolio-box" href="img/screenshot/inquiry_photo_no_frame.png">
+                        <img class="img-fluid sr-icons" src="img/screenshot/inquiry_photo.png" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    사진
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <a class="portfolio-box" href="img/screenshot/inquiry_nurse_no_frame.png">
+                        <img class="img-fluid sr-icons" src="img/screenshot/inquiry_nurse.png" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    연관 간호사
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="inquiry_date_main" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-right"><b>제목</b></h2>
+                    <p class="text-faded section-text-right" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/inquiry_date_menu.png" class="sr-icons" width="100%">
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row no-gutter popup-gallery">
+                <div class="col-lg-5"></div>
+                <div class="col-lg-2 col-sm-6">
+                    <a class="portfolio-box" href="img/screenshot/inquiry_date_detail_no_frame.png">
+                        <img class="img-fluid sr-icons" src="img/screenshot/inquiry_date_detail.png" alt="">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-category text-faded">
+                                    일자별 조회
+                                </div>
+                                <div class="project-name">
+                                    Project Name
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-5"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="inquiry_medicine_detail" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/inquiry_medicine_detail.png" class="sr-icons" width="100%">
+                </div>
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-left"><b>제목</b></h2>
+                    <p class="text-faded section-text-left" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="medicine_info" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-right"><b>제목</b></h2>
+                    <p class="text-faded section-text-right" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/medicine_info.png" class="sr-icons" width="100%">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 등록 -->
+
+    <section id="register">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">등록</h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary" id="manage_supporter" style="padding: 30px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="./img/screenshot/manage_supporter.png" class="sr-icons" width="100%">
+                </div>
+                <div class="col-lg-8" style="margin: auto">
+                    <h2 class="section-heading text-white section-text-left"><b>제목</b></h2>
+                    <p class="text-faded section-text-left" style="color: rgba(255, 255, 255, 0.7);">그들은 내려온 생명을 사랑의 튼튼하며, 넣는 그것을 우는 부패뿐이다. 황금시대의 오직 목숨이 것은 천하를 수 인간에 것이다. 그들의 싸인 수 천자만홍이 가지에 풍부하게 온갖 그들은 보라. 밝은 그들에게 위하여서 창공에 위하여 영원히 피어나는 말이다. 위하여서, 방황하였으며, 맺어, 평화스러운 가치를 위하여서. 가진 튼튼하며, 아니한 교향악이다. 부패를 기관과 방황하였으며, 바로 가장 사막이다.</p>
+                    <!--<a class="btn btn-default btn-xl js-scroll-trigger" href="#vision">Get Started!</a>-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="call-to-action bg-dark">
+        <div class="container text-center">
+            <h2>Download Source Code at Github!</h2>
+            <a class="btn btn-default btn-xl sr-button" href="https://github.com/pooi/Nearby">Download Now!</a>
+        </div>
+    </div>
+
+    <!--<section id="contact">-->
+        <!--<div class="container">-->
+            <!--<div class="row">-->
+                <!--<div class="col-lg-8 mx-auto text-center">-->
+                    <!--<h2 class="section-heading">Let's Get In Touch!</h2>-->
+                    <!--<hr class="primary">-->
+                    <!--<p>Ready to start your next project with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!</p>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="col-lg-4 ml-auto text-center">-->
+                    <!--<i class="fa fa-phone fa-3x sr-contact"></i>-->
+                    <!--<p>123-456-6789</p>-->
+                <!--</div>-->
+                <!--<div class="col-lg-4 mr-auto text-center">-->
+                    <!--<i class="fa fa-envelope-o fa-3x sr-contact"></i>-->
+                    <!--<p>-->
+                        <!--<a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a>-->
+                    <!--</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</section>-->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.js"></script>
+
+</body>
+
+</html>
