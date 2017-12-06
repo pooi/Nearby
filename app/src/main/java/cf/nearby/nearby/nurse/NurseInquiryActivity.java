@@ -5,11 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.activity.SearchPatientActivity;
 
-public class NurseInquiryActivity extends AppCompatActivity {
+public class NurseInquiryActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class NurseInquiryActivity extends AppCompatActivity {
 
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_inquiry_location_patient));
 
         findViewById(R.id.cv_inquiry_patient_record).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +51,7 @@ public class NurseInquiryActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_inquiry_patient_record));
 
     }
 }

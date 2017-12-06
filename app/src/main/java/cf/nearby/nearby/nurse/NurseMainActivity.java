@@ -7,9 +7,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +37,8 @@ public class NurseMainActivity extends BaseActivity {
         init();
     }
 
+
+
     private void init(){
 
         logoutBtn = (Button)findViewById(R.id.btn_logout);
@@ -48,6 +52,8 @@ public class NurseMainActivity extends BaseActivity {
         showSnackbar(String.format(getString(R.string.print_hello_msg), StartActivity.employee.getName()));
 
 
+
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_record));
         findViewById(R.id.cv_record).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +62,7 @@ public class NurseMainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_register));
         findViewById(R.id.cv_register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +70,7 @@ public class NurseMainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_inquiry));
         findViewById(R.id.cv_inquiry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +78,7 @@ public class NurseMainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_manage));
         findViewById(R.id.cv_manage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
