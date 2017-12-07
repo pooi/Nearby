@@ -95,6 +95,7 @@ public class CameraActivity extends BaseActivity{
         });
 
         cameraView = (CameraView)findViewById(R.id.cameraView);
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_take_photo));
         cv_takePhoto = (CardView) findViewById(R.id.cv_take_photo);
         tv_takePhoto = (TextView)findViewById(R.id.tv_take_photo);
         img = (ImageView)findViewById(R.id.img);

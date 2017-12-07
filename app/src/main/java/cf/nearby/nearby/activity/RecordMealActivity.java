@@ -54,6 +54,7 @@ public class RecordMealActivity extends BaseActivity {
             }
         });
 
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_nursing_home));
         cv_nursingHome = (CardView)findViewById(R.id.cv_nursing_home);
         cv_nursingHome.setTag("nursing_home");
         cv_nursingHome.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +64,7 @@ public class RecordMealActivity extends BaseActivity {
                 record(tag);
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_water_gruel));
         cv_waterGruel = (CardView)findViewById(R.id.cv_water_gruel);
         cv_waterGruel.setTag("water_gruel");
         cv_waterGruel.setOnClickListener(new View.OnClickListener() {

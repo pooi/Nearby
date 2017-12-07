@@ -165,6 +165,7 @@ public class RecordVitalSignActivity extends BaseActivity {
 //        saveBtn.setVisibility(View.GONE);
 
         rl_menu = (RelativeLayout)findViewById(R.id.rl_menu);
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_temperature));
         cv_temperature = (CardView)findViewById(R.id.cv_temperature);
         cv_temperature.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +173,7 @@ public class RecordVitalSignActivity extends BaseActivity {
                 measurementTemperature();
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_pulse));
         cv_pulse = (CardView)findViewById(R.id.cv_pulse);
         cv_pulse.setOnClickListener(new View.OnClickListener() {
             @Override

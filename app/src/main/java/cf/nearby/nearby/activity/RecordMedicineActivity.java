@@ -137,6 +137,7 @@ public class RecordMedicineActivity extends BaseActivity implements OnAdapterSup
                 .build();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_etc));
         etcBtn = (CardView)findViewById(R.id.cv_etc);
         etcBtn.setOnClickListener(new View.OnClickListener() {
             @Override

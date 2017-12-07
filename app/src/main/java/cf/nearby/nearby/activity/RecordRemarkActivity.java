@@ -89,6 +89,7 @@ public class RecordRemarkActivity extends BaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         li_symptom = (LinearLayout)findViewById(R.id.li_symptom);
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_add_list));
         cv_addList = (CardView)findViewById(R.id.cv_add_list);
         cv_addList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +99,7 @@ public class RecordRemarkActivity extends BaseActivity {
                 startActivityForResult(intent, UPDATE_LIST);
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_add_custom));
         cv_addCustom = (CardView)findViewById(R.id.cv_add_custom);
         cv_addCustom.setOnClickListener(new View.OnClickListener() {
             @Override

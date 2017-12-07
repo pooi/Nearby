@@ -97,6 +97,7 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
         tv_msg = (TextView)findViewById(R.id.tv_msg);
         tv_msg.setVisibility(View.GONE);
 
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_search));
         cv_search = (CardView)findViewById(R.id.cv_search);
         cv_search.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -328,6 +328,7 @@ public class NurseRecordActivity extends BaseActivity {
         });
 
         // Menu Buttons
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_record_vital_sign));
         findViewById(R.id.cv_record_vital_sign).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -336,6 +337,7 @@ public class NurseRecordActivity extends BaseActivity {
                 startActivityForResult(intent, UPDATE_VITAL);
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_record_patient_medicine));
         findViewById(R.id.cv_record_patient_medicine).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -346,6 +348,7 @@ public class NurseRecordActivity extends BaseActivity {
                 startActivityForResult(intent, UPDATE_MEDICINE);
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_record_patient_meal));
         findViewById(R.id.cv_record_patient_meal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -354,6 +357,7 @@ public class NurseRecordActivity extends BaseActivity {
                 startActivityForResult(intent, UPDATE_MEAL);
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_record_remark));
         findViewById(R.id.cv_record_remark).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -363,6 +367,7 @@ public class NurseRecordActivity extends BaseActivity {
                 startActivityForResult(intent, UPDATE_REMARK);
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_record_photo));
         findViewById(R.id.cv_record_photo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

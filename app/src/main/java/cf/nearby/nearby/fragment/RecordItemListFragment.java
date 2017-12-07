@@ -59,6 +59,7 @@ public class RecordItemListFragment extends BaseFragment {
                 context.startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(view.findViewById(R.id.cv_inquiry_vital_sign));
         view.findViewById(R.id.cv_inquiry_patient_medicine).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,6 +69,7 @@ public class RecordItemListFragment extends BaseFragment {
                 context.startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(view.findViewById(R.id.cv_inquiry_patient_medicine));
         view.findViewById(R.id.cv_inquiry_patient_meal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +79,7 @@ public class RecordItemListFragment extends BaseFragment {
                 context.startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(view.findViewById(R.id.cv_inquiry_patient_meal));
         view.findViewById(R.id.cv_inquiry_remark).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,6 +89,7 @@ public class RecordItemListFragment extends BaseFragment {
                 context.startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(view.findViewById(R.id.cv_inquiry_remark));
         view.findViewById(R.id.cv_inquiry_photo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,6 +98,7 @@ public class RecordItemListFragment extends BaseFragment {
                 context.startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(view.findViewById(R.id.cv_inquiry_photo));
         view.findViewById(R.id.cv_inquiry_nurse).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +107,7 @@ public class RecordItemListFragment extends BaseFragment {
                 context.startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(view.findViewById(R.id.cv_inquiry_nurse));
 
 
     }

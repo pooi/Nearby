@@ -109,6 +109,7 @@ public class InquiryDetailActivity extends BaseActivity implements OnAdapterSupp
 
         loading = (AVLoadingIndicatorView)findViewById(R.id.loading);
 
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_search));
         findViewById(R.id.cv_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
