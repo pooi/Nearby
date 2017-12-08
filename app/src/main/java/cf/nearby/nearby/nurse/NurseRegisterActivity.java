@@ -30,6 +30,7 @@ public class NurseRegisterActivity extends BaseActivity {
             }
         });
 
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_register_patient));
         findViewById(R.id.cv_register_patient).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,6 +40,7 @@ public class NurseRegisterActivity extends BaseActivity {
             }
         });
 
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_register_supporter));
         findViewById(R.id.cv_register_supporter).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,6 +49,7 @@ public class NurseRegisterActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
 
 //        findViewById(R.id.monthly_event_register).setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -90,6 +90,7 @@ public class ManageSupporterActivity extends BaseActivity {
                 addSupporter();
             }
         });
+        setCardButtonOnTouchAnimation(addSupporterBtn);
 
         tv_msg = (TextView)findViewById(R.id.tv_msg);
         tv_msg.setVisibility(View.GONE);

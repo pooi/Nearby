@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.activity.ManageMedicineActivity;
@@ -18,7 +19,7 @@ import cf.nearby.nearby.activity.ManageWeightActivity;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.AdditionalFunc;
 
-public class NurseManageDetailActivity extends AppCompatActivity {
+public class NurseManageDetailActivity extends BaseActivity {
 
     private Button backBtn;
 
@@ -44,6 +45,7 @@ public class NurseManageDetailActivity extends AppCompatActivity {
             }
         });
 
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_manage_symptom));
         findViewById(R.id.cv_manage_symptom).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +54,7 @@ public class NurseManageDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_manage_medicine));
         findViewById(R.id.cv_manage_medicine).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +65,7 @@ public class NurseManageDetailActivity extends AppCompatActivity {
 
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_manage_weight));
         findViewById(R.id.cv_manage_weight).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
