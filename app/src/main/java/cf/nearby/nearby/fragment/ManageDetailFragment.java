@@ -58,6 +58,7 @@ public class ManageDetailFragment extends BaseFragment {
 
     public void init(){
 
+        setCardButtonOnTouchAnimation(view.findViewById(R.id.cv_manage_symptom));
         view.findViewById(R.id.cv_manage_symptom).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,6 +68,7 @@ public class ManageDetailFragment extends BaseFragment {
                 context.startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(view.findViewById(R.id.cv_manage_medicine));
         view.findViewById(R.id.cv_manage_medicine).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +80,7 @@ public class ManageDetailFragment extends BaseFragment {
 
             }
         });
+        setCardButtonOnTouchAnimation(view.findViewById(R.id.cv_manage_weight));
         view.findViewById(R.id.cv_manage_weight).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

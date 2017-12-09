@@ -17,6 +17,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.HashMap;
 
+import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.obj.Medicine;
@@ -26,7 +27,7 @@ import cf.nearby.nearby.obj.PatientMedicineDetail;
 import cf.nearby.nearby.util.AdditionalFunc;
 import cf.nearby.nearby.util.ParsePHP;
 
-public class ShowPatientMedicineDetailActivity extends AppCompatActivity {
+public class ShowPatientMedicineDetailActivity extends BaseActivity {
 
     private MyHandler handler = new MyHandler();
     private final int MSG_MESSAGE_MAKE_LIST = 500;
@@ -161,6 +162,7 @@ public class ShowPatientMedicineDetailActivity extends AppCompatActivity {
                     .load("http://nearby.cf/medicine/" + medicine.getCode() + ".jpg")
                     .into(img);
 
+            setCardButtonOnTouchAnimation(v);
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
