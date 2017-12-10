@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.ppamorim.dragger.DraggerPosition;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import cf.nearby.nearby.R;
+import cf.nearby.nearby.activity.PatientDetailActivity;
 import cf.nearby.nearby.activity.SearchPatientActivity;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.AdditionalFunc;
@@ -96,6 +98,15 @@ public class PatientSearchListCustomAdapter extends RecyclerView.Adapter<Patient
             @Override
             public void onClick(View view) {
                 supporter.redirectNextActivity(patient);
+            }
+        });
+        holder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, PatientDetailActivity.class);
+                intent.putExtra("patient", patient);
+                intent.putExtra("drag_position", DraggerPosition.TOP);
+                onAdapterSupport.redirectActivity(intent);
             }
         });
 

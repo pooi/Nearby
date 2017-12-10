@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.ppamorim.dragger.DraggerPosition;
 import com.squareup.picasso.Picasso;
 
 import cf.nearby.nearby.BaseActivity;
@@ -16,6 +17,8 @@ import cf.nearby.nearby.R;
 import cf.nearby.nearby.activity.ManageMedicineActivity;
 import cf.nearby.nearby.activity.ManageSymptomActivity;
 import cf.nearby.nearby.activity.ManageWeightActivity;
+import cf.nearby.nearby.activity.PatientDetailActivity;
+import cf.nearby.nearby.activity.SearchPatientActivity;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.util.AdditionalFunc;
 
@@ -89,6 +92,16 @@ public class NurseManageDetailActivity extends BaseActivity {
         tv_name.setText(selectedPatient.getName());
         tv_dob.setText(AdditionalFunc.getDateString(selectedPatient.getDob()));
         tv_registeredDate.setText(AdditionalFunc.getDateString(selectedPatient.getRegisteredDate()));
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_profile));
+        findViewById(R.id.cv_profile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NurseManageDetailActivity.this, PatientDetailActivity.class);
+                intent.putExtra("patient", selectedPatient);
+                intent.putExtra("drag_position", DraggerPosition.TOP);
+                startActivity(intent);
+            }
+        });
 
     }
 }

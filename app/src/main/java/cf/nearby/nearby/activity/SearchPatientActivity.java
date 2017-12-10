@@ -260,7 +260,7 @@ public class SearchPatientActivity extends BaseActivity implements OnAdapterSupp
 
     @Override
     public void redirectActivity(Intent intent) {
-
+        startActivity(intent);
     }
 
     @Override
