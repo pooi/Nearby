@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
+import com.github.ppamorim.dragger.DraggerPosition;
 import com.squareup.picasso.Picasso;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -31,6 +32,7 @@ import java.util.HashMap;
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
+import cf.nearby.nearby.nurse.NurseRecordActivity;
 import cf.nearby.nearby.obj.Patient;
 import cf.nearby.nearby.obj.PatientRemark;
 import cf.nearby.nearby.obj.Supporter;
@@ -112,6 +114,16 @@ public class ManageSupporterActivity extends BaseActivity {
         tv_name.setText(selectedPatient.getName());
         tv_dob.setText(AdditionalFunc.getDateString(selectedPatient.getDob()));
         tv_registeredDate.setText(AdditionalFunc.getDateString(selectedPatient.getRegisteredDate()));
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_profile));
+        findViewById(R.id.cv_profile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ManageSupporterActivity.this, PatientDetailActivity.class);
+                intent.putExtra("patient", selectedPatient);
+                intent.putExtra("drag_position", DraggerPosition.TOP);
+                startActivity(intent);
+            }
+        });
 
         getSupporterList();
 

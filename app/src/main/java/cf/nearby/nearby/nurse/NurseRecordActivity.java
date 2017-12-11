@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
+import com.github.ppamorim.dragger.DraggerPosition;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -53,6 +54,7 @@ import cf.nearby.nearby.Information;
 import cf.nearby.nearby.R;
 import cf.nearby.nearby.StartActivity;
 import cf.nearby.nearby.activity.CameraActivity;
+import cf.nearby.nearby.activity.PatientDetailActivity;
 import cf.nearby.nearby.activity.RecordMealActivity;
 import cf.nearby.nearby.activity.RecordMedicineActivity;
 import cf.nearby.nearby.activity.RecordRemarkActivity;
@@ -389,7 +391,16 @@ public class NurseRecordActivity extends BaseActivity {
         tv_name.setText(selectedPatient.getName());
         tv_dob.setText(AdditionalFunc.getDateString(selectedPatient.getDob()));
         tv_registeredDate.setText(AdditionalFunc.getDateString(selectedPatient.getRegisteredDate()));
-
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_profile));
+        findViewById(R.id.cv_profile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NurseRecordActivity.this, PatientDetailActivity.class);
+                intent.putExtra("patient", selectedPatient);
+                intent.putExtra("drag_position", DraggerPosition.TOP);
+                startActivity(intent);
+            }
+        });
 
     }
 
