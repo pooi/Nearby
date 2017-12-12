@@ -41,6 +41,7 @@ public class AdminMainActivity extends BaseActivity {
         showSnackbar(String.format(getString(R.string.print_hello_msg), StartActivity.employee.getName()));
 
 
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_manage));
         findViewById(R.id.cv_manage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +49,7 @@ public class AdminMainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_register));
         findViewById(R.id.cv_register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,7 +57,7 @@ public class AdminMainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_inquiry));
         findViewById(R.id.cv_inquiry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

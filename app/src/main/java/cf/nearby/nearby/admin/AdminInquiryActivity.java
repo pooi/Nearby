@@ -35,6 +35,7 @@ public class AdminInquiryActivity extends BaseActivity implements Serializable {
             }
         });
 
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_inquiry_location_patient));
         findViewById(R.id.cv_inquiry_location_patient).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,7 +46,7 @@ public class AdminInquiryActivity extends BaseActivity implements Serializable {
 
             }
         });
-
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_inquiry_patient_record));
         findViewById(R.id.cv_inquiry_patient_record).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +55,7 @@ public class AdminInquiryActivity extends BaseActivity implements Serializable {
                 startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_inquiry_log));
         findViewById(R.id.cv_inquiry_log).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

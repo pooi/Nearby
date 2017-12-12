@@ -28,6 +28,7 @@ public class AdminRegisterActivity extends BaseActivity {
             }
         });
 
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_register_patient));
         findViewById(R.id.cv_register_patient).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
