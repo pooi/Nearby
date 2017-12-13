@@ -1,14 +1,18 @@
 package cf.nearby.nearby.adapter;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -212,6 +216,8 @@ public class AllInOneInquiryVitalListCustomAdapter extends RecyclerView.Adapter<
 
     public final static class ViewHolder extends RecyclerView.ViewHolder {
 
+        Rect rect;
+
         CardView cv;
         TextView tv_dateTitle;
         TableLayout tl;
@@ -219,9 +225,58 @@ public class AllInOneInquiryVitalListCustomAdapter extends RecyclerView.Adapter<
         public ViewHolder(View v) {
             super(v);
             cv = (CardView)v.findViewById(R.id.cv);
+            setCardButtonOnTouchAnimation(cv);
             tv_dateTitle = (TextView)v.findViewById(R.id.tv_date_title);
             tl = (TableLayout)v.findViewById(R.id.tl);
         }
+
+        public void setCardButtonOnTouchAnimation(final View v){
+
+            View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+//                System.out.println(motionEvent.getAction());
+                    switch (motionEvent.getAction()){
+                        case MotionEvent.ACTION_DOWN: {
+                            rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+//                        System.out.println("action down");
+                            Animation anim = new ScaleAnimation(
+                                    1f, 0.95f, // Start and end values for the X axis scaling
+                                    1f, 0.95f, // Start and end values for the Y axis scaling
+                                    Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+                                    Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
+                            anim.setFillAfter(true); // Needed to keep the result of the animation
+                            anim.setDuration(300);
+                            v.startAnimation(anim);
+                            v.requestLayout();
+                            return true;
+                        }
+                        case MotionEvent.ACTION_CANCEL:
+                        case MotionEvent.ACTION_UP: {
+//                        System.out.println("action up");
+                            Animation anim = new ScaleAnimation(
+                                    0.95f, 1f, // Start and end values for the X axis scaling
+                                    0.95f, 1f, // Start and end values for the Y axis scaling
+                                    Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+                                    Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
+                            anim.setFillAfter(true); // Needed to keep the result of the animation
+                            anim.setDuration(300);
+                            v.startAnimation(anim);
+                            v.requestLayout();
+                            if(!rect.contains(v.getLeft() + (int) motionEvent.getX(), v.getTop() + (int) motionEvent.getY())){
+                                // User moved outside bounds
+                            }else{
+                                v.callOnClick();
+                            }
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            };
+            v.setOnTouchListener(onTouchListener);
+        }
+
     }
 
 }

@@ -35,6 +35,22 @@ public class AdminManageActivity extends BaseActivity implements Serializable {
             }
         });
 
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_edit_my_info));
+        findViewById(R.id.cv_edit_my_info).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_edit_location_info));
+        findViewById(R.id.cv_edit_location_info).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        setCardButtonOnTouchAnimation(findViewById(R.id.cv_edit_patient_info));
         findViewById(R.id.cv_edit_patient_info).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
