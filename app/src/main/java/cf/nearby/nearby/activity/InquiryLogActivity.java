@@ -1,6 +1,7 @@
 package cf.nearby.nearby.activity;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -10,7 +11,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -76,6 +80,8 @@ public class InquiryLogActivity extends BaseActivity {
     private ArrayList<NearbyLog> editPatientList;
     private ArrayList<NearbyLog> supporterList;
 
+    Rect rect;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +98,53 @@ public class InquiryLogActivity extends BaseActivity {
 
         getLogList();
 
+    }
+
+    public void setCardButtonOnTouchAnimation(final View v, final View animV){
+
+        View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                System.out.println(motionEvent.getAction());
+                switch (motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN: {
+                        rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+//                        System.out.println("action down");
+                        Animation anim = new ScaleAnimation(
+                                1f, 0.95f, // Start and end values for the X axis scaling
+                                1f, 0.95f, // Start and end values for the Y axis scaling
+                                Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+                                Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
+                        anim.setFillAfter(true); // Needed to keep the result of the animation
+                        anim.setDuration(300);
+                        animV.startAnimation(anim);
+                        animV.requestLayout();
+                        return true;
+                    }
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP: {
+//                        System.out.println("action up");
+                        Animation anim = new ScaleAnimation(
+                                0.95f, 1f, // Start and end values for the X axis scaling
+                                0.95f, 1f, // Start and end values for the Y axis scaling
+                                Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+                                Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
+                        anim.setFillAfter(true); // Needed to keep the result of the animation
+                        anim.setDuration(300);
+                        animV.startAnimation(anim);
+                        animV.requestLayout();
+                        if(!rect.contains(v.getLeft() + (int) motionEvent.getX(), v.getTop() + (int) motionEvent.getY())){
+                            // User moved outside bounds
+                        }else{
+                            v.callOnClick();
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+        };
+        v.setOnTouchListener(onTouchListener);
     }
 
     private void init(){
@@ -127,6 +180,8 @@ public class InquiryLogActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(btn_detailSymptom, findViewById(R.id.cv_symptom));
+
         btn_detailMedicine = (Button)findViewById(R.id.btn_detail_medicine);
         btn_detailMedicine.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +191,8 @@ public class InquiryLogActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(btn_detailMedicine, findViewById(R.id.cv_medicine));
+
         btn_detailRecord = (Button)findViewById(R.id.btn_detail_record);
         btn_detailRecord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +202,8 @@ public class InquiryLogActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(btn_detailRecord, findViewById(R.id.cv_record));
+
         btn_detailWeight = (Button)findViewById(R.id.btn_detail_weight);
         btn_detailWeight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +213,8 @@ public class InquiryLogActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(btn_detailWeight, findViewById(R.id.cv_weight));
+
         btn_detailEditPatient = (Button)findViewById(R.id.btn_detail_edit_patient);
         btn_detailEditPatient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +224,8 @@ public class InquiryLogActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(btn_detailEditPatient, findViewById(R.id.cv_edit_patient));
+
         btn_detailSupporter = (Button)findViewById(R.id.btn_detail_supporter);
         btn_detailSupporter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +235,7 @@ public class InquiryLogActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        setCardButtonOnTouchAnimation(btn_detailSupporter, findViewById(R.id.cv_supporter));
 
 
     }
