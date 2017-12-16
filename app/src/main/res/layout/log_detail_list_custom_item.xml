@@ -7,29 +7,60 @@
     android:animateLayoutChanges="true"
     android:layout_marginTop="5dp"
     android:clipChildren="false"
+    android:clipToPadding="false"
     android:padding="10dp"
     >
 
-    <TextView
-        android:id="@+id/tv_title"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Title"
-        android:textSize="@dimen/default_font_small_size"
-        android:textColor="@color/dark_gray"
-        android:layout_toLeftOf="@+id/tv_date"
-        android:paddingRight="5dp"
-        />
+        app:cardCornerRadius="@dimen/menu_btn_radius"
+        app:cardElevation="@dimen/menu_btn_elevation"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        >
 
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:textSize="@dimen/default_font_small_size"
-        android:textColor="@color/dark_gray"
-        android:layout_alignParentRight="true"
-        android:gravity="right"
-        />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            >
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textSize="@dimen/default_font_small_size"
+                android:textColor="@color/dark_gray"
+                android:layout_toLeftOf="@+id/tv_date"
+                android:paddingRight="5dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textSize="@dimen/default_font_small_size"
+                android:textColor="@color/dark_gray"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

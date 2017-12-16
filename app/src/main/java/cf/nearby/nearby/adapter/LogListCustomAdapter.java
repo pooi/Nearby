@@ -2,12 +2,16 @@ package cf.nearby.nearby.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -84,19 +88,33 @@ public class LogListCustomAdapter extends RecyclerView.Adapter<LogListCustomAdap
         holder.tv_title.setText(log.getMsg());
         holder.tv_date.setText(AdditionalFunc.getDateTimeSrtString(log.getRegisteredDate()));
 
+        holder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDetail(log);
+            }
+        });
         holder.tv_title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, LogDetailInfoActivity.class);
-                intent.putExtra("log", log);
-                intent.putExtra("drag_position", DraggerPosition.TOP);
-                onAdapterSupport.redirectActivity(intent);
+                showDetail(log);
+            }
+        });
+        holder.tv_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDetail(log);
             }
         });
 
     }
 
-
+    private void showDetail(NearbyLog log){
+        Intent intent = new Intent(context, LogDetailInfoActivity.class);
+        intent.putExtra("log", log);
+        intent.putExtra("drag_position", DraggerPosition.TOP);
+        onAdapterSupport.redirectActivity(intent);
+    }
 
     @Override
     public int getItemCount() {
@@ -169,13 +187,67 @@ public class LogListCustomAdapter extends RecyclerView.Adapter<LogListCustomAdap
 
     public final static class ViewHolder extends RecyclerView.ViewHolder {
 
+        Rect rect;
+
+        CardView cv;
         TextView tv_title;
         TextView tv_date;
 
         public ViewHolder(View v) {
             super(v);
+            cv = (CardView)v.findViewById(R.id.cv);
+            setCardButtonOnTouchAnimation(cv, cv);
             tv_title = (TextView)v.findViewById(R.id.tv_title);
+            setCardButtonOnTouchAnimation(tv_title, cv);
             tv_date = (TextView)v.findViewById(R.id.tv_date);
+            setCardButtonOnTouchAnimation(tv_date, cv);
+        }
+
+        public void setCardButtonOnTouchAnimation(final View v, final View animV){
+
+            View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+//                System.out.println(motionEvent.getAction());
+                    switch (motionEvent.getAction()){
+                        case MotionEvent.ACTION_DOWN: {
+                            rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+//                        System.out.println("action down");
+                            Animation anim = new ScaleAnimation(
+                                    1f, 0.95f, // Start and end values for the X axis scaling
+                                    1f, 0.95f, // Start and end values for the Y axis scaling
+                                    Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+                                    Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
+                            anim.setFillAfter(true); // Needed to keep the result of the animation
+                            anim.setDuration(300);
+                            animV.startAnimation(anim);
+                            animV.requestLayout();
+                            return true;
+                        }
+                        case MotionEvent.ACTION_CANCEL:
+                        case MotionEvent.ACTION_UP: {
+//                        System.out.println("action up");
+                            Animation anim = new ScaleAnimation(
+                                    0.95f, 1f, // Start and end values for the X axis scaling
+                                    0.95f, 1f, // Start and end values for the Y axis scaling
+                                    Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+                                    Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
+                            anim.setFillAfter(true); // Needed to keep the result of the animation
+                            anim.setDuration(300);
+                            animV.startAnimation(anim);
+                            animV.requestLayout();
+                            if(!rect.contains(v.getLeft() + (int) motionEvent.getX(), v.getTop() + (int) motionEvent.getY())){
+                                // User moved outside bounds
+                            }else{
+                                v.callOnClick();
+                            }
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            };
+            v.setOnTouchListener(onTouchListener);
         }
     }
 
