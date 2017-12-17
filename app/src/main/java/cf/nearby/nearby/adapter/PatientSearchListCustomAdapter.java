@@ -201,14 +201,15 @@ public class PatientSearchListCustomAdapter extends RecyclerView.Adapter<Patient
         public ViewHolder(View v) {
             super(v);
             cv = (CardView)v.findViewById(R.id.cv);
-            setCardButtonOnTouchAnimation(cv);
+            setCardButtonOnTouchAnimation(cv, cv);
             img = (RoundedImageView) v.findViewById(R.id.img);
             tv_name = (TextView)v.findViewById(R.id.tv_name);
             tv_dob = (TextView)v.findViewById(R.id.tv_dob);
             btn_select = (Button)v.findViewById(R.id.btn_select);
+            setCardButtonOnTouchAnimation(btn_select, cv);
         }
 
-        public void setCardButtonOnTouchAnimation(final View v){
+        public void setCardButtonOnTouchAnimation(final View v, final View animV){
 
             View.OnTouchListener onTouchListener = new View.OnTouchListener() {
                 @Override
@@ -225,8 +226,8 @@ public class PatientSearchListCustomAdapter extends RecyclerView.Adapter<Patient
                                     Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
                             anim.setFillAfter(true); // Needed to keep the result of the animation
                             anim.setDuration(300);
-                            v.startAnimation(anim);
-                            v.requestLayout();
+                            animV.startAnimation(anim);
+                            animV.requestLayout();
                             return true;
                         }
                         case MotionEvent.ACTION_CANCEL:
@@ -239,8 +240,8 @@ public class PatientSearchListCustomAdapter extends RecyclerView.Adapter<Patient
                                     Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
                             anim.setFillAfter(true); // Needed to keep the result of the animation
                             anim.setDuration(300);
-                            v.startAnimation(anim);
-                            v.requestLayout();
+                            animV.startAnimation(anim);
+                            animV.requestLayout();
                             if(!rect.contains(v.getLeft() + (int) motionEvent.getX(), v.getTop() + (int) motionEvent.getY())){
                                 // User moved outside bounds
                             }else{

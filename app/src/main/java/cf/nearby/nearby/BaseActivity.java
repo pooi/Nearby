@@ -77,8 +77,9 @@ public class BaseActivity extends AppCompatActivity {
                         anim.setDuration(300);
                         v.startAnimation(anim);
                         v.requestLayout();
-                        break;
+                        return true;
                     }
+                    case MotionEvent.ACTION_CANCEL:
                     case MotionEvent.ACTION_UP: {
 //                        System.out.println("action up");
                         Animation anim = new ScaleAnimation(

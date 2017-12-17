@@ -125,10 +125,15 @@ public class InquiryDateDetailActivity extends BaseActivity {
         toolbarTitle.setText(AdditionalFunc.getDateString(date));
 
         cv_vital = (CardView)findViewById(R.id.cv_vital);
+        setCardButtonOnTouchAnimation(cv_vital);
         cv_medicine = (CardView)findViewById(R.id.cv_medicine);
+        setCardButtonOnTouchAnimation(cv_medicine);
         cv_meal = (CardView)findViewById(R.id.cv_meal);
+        setCardButtonOnTouchAnimation(cv_meal);
         cv_remark = (CardView)findViewById(R.id.cv_remark);
+        setCardButtonOnTouchAnimation(cv_remark);
         cv_photo = (CardView)findViewById(R.id.cv_photo);
+        setCardButtonOnTouchAnimation(cv_photo);
 
         tl_vital = (TableLayout)findViewById(R.id.tl_vital);
         tl_medicine = (TableLayout)findViewById(R.id.tl_medicine);
