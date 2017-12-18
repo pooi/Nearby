@@ -74,7 +74,7 @@
                     android:background="@android:color/transparent" />
 
 
-                <ImageView
+                <cf.nearby.nearby.util.AdvancedImageView
                     android:id="@+id/img"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"

@@ -57,6 +57,7 @@ import cf.nearby.nearby.R;
 import cf.nearby.nearby.nurse.NurseRecordActivity;
 import cf.nearby.nearby.obj.HaveMeal;
 import cf.nearby.nearby.obj.MedicineDetail;
+import cf.nearby.nearby.util.AdvancedImageView;
 import cf.nearby.nearby.util.CustomViewPager;
 import cf.nearby.nearby.util.ParsePHP;
 
@@ -84,7 +85,7 @@ public class MedicineDetailActivity extends BaseActivity implements ObservableSc
 
     private ImageView img_main;
 //    private TextView tv_content;
-    private ImageView img;
+    private AdvancedImageView img;
     private LinearLayout li_detail;
 
     private MaterialDialog progressDialog;
@@ -145,10 +146,11 @@ public class MedicineDetailActivity extends BaseActivity implements ObservableSc
         Picasso.with(getApplicationContext())
                 .load(medicineDetail.getImgUrl())
                 .into(img_main);
-        img = (ImageView)findViewById(R.id.img);
+        img = (AdvancedImageView) findViewById(R.id.img);
         Picasso.with(getApplicationContext())
                 .load(medicineDetail.getImgUrl())
                 .into(img);
+        img.setImage(medicineDetail.getImgUrl(), medicineDetail.getName());
 //        tv_content = (TextView)findViewById(R.id.tv_content);
 //        tv_content.setText(attraction.contents);
 
