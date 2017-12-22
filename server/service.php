@@ -304,7 +304,7 @@
 			$sql = "INSERT INTO
 					user(login_id,password, email, first_name, last_name, role, gender, address, zip, phone, date_of_birth, registered_date)
 					VALUES('$supporter_id','$supporter_password','$supporter_email','$supporter_fn', '$supporter_ln','$supporter_role','$supporter_gender', '$supporter_address', '$supporter_zip', '$supporter_phone', '$dob', '$register_date');";
-			echo $sql;
+			//echo $sql;
 			// echo $sql;
 			$ret = mysqli_query($con, $sql);
 			if($ret == '1'){
@@ -341,7 +341,7 @@
 			$sql = "INSERT INTO
 					patient(first_name, last_name, gender, address, zip, phone, date_of_birth, height, basic_living_allowance, start_date, description, registered_date, location_id)
 					VALUES('$patient_fn', '$patient_ln', '$patient_gender', '$patient_address', '$patient_zip', '$patient_phone', '$dob', '$patient_hegiht', '$patient_bla', '$start_date', '$patient_description', '$register_date', '$location_id');";
-			echo $sql;
+			//echo $sql;
 			// echo $sql;
 			$ret = mysqli_query($con, $sql);
 			if($ret == '1'){
@@ -354,7 +354,7 @@
 		else if($service == 'ValidateInfo'){
 			$supporter_id = $_POST['supporter_id'];
 			$sql = "SELECT * FROM user WHERE user.patient_id='$supporter_id';";
-			echo $sql;
+			//echo $sql;
 			// echo $sql;
 			$ret = mysqli_query($con, $sql);
 			if($ret == '1'){

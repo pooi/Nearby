@@ -50,7 +50,6 @@ import java.util.UUID;
 
 import cf.nearby.nearby.BaseActivity;
 import cf.nearby.nearby.R;
-import cf.nearby.nearby.bluetooth.ConnectBLEActivity;
 import cf.nearby.nearby.nurse.NurseRecordActivity;
 import cf.nearby.nearby.obj.MainRecord;
 import cf.nearby.nearby.obj.VitalSign;
@@ -199,8 +198,8 @@ public class RecordVitalSignActivity extends BaseActivity {
                     @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
 
                         if (report.areAllPermissionsGranted()){
-                            Intent intent = new Intent(RecordVitalSignActivity.this, ConnectBLEActivity.class);
-                            startActivity(intent);
+//                            Intent intent = new Intent(RecordVitalSignActivity.this, ConnectBLEActivity.class);
+//                            startActivity(intent);
                         }
 
                     }
