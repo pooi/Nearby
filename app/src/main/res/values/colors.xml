@@ -52,12 +52,6 @@
     <color name="profile_content">#262626</color>
 
 
-    <!-- Bluetooth -->
-    <color name="dark_blue">#0c377b</color>
-    <color name="medium_blue">#11479c</color>
-    <color name="light_blue">#2a67c8</color>
-    <color name="faint_blue">#9ec2fb</color>
-    <color name="slider_bg_color">#0a2b61</color>
 
 
 </resources>
